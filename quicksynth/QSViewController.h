@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QSViewController : UIViewController
+@interface QSViewController : UIViewController {
+    IBOutlet UIImageView *toolbox;
+    IBOutlet UIButton *waveformGeneratorAnchor, *waveformGeneratorModule;
+    IBOutlet UIButton *envelopeAnchor, *envelopeModule;
+    
+    CGPoint prevPoint;
+    int buttonNum;
+}
+
+- (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event;
+- (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event;
 
 @end
