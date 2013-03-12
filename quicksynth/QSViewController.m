@@ -18,7 +18,8 @@
 {
     [super viewDidLoad];
     
-	buttonNum = 1;
+    scoreItems = [[NSMutableArray alloc] init];
+	score = [[QSScore alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,6 +31,7 @@
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    [self.view bringSubviewToFront:sender];
 }
 
 - (IBAction)toolboxModuleMoved:(id)sender withEvent:(UIEvent *)event
@@ -46,21 +48,40 @@
 - (IBAction)toolboxModuleReleased:(id)sender withEvent:(UIEvent *)event
 {
     UIControl *control = sender;
-    NSLog(@"let go before check\n");
     
-    if (!CGRectIntersectsRect(control.frame, toolbox.frame)) {
-        buttonNum++;
-        UIButton *newButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [newButton setFrame:control.frame];
-        [newButton setTag:buttonNum];
-        [newButton setTitle:[NSString stringWithFormat:@"%d", buttonNum] forState:UIControlStateNormal];
-        [newButton addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
-        [newButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-        [newButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
-        [self.view insertSubview:newButton aboveSubview:control];
+    if (CGRectIntersectsRect(control.frame, scoreView.frame)) {
+        if (control == waveformGeneratorModule) {
+            int soundID = [[score addSound] intValue];
+            
+            UIButton *sound = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [sound setFrame:control.frame];
+            [sound setTag:soundID];
+            [sound setTitle:[NSString stringWithFormat:@"%d", soundID] forState:UIControlStateNormal];
+            [sound addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
+            [sound addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+            [sound addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+            [self.view insertSubview:sound aboveSubview:control];
+            [scoreItems addObject:sound];
+        } else if (control == envelopeModule) {
+            for (UIButton *sound in scoreItems) {
+                if (CGRectIntersectsRect(control.frame, sound.frame)) {// && [[score getSoundIDs] containsObject:[NSNumber numberWithInt:control.tag]]) {
+                    int modifierID = [[score addModifierToSound:[NSNumber numberWithInt:sound.tag]] intValue];
+                    float width = [[score getModifierForSound:[NSNumber numberWithInt:sound.tag] withID:[NSNumber numberWithInt:modifierID]].width floatValue];
+                    
+                    UIButton *modifier = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                    [modifier setFrame:CGRectMake(sound.frame.origin.x, sound.frame.origin.y + sound.frame.size.height,
+                                                   sound.frame.size.width * width, 20)];
+                    [modifier setTag:modifierID];
+                    [modifier setTitle:[NSString stringWithFormat:@"%d", modifierID] forState:UIControlStateNormal];
+                    //[modifier addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
+                    //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+                    //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+                    [self.view insertSubview:modifier aboveSubview:control];
+                }
+            }
+        }
     }
     
-    NSLog(@"let go after check\n");
     if (control == waveformGeneratorModule) {
         [control setFrame:waveformGeneratorAnchor.frame];
     } else if (control == envelopeModule) {
@@ -82,6 +103,11 @@
     newCenter.y = control.center.y + (newPoint.y - prevPoint.y);
     control.center = newCenter;
     prevPoint = newPoint;
+}
+
+- (IBAction)playClicked:(id)sender
+{
+    //[QSAudioPlayer playSound];
 }
 
 

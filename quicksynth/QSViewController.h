@@ -8,16 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "QSScore.h"
+#import "QSSound.h"
+//#import "QSAudioPlayer.h"
+
 @interface QSViewController : UIViewController {
     IBOutlet UIImageView *toolbox;
+    IBOutlet UIScrollView *scoreView;
     IBOutlet UIButton *waveformGeneratorAnchor, *waveformGeneratorModule;
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
     
     CGPoint prevPoint;
-    int buttonNum;
+    
+    NSMutableArray *scoreItems;
+    
+    QSScore *score;
 }
-
-- (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event;
-- (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event;
 
 @end

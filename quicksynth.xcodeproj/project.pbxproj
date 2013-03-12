@@ -23,6 +23,10 @@
 		49F2129816EEA6F100721674 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127316EEA6F100721674 /* Foundation.framework */; };
 		49F212A016EEA6F100721674 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49F2129E16EEA6F100721674 /* InfoPlist.strings */; };
 		49F212A316EEA6F100721674 /* quicksynthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F212A216EEA6F100721674 /* quicksynthTests.m */; };
+		49F212AE16EED5A700721674 /* QSAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F212AD16EED5A700721674 /* QSAudioPlayer.m */; };
+		49F32A4216EEECBE00D8329C /* QSScore.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F32A4116EEECBE00D8329C /* QSScore.m */; };
+		49F32A4516EEEDA800D8329C /* QSSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F32A4416EEEDA700D8329C /* QSSound.m */; };
+		49F32A4816EEF81000D8329C /* QSModifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F32A4716EEF81000D8329C /* QSModifier.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,14 @@
 		49F2129F16EEA6F100721674 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		49F212A116EEA6F100721674 /* quicksynthTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quicksynthTests.h; sourceTree = "<group>"; };
 		49F212A216EEA6F100721674 /* quicksynthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = quicksynthTests.m; sourceTree = "<group>"; };
+		49F212AC16EED5A700721674 /* QSAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAudioPlayer.h; sourceTree = "<group>"; };
+		49F212AD16EED5A700721674 /* QSAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAudioPlayer.m; sourceTree = "<group>"; };
+		49F32A4016EEECBE00D8329C /* QSScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScore.h; sourceTree = "<group>"; };
+		49F32A4116EEECBE00D8329C /* QSScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScore.m; sourceTree = "<group>"; };
+		49F32A4316EEEDA700D8329C /* QSSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSound.h; sourceTree = "<group>"; };
+		49F32A4416EEEDA700D8329C /* QSSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSound.m; sourceTree = "<group>"; };
+		49F32A4616EEF81000D8329C /* QSModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSModifier.h; sourceTree = "<group>"; };
+		49F32A4716EEF81000D8329C /* QSModifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSModifier.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +135,14 @@
 				49F2128A16EEA6F100721674 /* QSViewController.m */,
 				49F2128C16EEA6F100721674 /* QSViewController.xib */,
 				49F2127816EEA6F100721674 /* Supporting Files */,
+				49F212AC16EED5A700721674 /* QSAudioPlayer.h */,
+				49F212AD16EED5A700721674 /* QSAudioPlayer.m */,
+				49F32A4016EEECBE00D8329C /* QSScore.h */,
+				49F32A4116EEECBE00D8329C /* QSScore.m */,
+				49F32A4316EEEDA700D8329C /* QSSound.h */,
+				49F32A4416EEEDA700D8329C /* QSSound.m */,
+				49F32A4616EEF81000D8329C /* QSModifier.h */,
+				49F32A4716EEF81000D8329C /* QSModifier.m */,
 			);
 			path = quicksynth;
 			sourceTree = "<group>";
@@ -274,6 +294,10 @@
 				49F2127E16EEA6F100721674 /* main.m in Sources */,
 				49F2128216EEA6F100721674 /* QSAppDelegate.m in Sources */,
 				49F2128B16EEA6F100721674 /* QSViewController.m in Sources */,
+				49F212AE16EED5A700721674 /* QSAudioPlayer.m in Sources */,
+				49F32A4216EEECBE00D8329C /* QSScore.m in Sources */,
+				49F32A4516EEEDA800D8329C /* QSSound.m in Sources */,
+				49F32A4816EEF81000D8329C /* QSModifier.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +480,7 @@
 				49F212A816EEA6F100721674 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49F212A916EEA6F100721674 /* Build configuration list for PBXNativeTarget "quicksynthTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +489,7 @@
 				49F212AB16EEA6F100721674 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
