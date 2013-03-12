@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4932261B16E7023600EA3C90"
+               BlueprintIdentifier = "49F2126D16EEA6F100721674"
                BuildableName = "quicksynth.app"
                BlueprintName = "quicksynth"
                ReferencedContainer = "container:quicksynth.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4932264116E7023600EA3C90"
+               BlueprintIdentifier = "49F2129316EEA6F100721674"
                BuildableName = "quicksynthTests.octest"
                BlueprintName = "quicksynthTests"
                ReferencedContainer = "container:quicksynth.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4932261B16E7023600EA3C90"
+            BlueprintIdentifier = "49F2126D16EEA6F100721674"
             BuildableName = "quicksynth.app"
             BlueprintName = "quicksynth"
             ReferencedContainer = "container:quicksynth.xcodeproj">
@@ -61,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4932261B16E7023600EA3C90"
+            BlueprintIdentifier = "49F2126D16EEA6F100721674"
             BuildableName = "quicksynth.app"
             BlueprintName = "quicksynth"
             ReferencedContainer = "container:quicksynth.xcodeproj">
@@ -79,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4932261B16E7023600EA3C90"
+            BlueprintIdentifier = "49F2126D16EEA6F100721674"
             BuildableName = "quicksynth.app"
             BlueprintName = "quicksynth"
             ReferencedContainer = "container:quicksynth.xcodeproj">

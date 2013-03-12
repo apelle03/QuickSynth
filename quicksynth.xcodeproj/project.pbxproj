@@ -7,152 +7,155 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4932262016E7023600EA3C90 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932261F16E7023600EA3C90 /* UIKit.framework */; };
-		4932262216E7023600EA3C90 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932262116E7023600EA3C90 /* Foundation.framework */; };
-		4932262416E7023600EA3C90 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932262316E7023600EA3C90 /* CoreGraphics.framework */; };
-		4932262A16E7023600EA3C90 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4932262816E7023600EA3C90 /* InfoPlist.strings */; };
-		4932262C16E7023600EA3C90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932262B16E7023600EA3C90 /* main.m */; };
-		4932263016E7023600EA3C90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932262F16E7023600EA3C90 /* AppDelegate.m */; };
-		4932263216E7023600EA3C90 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4932263116E7023600EA3C90 /* Default.png */; };
-		4932263416E7023600EA3C90 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4932263316E7023600EA3C90 /* Default@2x.png */; };
-		4932263616E7023600EA3C90 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4932263516E7023600EA3C90 /* Default-568h@2x.png */; };
-		4932263916E7023600EA3C90 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932263816E7023600EA3C90 /* ViewController.m */; };
-		4932264416E7023600EA3C90 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932264316E7023600EA3C90 /* SenTestingKit.framework */; };
-		4932264516E7023600EA3C90 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932261F16E7023600EA3C90 /* UIKit.framework */; };
-		4932264616E7023600EA3C90 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932262116E7023600EA3C90 /* Foundation.framework */; };
-		4932264E16E7023600EA3C90 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4932264C16E7023600EA3C90 /* InfoPlist.strings */; };
-		4932265116E7023600EA3C90 /* quicksynthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932265016E7023600EA3C90 /* quicksynthTests.m */; };
+		49F2127216EEA6F100721674 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127116EEA6F100721674 /* UIKit.framework */; };
+		49F2127416EEA6F100721674 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127316EEA6F100721674 /* Foundation.framework */; };
+		49F2127616EEA6F100721674 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127516EEA6F100721674 /* CoreGraphics.framework */; };
+		49F2127C16EEA6F100721674 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49F2127A16EEA6F100721674 /* InfoPlist.strings */; };
+		49F2127E16EEA6F100721674 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2127D16EEA6F100721674 /* main.m */; };
+		49F2128216EEA6F100721674 /* QSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2128116EEA6F100721674 /* QSAppDelegate.m */; };
+		49F2128416EEA6F100721674 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F2128316EEA6F100721674 /* Default.png */; };
+		49F2128616EEA6F100721674 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F2128516EEA6F100721674 /* Default@2x.png */; };
+		49F2128816EEA6F100721674 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49F2128716EEA6F100721674 /* Default-568h@2x.png */; };
+		49F2128B16EEA6F100721674 /* QSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2128A16EEA6F100721674 /* QSViewController.m */; };
+		49F2128E16EEA6F100721674 /* QSViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F2128C16EEA6F100721674 /* QSViewController.xib */; };
+		49F2129616EEA6F100721674 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2129516EEA6F100721674 /* SenTestingKit.framework */; };
+		49F2129716EEA6F100721674 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127116EEA6F100721674 /* UIKit.framework */; };
+		49F2129816EEA6F100721674 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127316EEA6F100721674 /* Foundation.framework */; };
+		49F212A016EEA6F100721674 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49F2129E16EEA6F100721674 /* InfoPlist.strings */; };
+		49F212A316EEA6F100721674 /* quicksynthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F212A216EEA6F100721674 /* quicksynthTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4932264716E7023600EA3C90 /* PBXContainerItemProxy */ = {
+		49F2129916EEA6F100721674 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 4932261416E7023600EA3C90 /* Project object */;
+			containerPortal = 49F2126616EEA6F100721674 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 4932261B16E7023600EA3C90;
+			remoteGlobalIDString = 49F2126D16EEA6F100721674;
 			remoteInfo = quicksynth;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4932261C16E7023600EA3C90 /* quicksynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quicksynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4932261F16E7023600EA3C90 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		4932262116E7023600EA3C90 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4932262316E7023600EA3C90 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		4932262716E7023600EA3C90 /* quicksynth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "quicksynth-Info.plist"; sourceTree = "<group>"; };
-		4932262916E7023600EA3C90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4932262B16E7023600EA3C90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4932262D16E7023600EA3C90 /* quicksynth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quicksynth-Prefix.pch"; sourceTree = "<group>"; };
-		4932262E16E7023600EA3C90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4932262F16E7023600EA3C90 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4932263116E7023600EA3C90 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		4932263316E7023600EA3C90 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		4932263516E7023600EA3C90 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		4932263716E7023600EA3C90 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4932263816E7023600EA3C90 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		4932264216E7023600EA3C90 /* quicksynthTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = quicksynthTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4932264316E7023600EA3C90 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		4932264B16E7023600EA3C90 /* quicksynthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "quicksynthTests-Info.plist"; sourceTree = "<group>"; };
-		4932264D16E7023600EA3C90 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4932264F16E7023600EA3C90 /* quicksynthTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quicksynthTests.h; sourceTree = "<group>"; };
-		4932265016E7023600EA3C90 /* quicksynthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = quicksynthTests.m; sourceTree = "<group>"; };
+		49F2126E16EEA6F100721674 /* quicksynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quicksynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49F2127116EEA6F100721674 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		49F2127316EEA6F100721674 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		49F2127516EEA6F100721674 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		49F2127916EEA6F100721674 /* quicksynth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "quicksynth-Info.plist"; sourceTree = "<group>"; };
+		49F2127B16EEA6F100721674 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		49F2127D16EEA6F100721674 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		49F2127F16EEA6F100721674 /* quicksynth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "quicksynth-Prefix.pch"; sourceTree = "<group>"; };
+		49F2128016EEA6F100721674 /* QSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSAppDelegate.h; sourceTree = "<group>"; };
+		49F2128116EEA6F100721674 /* QSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSAppDelegate.m; sourceTree = "<group>"; };
+		49F2128316EEA6F100721674 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		49F2128516EEA6F100721674 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		49F2128716EEA6F100721674 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		49F2128916EEA6F100721674 /* QSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QSViewController.h; sourceTree = "<group>"; };
+		49F2128A16EEA6F100721674 /* QSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QSViewController.m; sourceTree = "<group>"; };
+		49F2128D16EEA6F100721674 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/QSViewController.xib; sourceTree = "<group>"; };
+		49F2129416EEA6F100721674 /* quicksynthTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = quicksynthTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49F2129516EEA6F100721674 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		49F2129D16EEA6F100721674 /* quicksynthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "quicksynthTests-Info.plist"; sourceTree = "<group>"; };
+		49F2129F16EEA6F100721674 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		49F212A116EEA6F100721674 /* quicksynthTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = quicksynthTests.h; sourceTree = "<group>"; };
+		49F212A216EEA6F100721674 /* quicksynthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = quicksynthTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4932261916E7023600EA3C90 /* Frameworks */ = {
+		49F2126B16EEA6F100721674 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932262016E7023600EA3C90 /* UIKit.framework in Frameworks */,
-				4932262216E7023600EA3C90 /* Foundation.framework in Frameworks */,
-				4932262416E7023600EA3C90 /* CoreGraphics.framework in Frameworks */,
+				49F2127216EEA6F100721674 /* UIKit.framework in Frameworks */,
+				49F2127416EEA6F100721674 /* Foundation.framework in Frameworks */,
+				49F2127616EEA6F100721674 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4932263E16E7023600EA3C90 /* Frameworks */ = {
+		49F2129016EEA6F100721674 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932264416E7023600EA3C90 /* SenTestingKit.framework in Frameworks */,
-				4932264516E7023600EA3C90 /* UIKit.framework in Frameworks */,
-				4932264616E7023600EA3C90 /* Foundation.framework in Frameworks */,
+				49F2129616EEA6F100721674 /* SenTestingKit.framework in Frameworks */,
+				49F2129716EEA6F100721674 /* UIKit.framework in Frameworks */,
+				49F2129816EEA6F100721674 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4932261316E7023600EA3C90 = {
+		49F2126516EEA6F100721674 = {
 			isa = PBXGroup;
 			children = (
-				4932262516E7023600EA3C90 /* quicksynth */,
-				4932264916E7023600EA3C90 /* quicksynthTests */,
-				4932261E16E7023600EA3C90 /* Frameworks */,
-				4932261D16E7023600EA3C90 /* Products */,
+				49F2127716EEA6F100721674 /* quicksynth */,
+				49F2129B16EEA6F100721674 /* quicksynthTests */,
+				49F2127016EEA6F100721674 /* Frameworks */,
+				49F2126F16EEA6F100721674 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		4932261D16E7023600EA3C90 /* Products */ = {
+		49F2126F16EEA6F100721674 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4932261C16E7023600EA3C90 /* quicksynth.app */,
-				4932264216E7023600EA3C90 /* quicksynthTests.octest */,
+				49F2126E16EEA6F100721674 /* quicksynth.app */,
+				49F2129416EEA6F100721674 /* quicksynthTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4932261E16E7023600EA3C90 /* Frameworks */ = {
+		49F2127016EEA6F100721674 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4932261F16E7023600EA3C90 /* UIKit.framework */,
-				4932262116E7023600EA3C90 /* Foundation.framework */,
-				4932262316E7023600EA3C90 /* CoreGraphics.framework */,
-				4932264316E7023600EA3C90 /* SenTestingKit.framework */,
+				49F2127116EEA6F100721674 /* UIKit.framework */,
+				49F2127316EEA6F100721674 /* Foundation.framework */,
+				49F2127516EEA6F100721674 /* CoreGraphics.framework */,
+				49F2129516EEA6F100721674 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		4932262516E7023600EA3C90 /* quicksynth */ = {
+		49F2127716EEA6F100721674 /* quicksynth */ = {
 			isa = PBXGroup;
 			children = (
-				4932262E16E7023600EA3C90 /* AppDelegate.h */,
-				4932262F16E7023600EA3C90 /* AppDelegate.m */,
-				4932263716E7023600EA3C90 /* ViewController.h */,
-				4932263816E7023600EA3C90 /* ViewController.m */,
-				4932262616E7023600EA3C90 /* Supporting Files */,
+				49F2128016EEA6F100721674 /* QSAppDelegate.h */,
+				49F2128116EEA6F100721674 /* QSAppDelegate.m */,
+				49F2128916EEA6F100721674 /* QSViewController.h */,
+				49F2128A16EEA6F100721674 /* QSViewController.m */,
+				49F2128C16EEA6F100721674 /* QSViewController.xib */,
+				49F2127816EEA6F100721674 /* Supporting Files */,
 			);
 			path = quicksynth;
 			sourceTree = "<group>";
 		};
-		4932262616E7023600EA3C90 /* Supporting Files */ = {
+		49F2127816EEA6F100721674 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4932262716E7023600EA3C90 /* quicksynth-Info.plist */,
-				4932262816E7023600EA3C90 /* InfoPlist.strings */,
-				4932262B16E7023600EA3C90 /* main.m */,
-				4932262D16E7023600EA3C90 /* quicksynth-Prefix.pch */,
-				4932263116E7023600EA3C90 /* Default.png */,
-				4932263316E7023600EA3C90 /* Default@2x.png */,
-				4932263516E7023600EA3C90 /* Default-568h@2x.png */,
+				49F2127916EEA6F100721674 /* quicksynth-Info.plist */,
+				49F2127A16EEA6F100721674 /* InfoPlist.strings */,
+				49F2127D16EEA6F100721674 /* main.m */,
+				49F2127F16EEA6F100721674 /* quicksynth-Prefix.pch */,
+				49F2128316EEA6F100721674 /* Default.png */,
+				49F2128516EEA6F100721674 /* Default@2x.png */,
+				49F2128716EEA6F100721674 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		4932264916E7023600EA3C90 /* quicksynthTests */ = {
+		49F2129B16EEA6F100721674 /* quicksynthTests */ = {
 			isa = PBXGroup;
 			children = (
-				4932264F16E7023600EA3C90 /* quicksynthTests.h */,
-				4932265016E7023600EA3C90 /* quicksynthTests.m */,
-				4932264A16E7023600EA3C90 /* Supporting Files */,
+				49F212A116EEA6F100721674 /* quicksynthTests.h */,
+				49F212A216EEA6F100721674 /* quicksynthTests.m */,
+				49F2129C16EEA6F100721674 /* Supporting Files */,
 			);
 			path = quicksynthTests;
 			sourceTree = "<group>";
 		};
-		4932264A16E7023600EA3C90 /* Supporting Files */ = {
+		49F2129C16EEA6F100721674 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4932264B16E7023600EA3C90 /* quicksynthTests-Info.plist */,
-				4932264C16E7023600EA3C90 /* InfoPlist.strings */,
+				49F2129D16EEA6F100721674 /* quicksynthTests-Info.plist */,
+				49F2129E16EEA6F100721674 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -160,13 +163,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4932261B16E7023600EA3C90 /* quicksynth */ = {
+		49F2126D16EEA6F100721674 /* quicksynth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4932265416E7023600EA3C90 /* Build configuration list for PBXNativeTarget "quicksynth" */;
+			buildConfigurationList = 49F212A616EEA6F100721674 /* Build configuration list for PBXNativeTarget "quicksynth" */;
 			buildPhases = (
-				4932261816E7023600EA3C90 /* Sources */,
-				4932261916E7023600EA3C90 /* Frameworks */,
-				4932261A16E7023600EA3C90 /* Resources */,
+				49F2126A16EEA6F100721674 /* Sources */,
+				49F2126B16EEA6F100721674 /* Frameworks */,
+				49F2126C16EEA6F100721674 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -174,79 +177,81 @@
 			);
 			name = quicksynth;
 			productName = quicksynth;
-			productReference = 4932261C16E7023600EA3C90 /* quicksynth.app */;
+			productReference = 49F2126E16EEA6F100721674 /* quicksynth.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4932264116E7023600EA3C90 /* quicksynthTests */ = {
+		49F2129316EEA6F100721674 /* quicksynthTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4932265716E7023600EA3C90 /* Build configuration list for PBXNativeTarget "quicksynthTests" */;
+			buildConfigurationList = 49F212A916EEA6F100721674 /* Build configuration list for PBXNativeTarget "quicksynthTests" */;
 			buildPhases = (
-				4932263D16E7023600EA3C90 /* Sources */,
-				4932263E16E7023600EA3C90 /* Frameworks */,
-				4932263F16E7023600EA3C90 /* Resources */,
-				4932264016E7023600EA3C90 /* ShellScript */,
+				49F2128F16EEA6F100721674 /* Sources */,
+				49F2129016EEA6F100721674 /* Frameworks */,
+				49F2129116EEA6F100721674 /* Resources */,
+				49F2129216EEA6F100721674 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4932264816E7023600EA3C90 /* PBXTargetDependency */,
+				49F2129A16EEA6F100721674 /* PBXTargetDependency */,
 			);
 			name = quicksynthTests;
 			productName = quicksynthTests;
-			productReference = 4932264216E7023600EA3C90 /* quicksynthTests.octest */;
+			productReference = 49F2129416EEA6F100721674 /* quicksynthTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4932261416E7023600EA3C90 /* Project object */ = {
+		49F2126616EEA6F100721674 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = QS;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Andrew;
 			};
-			buildConfigurationList = 4932261716E7023600EA3C90 /* Build configuration list for PBXProject "quicksynth" */;
+			buildConfigurationList = 49F2126916EEA6F100721674 /* Build configuration list for PBXProject "quicksynth" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 4932261316E7023600EA3C90;
-			productRefGroup = 4932261D16E7023600EA3C90 /* Products */;
+			mainGroup = 49F2126516EEA6F100721674;
+			productRefGroup = 49F2126F16EEA6F100721674 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4932261B16E7023600EA3C90 /* quicksynth */,
-				4932264116E7023600EA3C90 /* quicksynthTests */,
+				49F2126D16EEA6F100721674 /* quicksynth */,
+				49F2129316EEA6F100721674 /* quicksynthTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4932261A16E7023600EA3C90 /* Resources */ = {
+		49F2126C16EEA6F100721674 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932262A16E7023600EA3C90 /* InfoPlist.strings in Resources */,
-				4932263216E7023600EA3C90 /* Default.png in Resources */,
-				4932263416E7023600EA3C90 /* Default@2x.png in Resources */,
-				4932263616E7023600EA3C90 /* Default-568h@2x.png in Resources */,
+				49F2127C16EEA6F100721674 /* InfoPlist.strings in Resources */,
+				49F2128416EEA6F100721674 /* Default.png in Resources */,
+				49F2128616EEA6F100721674 /* Default@2x.png in Resources */,
+				49F2128816EEA6F100721674 /* Default-568h@2x.png in Resources */,
+				49F2128E16EEA6F100721674 /* QSViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4932263F16E7023600EA3C90 /* Resources */ = {
+		49F2129116EEA6F100721674 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932264E16E7023600EA3C90 /* InfoPlist.strings in Resources */,
+				49F212A016EEA6F100721674 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4932264016E7023600EA3C90 /* ShellScript */ = {
+		49F2129216EEA6F100721674 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -262,47 +267,55 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4932261816E7023600EA3C90 /* Sources */ = {
+		49F2126A16EEA6F100721674 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932262C16E7023600EA3C90 /* main.m in Sources */,
-				4932263016E7023600EA3C90 /* AppDelegate.m in Sources */,
-				4932263916E7023600EA3C90 /* ViewController.m in Sources */,
+				49F2127E16EEA6F100721674 /* main.m in Sources */,
+				49F2128216EEA6F100721674 /* QSAppDelegate.m in Sources */,
+				49F2128B16EEA6F100721674 /* QSViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4932263D16E7023600EA3C90 /* Sources */ = {
+		49F2128F16EEA6F100721674 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4932265116E7023600EA3C90 /* quicksynthTests.m in Sources */,
+				49F212A316EEA6F100721674 /* quicksynthTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4932264816E7023600EA3C90 /* PBXTargetDependency */ = {
+		49F2129A16EEA6F100721674 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4932261B16E7023600EA3C90 /* quicksynth */;
-			targetProxy = 4932264716E7023600EA3C90 /* PBXContainerItemProxy */;
+			target = 49F2126D16EEA6F100721674 /* quicksynth */;
+			targetProxy = 49F2129916EEA6F100721674 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4932262816E7023600EA3C90 /* InfoPlist.strings */ = {
+		49F2127A16EEA6F100721674 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4932262916E7023600EA3C90 /* en */,
+				49F2127B16EEA6F100721674 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		4932264C16E7023600EA3C90 /* InfoPlist.strings */ = {
+		49F2128C16EEA6F100721674 /* QSViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4932264D16E7023600EA3C90 /* en */,
+				49F2128D16EEA6F100721674 /* en */,
+			);
+			name = QSViewController.xib;
+			sourceTree = "<group>";
+		};
+		49F2129E16EEA6F100721674 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49F2129F16EEA6F100721674 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -310,7 +323,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4932265216E7023600EA3C90 /* Debug */ = {
+		49F212A416EEA6F100721674 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -342,7 +355,7 @@
 			};
 			name = Debug;
 		};
-		4932265316E7023600EA3C90 /* Release */ = {
+		49F212A516EEA6F100721674 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -368,7 +381,7 @@
 			};
 			name = Release;
 		};
-		4932265516E7023600EA3C90 /* Debug */ = {
+		49F212A716EEA6F100721674 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -379,7 +392,7 @@
 			};
 			name = Debug;
 		};
-		4932265616E7023600EA3C90 /* Release */ = {
+		49F212A816EEA6F100721674 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -390,7 +403,7 @@
 			};
 			name = Release;
 		};
-		4932265816E7023600EA3C90 /* Debug */ = {
+		49F212AA16EEA6F100721674 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/quicksynth.app/quicksynth";
@@ -407,7 +420,7 @@
 			};
 			name = Debug;
 		};
-		4932265916E7023600EA3C90 /* Release */ = {
+		49F212AB16EEA6F100721674 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/quicksynth.app/quicksynth";
@@ -427,32 +440,32 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4932261716E7023600EA3C90 /* Build configuration list for PBXProject "quicksynth" */ = {
+		49F2126916EEA6F100721674 /* Build configuration list for PBXProject "quicksynth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4932265216E7023600EA3C90 /* Debug */,
-				4932265316E7023600EA3C90 /* Release */,
+				49F212A416EEA6F100721674 /* Debug */,
+				49F212A516EEA6F100721674 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4932265416E7023600EA3C90 /* Build configuration list for PBXNativeTarget "quicksynth" */ = {
+		49F212A616EEA6F100721674 /* Build configuration list for PBXNativeTarget "quicksynth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4932265516E7023600EA3C90 /* Debug */,
-				4932265616E7023600EA3C90 /* Release */,
+				49F212A716EEA6F100721674 /* Debug */,
+				49F212A816EEA6F100721674 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		4932265716E7023600EA3C90 /* Build configuration list for PBXNativeTarget "quicksynthTests" */ = {
+		49F212A916EEA6F100721674 /* Build configuration list for PBXNativeTarget "quicksynthTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4932265816E7023600EA3C90 /* Debug */,
-				4932265916E7023600EA3C90 /* Release */,
+				49F212AA16EEA6F100721674 /* Debug */,
+				49F212AB16EEA6F100721674 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 4932261416E7023600EA3C90 /* Project object */;
+	rootObject = 49F2126616EEA6F100721674 /* Project object */;
 }
