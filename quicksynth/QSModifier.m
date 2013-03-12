@@ -23,7 +23,6 @@
 {
     self = [self init];
     self.ID = newID;
-    self.width = [NSNumber numberWithFloat:1.0];
     return self;
 }
 

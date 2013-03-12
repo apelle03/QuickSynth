@@ -26,6 +26,11 @@
     return thisID;
 }
 
+- (QSSound*)getSoundForID:(NSNumber *)soundID
+{
+    return [sounds objectForKey:soundID];
+}
+
 - (NSArray*)getSoundIDs
 {
     return [sounds allKeys];

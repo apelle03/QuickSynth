@@ -20,5 +20,6 @@
 
 - (void) addModifier:(QSModifier*)modifier;
 - (QSModifier*) getModifier:(NSNumber*)modifierID;
+- (NSArray*) getModifiers;
 
 @end

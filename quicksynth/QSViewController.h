@@ -20,7 +20,8 @@
     
     CGPoint prevPoint;
     
-    NSMutableArray *scoreItems;
+    NSMutableDictionary *soundItems;
+    NSMutableDictionary *modifierIetms;
     
     QSScore *score;
 }

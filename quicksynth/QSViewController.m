@@ -18,7 +18,8 @@
 {
     [super viewDidLoad];
     
-    scoreItems = [[NSMutableArray alloc] init];
+    soundItems = [[NSMutableDictionary alloc] init];
+    modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
 }
 
@@ -61,22 +62,28 @@
             [sound addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
             [sound addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
             [self.view insertSubview:sound aboveSubview:control];
-            [scoreItems addObject:sound];
+            [soundItems setObject:sound forKey:[NSNumber numberWithInt:soundID]];
         } else if (control == envelopeModule) {
-            for (UIButton *sound in scoreItems) {
+            for (UIButton *sound in [soundItems allValues]) {
                 if (CGRectIntersectsRect(control.frame, sound.frame)) {// && [[score getSoundIDs] containsObject:[NSNumber numberWithInt:control.tag]]) {
                     int modifierID = [[score addModifierToSound:[NSNumber numberWithInt:sound.tag]] intValue];
-                    float width = [[score getModifierForSound:[NSNumber numberWithInt:sound.tag] withID:[NSNumber numberWithInt:modifierID]].width floatValue];
-                    
                     UIButton *modifier = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                    [modifier setFrame:CGRectMake(sound.frame.origin.x, sound.frame.origin.y + sound.frame.size.height,
-                                                   sound.frame.size.width * width, 20)];
                     [modifier setTag:modifierID];
                     [modifier setTitle:[NSString stringWithFormat:@"%d", modifierID] forState:UIControlStateNormal];
                     //[modifier addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
                     //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
                     //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
                     [self.view insertSubview:modifier aboveSubview:control];
+                    [modifierIetms setObject:modifier forKey:[NSNumber numberWithInt:modifierID]];
+                    
+                    float offsetX = 0;
+                    for (QSModifier *m in [[score getSoundForID:[NSNumber numberWithInt:sound.tag]] getModifiers]) {
+                        float width = [m.width floatValue];
+                        UIButton *mView = [modifierIetms objectForKey:m.ID];
+                        [mView setFrame:CGRectMake(sound.frame.origin.x + offsetX, sound.frame.origin.y + sound.frame.size.height,
+                                                   sound.frame.size.width * width, 20)];
+                        offsetX += sound.frame.size.width * width;
+                    }
                 }
             }
         }
@@ -98,10 +105,20 @@
 {
     CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
     UIControl *control = sender;
+    int deltaX = newPoint.x - prevPoint.x;
+    int deltaY = newPoint.y - prevPoint.y;
     CGPoint newCenter;
-    newCenter.x = control.center.x + (newPoint.x - prevPoint.x);
-    newCenter.y = control.center.y + (newPoint.y - prevPoint.y);
+    newCenter.x = control.center.x + deltaX;
+    newCenter.y = control.center.y + deltaY;
     control.center = newCenter;
+    
+    for (QSModifier *modifier in [[score getSoundForID:[NSNumber numberWithInt:control.tag]] getModifiers]) {
+        UIButton *modifierView = [modifierIetms objectForKey:modifier.ID];
+        CGPoint newCenter;
+        newCenter.x = modifierView.center.x + deltaX;
+        newCenter.y = modifierView.center.y + deltaY;
+        modifierView.center = newCenter;
+    }
     prevPoint = newPoint;
 }
 
