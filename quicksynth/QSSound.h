@@ -15,6 +15,9 @@
 }
 
 @property (nonatomic, retain) NSNumber *ID;
+@property (nonatomic, retain) NSNumber *startTime;
+@property (nonatomic, retain) NSNumber *duration;
+@property (nonatomic, retain) NSNumber *frequency;
 
 - (id) initWithID:(NSNumber*)ID;
 

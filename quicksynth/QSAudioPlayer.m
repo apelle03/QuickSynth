@@ -5,7 +5,7 @@
 //  Created by Andrew on 3/11/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
-
+/*
 #import "QSAudioPlayer.h"
 
 #include <AudioUnit/AudioUnit.h>
@@ -164,3 +164,4 @@ static OSStatus playbackCallback(void *inRefCon,
     status = AudioOutputUnitStart(audioUnit);
 }
 @end
+*/

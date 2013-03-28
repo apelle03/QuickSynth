@@ -36,6 +36,20 @@ void generateSamples(double freq, double gain, double length) {
     curSample = 0;
 }
 
+void generateTone(AudioSampleType *buffer, double freq, double gain, double length) {
+    int numSamples = length * SAMPLE_RATE;
+    
+    double phase_inc = 2 * M_PI * freq / SAMPLE_RATE;
+    double phase = 0;
+    for (int i = 0; i < numSamples; i++) {
+        buffer[i] += (AudioSampleType)(sin(phase) * gain * 32767);
+        phase += phase_inc;
+        if (phase > 2 * M_PI) {
+            phase -= 2 * M_PI;
+        }
+    }
+}
+
 static OSStatus playbackCallback(void *inRefCon,
                           AudioUnitRenderActionFlags *ioActionFlags,
                           const AudioTimeStamp *inTimeStamp,
@@ -57,7 +71,7 @@ static OSStatus playbackCallback(void *inRefCon,
             }
             else
             {
-                memcpy(ioData->mBuffers[i].mData, &samples[curSample], numSamples * sizeof(AudioSampleType)) ;
+                memcpy(ioData->mBuffers[i].mData, &samples[curSample], bufferSize * sizeof(AudioSampleType)) ;
                 curSample += bufferSize;
             }
         }
@@ -126,6 +140,89 @@ static OSStatus playbackCallback(void *inRefCon,
                          kOutputBus,
                          &callbackStruct,
                          sizeof(callbackStruct));
+}
+
+- (void)initSoundWithScore:(QSScore *)score {
+    [self generateSoundWithScore:score];
+    
+    // Describe audio component
+    AudioComponentDescription desc;
+    desc.componentType = kAudioUnitType_Output;
+    desc.componentSubType = kAudioUnitSubType_RemoteIO;
+    desc.componentFlags = 0;
+    desc.componentFlagsMask = 0;
+    desc.componentManufacturer = kAudioUnitManufacturer_Apple;
+    
+    // Get component
+    AudioComponent outputComponent = AudioComponentFindNext(NULL, &desc);
+    
+    // Get audio units
+    AudioComponentInstanceNew(outputComponent, &outputUnit);
+    
+    UInt32 flag = 1;
+    // Enable IO for playback
+    AudioUnitSetProperty(outputUnit,
+                         kAudioOutputUnitProperty_EnableIO,
+                         kAudioUnitScope_Output,
+                         kOutputBus,
+                         &flag,
+                         sizeof(flag));
+    
+    // Describe format
+    AudioStreamBasicDescription audioFormat;
+    audioFormat.mSampleRate = SAMPLE_RATE;
+    audioFormat.mFormatID	= kAudioFormatLinearPCM;
+    audioFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+    audioFormat.mFramesPerPacket = 1;
+    audioFormat.mChannelsPerFrame = 1;
+    audioFormat.mBitsPerChannel = 8 * sizeof(AudioSampleType);
+    audioFormat.mBytesPerPacket = (audioFormat.mBitsPerChannel / 8) * audioFormat.mChannelsPerFrame;
+    audioFormat.mBytesPerFrame = audioFormat.mBytesPerPacket / audioFormat.mFramesPerPacket;
+    
+    // Apply format
+    AudioUnitSetProperty(outputUnit,
+                         kAudioUnitProperty_StreamFormat,
+                         kAudioUnitScope_Input,
+                         kOutputBus,
+                         &audioFormat,
+                         sizeof(audioFormat));
+    
+    // Set output callback
+    AURenderCallbackStruct callbackStruct;
+    callbackStruct.inputProc = playbackCallback;
+    callbackStruct.inputProcRefCon = (__bridge void*)self;
+    AudioUnitSetProperty(outputUnit,
+                         kAudioUnitProperty_SetRenderCallback,
+                         kAudioUnitScope_Global,
+                         kOutputBus,
+                         &callbackStruct,
+                         sizeof(callbackStruct));
+}
+
+- (void)generateSoundWithScore:(QSScore *)score {
+    numSamples = 0;
+    for (NSNumber *soundID in [score getSoundIDs]) {
+        QSSound *sound = [score getSoundForID:soundID];
+        double startTime = [sound.startTime doubleValue];
+        double duration = [sound.duration doubleValue];
+        int end = (startTime + duration) * SAMPLE_RATE;
+        if (end > numSamples) {
+            numSamples = end;
+        }
+    }
+    if (samples != NULL) {
+        free(samples);
+    }
+    samples = malloc(numSamples * sizeof(AudioSampleType));
+    memset(samples, 0, numSamples * sizeof(AudioSampleType));
+    for (NSNumber *soundID in [score getSoundIDs]) {
+        QSSound *sound = [score getSoundForID:soundID];
+        double freq = [sound.frequency doubleValue];
+        double startTime = [sound.startTime doubleValue];
+        double length = [sound.duration doubleValue];
+        generateTone(&samples[(int)(startTime * SAMPLE_RATE)],
+                     freq, .5, length);
+    }
 }
 
 - (void)playSound {
