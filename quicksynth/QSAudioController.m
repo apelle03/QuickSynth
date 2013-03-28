@@ -221,7 +221,7 @@ static OSStatus playbackCallback(void *inRefCon,
         double startTime = [sound.startTime doubleValue];
         double length = [sound.duration doubleValue];
         generateTone(&samples[(int)(startTime * SAMPLE_RATE)],
-                     freq, .5, length);
+                     freq, .1, length);
     }
 }
 
