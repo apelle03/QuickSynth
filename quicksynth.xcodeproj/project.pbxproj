@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49DEFE111703BE7C004EA2AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */; };
+		49DEFE131703BE8C004EA2AE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEFE121703BE8C004EA2AE /* CoreAudio.framework */; };
+		49DEFE161703DB80004EA2AE /* QSAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49DEFE151703DB80004EA2AE /* QSAudioController.m */; };
 		49F2127216EEA6F100721674 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127116EEA6F100721674 /* UIKit.framework */; };
 		49F2127416EEA6F100721674 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127316EEA6F100721674 /* Foundation.framework */; };
 		49F2127616EEA6F100721674 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49F2127516EEA6F100721674 /* CoreGraphics.framework */; };
@@ -40,6 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49DEFE0E1703B64D004EA2AE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		49DEFE121703BE8C004EA2AE /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		49DEFE141703DB80004EA2AE /* QSAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAudioController.h; sourceTree = "<group>"; };
+		49DEFE151703DB80004EA2AE /* QSAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAudioController.m; sourceTree = "<group>"; };
 		49F2126E16EEA6F100721674 /* quicksynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = quicksynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49F2127116EEA6F100721674 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		49F2127316EEA6F100721674 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,6 +85,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49DEFE131703BE8C004EA2AE /* CoreAudio.framework in Frameworks */,
+				49DEFE111703BE7C004EA2AE /* AudioToolbox.framework in Frameworks */,
 				49F2127216EEA6F100721674 /* UIKit.framework in Frameworks */,
 				49F2127416EEA6F100721674 /* Foundation.framework in Frameworks */,
 				49F2127616EEA6F100721674 /* CoreGraphics.framework in Frameworks */,
@@ -99,6 +109,9 @@
 		49F2126516EEA6F100721674 = {
 			isa = PBXGroup;
 			children = (
+				49DEFE121703BE8C004EA2AE /* CoreAudio.framework */,
+				49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */,
+				49DEFE0E1703B64D004EA2AE /* AudioUnit.framework */,
 				49F2127716EEA6F100721674 /* quicksynth */,
 				49F2129B16EEA6F100721674 /* quicksynthTests */,
 				49F2127016EEA6F100721674 /* Frameworks */,
@@ -143,6 +156,8 @@
 				49F32A4416EEEDA700D8329C /* QSSound.m */,
 				49F32A4616EEF81000D8329C /* QSModifier.h */,
 				49F32A4716EEF81000D8329C /* QSModifier.m */,
+				49DEFE141703DB80004EA2AE /* QSAudioController.h */,
+				49DEFE151703DB80004EA2AE /* QSAudioController.m */,
 			);
 			path = quicksynth;
 			sourceTree = "<group>";
@@ -298,6 +313,7 @@
 				49F32A4216EEECBE00D8329C /* QSScore.m in Sources */,
 				49F32A4516EEEDA800D8329C /* QSSound.m in Sources */,
 				49F32A4816EEF81000D8329C /* QSModifier.m in Sources */,
+				49DEFE161703DB80004EA2AE /* QSAudioController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

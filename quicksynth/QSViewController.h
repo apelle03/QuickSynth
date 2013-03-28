@@ -10,7 +10,8 @@
 
 #import "QSScore.h"
 #import "QSSound.h"
-//#import "QSAudioPlayer.h"
+#import "QSAudioPlayer.h"
+#import "QSAudioController.h"
 
 @interface QSViewController : UIViewController {
     IBOutlet UIImageView *toolbox;
@@ -24,6 +25,8 @@
     NSMutableDictionary *modifierIetms;
     
     QSScore *score;
+    
+    QSAudioController *audioController;
 }
 
 @end

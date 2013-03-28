@@ -5,7 +5,7 @@
 //  Created by Andrew on 3/11/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
-/*
+
 #import "QSAudioPlayer.h"
 
 #include <AudioUnit/AudioUnit.h>
@@ -47,8 +47,8 @@ void generateTone(
         if(i > *numSamples - riseTimeSamples - 1)
             value *= sin(2. * M_PI * (i - (*numSamples - riseTimeSamples) + riseTimeSamples)/ (4. * riseTimeSamples));
         
-        *pcm[i] = (int) (value * 32500.0 * gain);
-        *pcm[i] += (*pcm[i]<<16);
+        (*pcm)[i] = (int) (value * 32500.0 * gain);
+        (*pcm)[i] += ((*pcm)[i]<<16);
     }
     
 }
@@ -89,6 +89,9 @@ static OSStatus playbackCallback(void *inRefCon,
 
 + (void)playSound
 {
+    if (_pcm != NULL) {
+        free(_pcm);
+    }
     generateTone(&_pcm, &_numSamples, 800, 1000, SAMPLE_RATE, 5, 0.8);
     _index = 0;
     
@@ -161,4 +164,3 @@ static OSStatus playbackCallback(void *inRefCon,
     status = AudioOutputUnitStart(audioUnit);
 }
 @end
-*/

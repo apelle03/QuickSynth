@@ -8,10 +8,6 @@
 
 #import "QSViewController.h"
 
-@interface QSViewController ()
-
-@end
-
 @implementation QSViewController
 
 - (void)viewDidLoad
@@ -21,6 +17,8 @@
     soundItems = [[NSMutableDictionary alloc] init];
     modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
+    audioController = [[QSAudioController alloc] init];
+    [audioController initSound];
 }
 
 - (void)didReceiveMemoryWarning
@@ -125,6 +123,12 @@
 - (IBAction)playClicked:(id)sender
 {
     //[QSAudioPlayer playSound];
+    [audioController playSound];
+}
+
+- (IBAction)stopClicked:(id)sender
+{
+    [audioController stopSound];
 }
 
 

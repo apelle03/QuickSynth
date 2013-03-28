@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12C54</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
 		<string key="IBDocument.AppKitVersion">1187.34</string>
 		<string key="IBDocument.HIToolboxVersion">625.00</string>
@@ -299,6 +299,14 @@
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">203</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">stopClicked:</string>
+						<reference key="source" ref="881504869"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">237</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1160,7 +1168,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">236</int>
+			<int key="maxID">237</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1179,6 +1187,7 @@
 						<string key="playClicked:">id</string>
 						<string key="scoreModuleMoved:withEvent:">id</string>
 						<string key="scoreModulePressed:withEvent:">id</string>
+						<string key="stopClicked:">id</string>
 						<string key="toolboxModuleMoved:withEvent:">id</string>
 						<string key="toolboxModulePressed:withEvent:">id</string>
 						<string key="toolboxModuleReleased:withEvent:">id</string>
@@ -1194,6 +1203,10 @@
 						</object>
 						<object class="IBActionInfo" key="scoreModulePressed:withEvent:">
 							<string key="name">scoreModulePressed:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="stopClicked:">
+							<string key="name">stopClicked:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toolboxModuleMoved:withEvent:">
