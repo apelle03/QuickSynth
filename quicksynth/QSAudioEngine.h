@@ -9,18 +9,26 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
+#import "QSScore.h"
+
 @interface QSAudioEngine : NSObject
 
+@property (readwrite, retain) QSScore *score;
+
 @property (readwrite) AUGraph scoreGraph;
-@property (readwrite) AUNode mixerNode;
 @property (readwrite) AUNode ioNode;
-@property (readwrite) AudioUnit mixerUnit;
+@property (readwrite) AUNode mixerNode;
 @property (readwrite) AudioUnit ioUnit;
+@property (readwrite) AudioUnit mixerUnit;
 
 @property (readwrite) BOOL playing;
+//@property (retain, readwrite) NSDate *startTime;
 
 - (id)init;
+- (void)update;
 - (void)play;
 - (void)stop;
 
 @end
+
+NSDate *startTime;

@@ -36,6 +36,11 @@
     return [sounds allKeys];
 }
 
+- (NSArray*)getSounds
+{
+    return [sounds allValues];
+}
+
 - (NSNumber*)addModifierToSound:(NSNumber*)soundID
 {
     QSSound *sound = [sounds objectForKey:soundID];

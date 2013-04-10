@@ -11,15 +11,23 @@
 
 #import "QSModifier.h"
 
+typedef enum waveTypes {
+    SIN,
+    SQUARE,
+    TRIANGLE,
+    SAWTOOTH
+} WaveType;
+
 @interface QSSound : NSObject {
     NSMutableDictionary *modifiers;
 }
 
 @property (nonatomic, retain) NSNumber *ID;
-@property (nonatomic, retain) NSNumber *startTime;
-@property (nonatomic, retain) NSNumber *duration;
-@property (nonatomic, retain) NSNumber *frequency;
-@property (nonatomic, readonly) AUGraph *soundGraph;
+@property (nonatomic, readwrite) float startTime;
+@property (nonatomic, readwrite) float duration;
+@property (nonatomic, readwrite) float frequency;
+@property (nonatomic)         WaveType waveType;
+@property (nonatomic, readwrite) float theta;
 
 - (id) initWithID:(NSNumber*)ID;
 

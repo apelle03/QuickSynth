@@ -10,12 +10,13 @@
 
 @implementation QSSound
 
-@synthesize ID, startTime, duration, frequency;
-@synthesize soundGraph = _soundGraph;
+@synthesize ID, startTime, duration, frequency, waveType;
+@synthesize theta;
 
 - (id)init
 {
     modifiers = [[NSMutableDictionary alloc] init];
+    theta = 0;
     return self;
 }
 

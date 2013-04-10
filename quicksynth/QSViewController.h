@@ -26,6 +26,6 @@
     QSScore *score;
 }
 
-@property (readwrite) QSAudioEngine *scoreAudio;
+@property (readwrite) QSAudioEngine *audioEngine;
 
 @end

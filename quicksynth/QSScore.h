@@ -20,6 +20,7 @@
 - (NSNumber*)addSound;
 - (QSSound*)getSoundForID:(NSNumber*)soundID;
 - (NSArray*)getSoundIDs;
+- (NSArray*)getSounds;
 
 - (NSNumber*)addModifierToSound:(NSNumber*)soundID;
 - (QSModifier*)getModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID;

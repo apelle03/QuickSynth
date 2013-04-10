@@ -10,15 +10,16 @@
 
 @implementation QSAudioEngine
 
+@synthesize score;
+
 @synthesize scoreGraph;
-@synthesize mixerNode;
 @synthesize ioNode;
-@synthesize mixerUnit;
+@synthesize mixerNode;
 @synthesize ioUnit;
+@synthesize mixerUnit;
 
 @synthesize playing;
-
-double theta = 0;
+//@synthesize startTime;
 
 - (id) init {
     NSLog(@"init");
@@ -31,61 +32,8 @@ double theta = 0;
 - (BOOL) createAUGraph {
     NSLog(@"create");
     
-    AUGraph moduleGraph;
-    AUNode moduleIONode;
-    AudioUnit moduleIOUnit;
-    
-    NewAUGraph(&moduleGraph);
-    AudioComponentDescription moduleIODesc;
-    moduleIODesc.componentType = kAudioUnitType_Output;
-    moduleIODesc.componentSubType = kAudioUnitSubType_GenericOutput;
-    moduleIODesc.componentManufacturer = kAudioUnitManufacturer_Apple;
-    moduleIODesc.componentFlags = 0;
-    moduleIODesc.componentFlagsMask = 0;
-    AUGraphAddNode(moduleGraph, &moduleIODesc, &moduleIONode);
-    
-    AUGraphOpen(moduleGraph);
-    AUGraphNodeInfo(moduleGraph, moduleIONode, NULL, &moduleIOUnit);
-    
-    // Module Stream Format
-    AudioStreamBasicDescription desc;
-    UInt32 size;
-    AudioUnitGetProperty(moduleIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &desc, &size);
-    memset(&desc, 0, sizeof(desc));
-    desc.mSampleRate = 44100;
-    desc.mFormatID = kAudioFormatLinearPCM;
-    desc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-    desc.mBitsPerChannel = sizeof(AudioSampleType) * 8;
-    desc.mChannelsPerFrame = 1;
-    desc.mFramesPerPacket = 1;
-    desc.mBytesPerFrame = (desc.mBitsPerChannel / 8) * desc.mChannelsPerFrame;
-    desc.mBytesPerPacket = desc.mBytesPerFrame * desc.mFramesPerPacket;
-    AudioUnitSetProperty(moduleIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &desc, sizeof(desc));
-    
-    // Module Input Callbacks
-    AURenderCallbackStruct moduleInput;
-    moduleInput.inputProc = &renderTone;
-    moduleInput.inputProcRefCon = (__bridge void *)(self);
-    AUGraphSetNodeInputCallback(moduleGraph, moduleIONode, 0, &moduleInput);
-    
-    CAShow(moduleGraph);
-    
-    
-    //
-    ////////////////////////
-    //
-    
     NewAUGraph(&scoreGraph);
         
-    // Mixer Unit
-    AudioComponentDescription mixerUnitDesc;
-    mixerUnitDesc.componentType          = kAudioUnitType_Mixer;
-    mixerUnitDesc.componentSubType       = kAudioUnitSubType_MultiChannelMixer;
-    mixerUnitDesc.componentManufacturer  = kAudioUnitManufacturer_Apple;
-    mixerUnitDesc.componentFlags         = 0;
-    mixerUnitDesc.componentFlagsMask     = 0;
-    AUGraphAddNode(scoreGraph, &mixerUnitDesc, &mixerNode);
-    
     // I/O unit
     AudioComponentDescription iOUnitDesc;
     iOUnitDesc.componentType          = kAudioUnitType_Output;
@@ -95,13 +43,22 @@ double theta = 0;
     iOUnitDesc.componentFlagsMask     = 0;
     AUGraphAddNode(scoreGraph, &iOUnitDesc, &ioNode);
     
+    // Mixer Unit
+    AudioComponentDescription mixerUnitDesc;
+    mixerUnitDesc.componentType          = kAudioUnitType_Mixer;
+    mixerUnitDesc.componentSubType       = kAudioUnitSubType_MultiChannelMixer;
+    mixerUnitDesc.componentManufacturer  = kAudioUnitManufacturer_Apple;
+    mixerUnitDesc.componentFlags         = 0;
+    mixerUnitDesc.componentFlagsMask     = 0;
+    AUGraphAddNode(scoreGraph, &mixerUnitDesc, &mixerNode);
+    
     // Graph Node Units
 	AUGraphOpen(scoreGraph);
-    AUGraphNodeInfo(scoreGraph, mixerNode, NULL, &mixerUnit);
     AUGraphNodeInfo(scoreGraph, ioNode, NULL, &ioUnit);
+    AUGraphNodeInfo(scoreGraph, mixerNode, NULL, &mixerUnit);
     
     // Mixer Input Setup
-    UInt32 numBuses = 1;
+    UInt32 numBuses = 0;
     AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numBuses, sizeof(numBuses));
     
     for (int i = 0; i < numBuses; i++) {
@@ -127,6 +84,7 @@ double theta = 0;
         AUGraphSetNodeInputCallback(scoreGraph, mixerNode, i, &mixerInput);
     }
     
+    
     // Mixer to I/O  connection
     AudioUnitElement ioUnitInputNumber = 0;
     AudioUnitElement mixerUnitOutputNumber = 0;
@@ -135,6 +93,51 @@ double theta = 0;
     CAShow(scoreGraph);
     
     return YES;
+}
+
+- (void) update {
+    if (score) {
+        [self stopGraph];
+        NSArray *sounds = [score getSounds];
+        UInt32 numBuses = sounds.count;
+        AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numBuses, sizeof(numBuses));
+        
+        for (int i = 0; i < numBuses; i++) {
+            QSSound *sound = sounds[i];
+            
+            AudioComponentDescription soundDesc;
+            soundDesc.componentType = kAudioUnitType_Mixer;
+            soundDesc.componentSubType = kAudioUnitSubType_MultiChannelMixer;
+            soundDesc.componentManufacturer = kAudioUnitManufacturer_Apple;
+            soundDesc.componentFlags = 0;
+            soundDesc.componentFlagsMask = 0;
+            AUNode soundNode;
+            AudioUnit soundUnit;
+            AUGraphAddNode(scoreGraph, &soundDesc, &soundNode);
+            AUGraphNodeInfo(scoreGraph, soundNode, NULL, &soundUnit);
+            AUGraphConnectNodeInput(scoreGraph, soundNode, 0, mixerNode, i);
+            
+            AudioStreamBasicDescription soundStreamDesc;
+            UInt32 size;
+            AudioUnitGetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, &size);
+            memset(&soundStreamDesc, 0, sizeof(soundStreamDesc));
+            soundStreamDesc.mSampleRate = 44100;
+            soundStreamDesc.mFormatID = kAudioFormatLinearPCM;
+            soundStreamDesc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+            soundStreamDesc.mBitsPerChannel = sizeof(AudioSampleType) * 8;
+            soundStreamDesc.mChannelsPerFrame = 1;
+            soundStreamDesc.mFramesPerPacket = 1;
+            soundStreamDesc.mBytesPerFrame = (soundStreamDesc.mBitsPerChannel / 8) * soundStreamDesc.mChannelsPerFrame;
+            soundStreamDesc.mBytesPerPacket = soundStreamDesc.mBytesPerFrame * soundStreamDesc.mFramesPerPacket;
+            AudioUnitSetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, sizeof(soundStreamDesc));
+            
+            AURenderCallbackStruct soundInput;
+            soundInput.inputProc = &renderTone;
+            soundInput.inputProcRefCon = (__bridge void *)(sound);
+            AUGraphSetNodeInputCallback(scoreGraph, soundNode, 0, &soundInput);
+        }
+        CAShow(scoreGraph);
+    }
 }
 
 - (void) initGraph {
@@ -155,6 +158,7 @@ double theta = 0;
             AUGraphStart(scoreGraph);
         }
         playing = TRUE;
+        startTime = [NSDate date];
     }
 }
 
@@ -184,25 +188,31 @@ OSStatus renderTone(void *inRefCon,
                     UInt32 inBusNumber,
                     UInt32 inNumberFrames,
                     AudioBufferList *ioData) {
-    // Fixed amplitude is good enough for our purposes
+    QSSound *sound = (__bridge QSSound *)(inRefCon);
     const double amplitude = 0.25;
-    
-    // Get the tone parameters out of the view controller
-    double theta_increment = 2.0 * M_PI * 480 / 44100;
-    
-    // This is a mono tone generator so we only need the first buffer
+    double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
-    
+    NSTimeInterval curTime = -[startTime timeIntervalSinceNow];
+    //NSLog(@"%f\n", curTime);
     // Generate the samples
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
-        buffer[frame] = (AudioSampleType)(sin(theta) * amplitude * 32767);
-        theta += theta_increment;
-        if (theta > 2.0 * M_PI) {
-            theta -= 2.0 * M_PI;
+        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
+            switch (sound.waveType) {
+                case SIN:
+                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * amplitude * 32767);
+                    break;
+                default:
+                    break;
+            }
+            sound.theta += theta_increment;
+            if (sound.theta > 2.0 * M_PI) {
+                sound.theta -= 2.0 * M_PI;
+            }
+        } else {
+            buffer[frame] = 0;
         }
     }
-    
     return noErr;
 }
 

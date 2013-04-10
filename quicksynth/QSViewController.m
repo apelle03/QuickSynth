@@ -10,7 +10,7 @@
 
 @implementation QSViewController
 
-@synthesize scoreAudio;
+@synthesize audioEngine;
 
 - (void)viewDidLoad
 {
@@ -20,10 +20,8 @@
     modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
     
-    scoreAudio = [[QSAudioEngine alloc] init];
-    
-    //audioController = [[QSAudioController alloc] init];
-    //[audioController initSound];
+    audioEngine = [[QSAudioEngine alloc] init];
+    audioEngine.score = score;
 }
 
 - (void)didReceiveMemoryWarning
@@ -73,19 +71,17 @@
             
             // Set sound default properties
             QSSound *sound = [score getSoundForID:[NSNumber numberWithInt:soundID]];
-            sound.startTime = [NSNumber numberWithFloat:(soundModule.frame.origin.x / 100)];
-            sound.duration = [NSNumber numberWithFloat:1];
-            sound.frequency = [NSNumber numberWithFloat:440];
+            sound.startTime = soundModule.frame.origin.x / 100;
+            sound.duration = 1;
+            sound.frequency = 440;
+            sound.waveType = SIN;
         } else if (control == envelopeModule) {
             for (UIButton *sound in [soundItems allValues]) {
-                if (CGRectIntersectsRect(control.frame, sound.frame)) {// && [[score getSoundIDs] containsObject:[NSNumber numberWithInt:control.tag]]) {
+                if (CGRectIntersectsRect(control.frame, sound.frame)) {
                     int modifierID = [[score addModifierToSound:[NSNumber numberWithInt:sound.tag]] intValue];
                     UIButton *modifier = [UIButton buttonWithType:UIButtonTypeRoundedRect];
                     [modifier setTag:modifierID];
                     [modifier setTitle:[NSString stringWithFormat:@"%d", modifierID] forState:UIControlStateNormal];
-                    //[modifier addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
-                    //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-                    //[modifier addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
                     [self.view insertSubview:modifier aboveSubview:control];
                     [modifierIetms setObject:modifier forKey:[NSNumber numberWithInt:modifierID]];
                     
@@ -100,6 +96,7 @@
                 }
             }
         }
+        [audioEngine update];
     }
     
     if (control == waveformGeneratorModule) {
@@ -140,22 +137,17 @@
     UIControl *control = sender;
     NSNumber *moduleID = [NSNumber numberWithInteger:control.tag];
     QSSound *sound = [score getSoundForID:moduleID];
-    sound.startTime = [NSNumber numberWithFloat:(control.frame.origin.x / 100)];
+    sound.startTime = control.frame.origin.x / 100;
 }
 
 - (IBAction)playClicked:(id)sender
 {
-    //[audioController initSoundWithScore:score];
-    //[audioController playSound];
-    NSLog(@"play\n");
-    [scoreAudio play];
+    [audioEngine play];
 }
 
 - (IBAction)stopClicked:(id)sender
 {
-    //[audioController stopSound];
-    NSLog(@"stop\n");
-    [scoreAudio stop];
+    [audioEngine stop];
 }
 
 @end
