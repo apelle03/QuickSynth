@@ -11,6 +11,7 @@
 @implementation QSSound
 
 @synthesize ID, startTime, duration, frequency;
+@synthesize soundGraph = _soundGraph;
 
 - (id)init
 {

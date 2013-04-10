@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 #import "QSModifier.h"
 
@@ -18,6 +19,7 @@
 @property (nonatomic, retain) NSNumber *startTime;
 @property (nonatomic, retain) NSNumber *duration;
 @property (nonatomic, retain) NSNumber *frequency;
+@property (nonatomic, readonly) AUGraph *soundGraph;
 
 - (id) initWithID:(NSNumber*)ID;
 

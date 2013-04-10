@@ -10,6 +10,8 @@
 
 @implementation QSViewController
 
+@synthesize scoreAudio;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -17,7 +19,10 @@
     soundItems = [[NSMutableDictionary alloc] init];
     modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
-    audioController = [[QSAudioController alloc] init];
+    
+    scoreAudio = [[QSAudioEngine alloc] init];
+    
+    //audioController = [[QSAudioController alloc] init];
     //[audioController initSound];
 }
 
@@ -140,15 +145,17 @@
 
 - (IBAction)playClicked:(id)sender
 {
-    [audioController initSoundWithScore:score];
-    //[audioController initSound];
-    [audioController playSound];
+    //[audioController initSoundWithScore:score];
+    //[audioController playSound];
+    NSLog(@"play\n");
+    [scoreAudio play];
 }
 
 - (IBAction)stopClicked:(id)sender
 {
-    [audioController stopSound];
+    //[audioController stopSound];
+    NSLog(@"stop\n");
+    [scoreAudio stop];
 }
-
 
 @end
