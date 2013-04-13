@@ -15,6 +15,8 @@
     IBOutlet UISegmentedControl *waveSelector;
     IBOutlet UISlider *freqSlider;
     IBOutlet UITextField *freqText;
+    IBOutlet UISlider *gainSlider;
+    IBOutlet UITextField *gainText;
 }
 
 @property (nonatomic, retain) QSSound *sound;
@@ -25,5 +27,8 @@
 
 - (void)setFrequency:(float)frequency;
 - (float)getFrequency;
+
+- (void)setGain:(float)gain;
+- (float)getGain;
 
 @end

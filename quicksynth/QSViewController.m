@@ -78,6 +78,7 @@
             QSSound *sound = [score getSoundForID:soundID];
             sound.frequency = 440;
             sound.waveType = SINE;
+            sound.gain = .25;
             
             // Add sound button to view
             QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];// buttonWithType:UIButtonTypeRoundedRect];
@@ -173,6 +174,7 @@
         _soundDetails.sound = control.sound;
         [_soundDetails setWaveType:control.sound.waveType];
         [_soundDetails setFrequency:control.sound.frequency];
+        [_soundDetails setGain:control.sound.gain];
         [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
     } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
         [score removeSoundForID:control.sound.ID];

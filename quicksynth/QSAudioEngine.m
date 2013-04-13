@@ -202,7 +202,6 @@ OSStatus renderTone(void *inRefCon,
                     UInt32 inNumberFrames,
                     AudioBufferList *ioData) {
     QSSound *sound = (__bridge QSSound *)(inRefCon);
-    const double amplitude = 0.25;
     double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
@@ -212,17 +211,17 @@ OSStatus renderTone(void *inRefCon,
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
                 case SQUARE:
-                    buffer[frame] = (sound.theta < M_PI) ? (amplitude * 32767) : (-amplitude * 32767);
+                    buffer[frame] = (sound.theta < M_PI) ? (sound.gain * 32767) : (-sound.gain * 32767);
                     break;
                 case TRIANGLE:
-                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * amplitude * 32767;
+                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * sound.gain * 32767;
                     break;
                 case SAWTOOTH:
-                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * amplitude * 32767;
+                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * sound.gain * 32767;
                     break;
                 case SINE:
                 default:
-                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * amplitude * 32767);
+                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.gain * 32767);
                     break;
             }
             sound.theta += theta_increment;

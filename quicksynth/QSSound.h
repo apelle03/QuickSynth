@@ -22,6 +22,7 @@
 @property (nonatomic, readwrite) float duration;
 @property (nonatomic, readwrite) float frequency;
 @property (nonatomic)         WaveType waveType;
+@property (nonatomic, readwrite) float gain;
 @property (nonatomic, readwrite) float theta;
 
 - (id) initWithID:(NSNumber*)ID;

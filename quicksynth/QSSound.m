@@ -10,7 +10,7 @@
 
 @implementation QSSound
 
-@synthesize ID, startTime, duration, frequency, waveType;
+@synthesize ID, startTime, duration, frequency, waveType, gain;
 @synthesize theta;
 
 - (id)init

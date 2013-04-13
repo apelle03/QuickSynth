@@ -42,11 +42,17 @@
     [freqSlider setValue:[freqText.text floatValue]];
 }
 
+- (IBAction)gainSliderChanged:(id)sender
+{
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
 - (IBAction)apply:(id)sender
 {
     NSLog(@"apply");
     sound.waveType = [self getWaveType];
     sound.frequency = [self getFrequency];
+    sound.gain = [self getGain];
     [container dismissPopoverAnimated:true];
 }
 
@@ -74,6 +80,17 @@
 - (float)getFrequency
 {
     return freqSlider.value;
+}
+
+- (void)setGain:(float)gain
+{
+    [gainSlider setValue:gain];
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
+- (float)getGain
+{
+    return gainSlider.value;
 }
 
 @end
