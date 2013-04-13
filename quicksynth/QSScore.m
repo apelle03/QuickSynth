@@ -41,6 +41,11 @@
     return [sounds allValues];
 }
 
+- (void)removeSoundForID:(NSNumber *)soundID
+{
+    [sounds removeObjectForKey:soundID];
+}
+
 - (NSNumber*)addModifierToSound:(NSNumber*)soundID
 {
     QSSound *sound = [sounds objectForKey:soundID];

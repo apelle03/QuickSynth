@@ -11,6 +11,8 @@
 
 #import "QSScore.h"
 
+#import "QSSoundNode.h"
+
 @interface QSAudioEngine : NSObject
 
 @property (readwrite, retain) QSScore *score;
@@ -22,7 +24,7 @@
 @property (readwrite) AudioUnit mixerUnit;
 
 @property (readwrite) BOOL playing;
-//@property (retain, readwrite) NSDate *startTime;
+@property (retain, readwrite) NSMutableArray *soundNodes;
 
 - (id)init;
 - (void)update;

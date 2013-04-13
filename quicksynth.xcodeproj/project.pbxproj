@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A070EC1718C62A00FC74AE /* QSSoundButton.m */; };
+		49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A8F1A317178BD1002E3453 /* QSScoreView.m */; };
+		49AE8ED7171615C000A84C5A /* QSSoundNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE8ED6171615C000A84C5A /* QSSoundNode.m */; };
 		49BB6943170CDB0900029AE9 /* QSAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BB6942170CDB0900029AE9 /* QSAudioEngine.m */; };
 		49DEFE111703BE7C004EA2AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */; };
 		49DEFE131703BE8C004EA2AE /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEFE121703BE8C004EA2AE /* CoreAudio.framework */; };
@@ -42,6 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49A070EB1718C62A00FC74AE /* QSSoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundButton.h; sourceTree = "<group>"; };
+		49A070EC1718C62A00FC74AE /* QSSoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSoundButton.m; sourceTree = "<group>"; };
+		49A8F1A217178BD1002E3453 /* QSScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScoreView.h; sourceTree = "<group>"; };
+		49A8F1A317178BD1002E3453 /* QSScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScoreView.m; sourceTree = "<group>"; };
+		49AE8ED5171615C000A84C5A /* QSSoundNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundNode.h; sourceTree = "<group>"; };
+		49AE8ED6171615C000A84C5A /* QSSoundNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSoundNode.m; sourceTree = "<group>"; };
 		49BB6941170CDB0900029AE9 /* QSAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAudioEngine.h; sourceTree = "<group>"; };
 		49BB6942170CDB0900029AE9 /* QSAudioEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSAudioEngine.m; sourceTree = "<group>"; };
 		49DEFE0E1703B64D004EA2AE /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
@@ -103,6 +112,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49A070EE1718C62F00FC74AE /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				49A8F1A217178BD1002E3453 /* QSScoreView.h */,
+				49A8F1A317178BD1002E3453 /* QSScoreView.m */,
+				49A070EB1718C62A00FC74AE /* QSSoundButton.h */,
+				49A070EC1718C62A00FC74AE /* QSSoundButton.m */,
+			);
+			name = Interface;
+			sourceTree = "<group>";
+		};
+		49AE8ED8171615DC00A84C5A /* AudioEngine */ = {
+			isa = PBXGroup;
+			children = (
+				49BB6941170CDB0900029AE9 /* QSAudioEngine.h */,
+				49BB6942170CDB0900029AE9 /* QSAudioEngine.m */,
+				49AE8ED5171615C000A84C5A /* QSSoundNode.h */,
+				49AE8ED6171615C000A84C5A /* QSSoundNode.m */,
+			);
+			name = AudioEngine;
+			sourceTree = "<group>";
+		};
+		49AE8ED9171615F800A84C5A /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				49F32A4016EEECBE00D8329C /* QSScore.h */,
+				49F32A4116EEECBE00D8329C /* QSScore.m */,
+				49F32A4316EEEDA700D8329C /* QSSound.h */,
+				49F32A4416EEEDA700D8329C /* QSSound.m */,
+				49F32A4616EEF81000D8329C /* QSModifier.h */,
+				49F32A4716EEF81000D8329C /* QSModifier.m */,
+			);
+			name = Score;
+			sourceTree = "<group>";
+		};
 		49F2126516EEA6F100721674 = {
 			isa = PBXGroup;
 			children = (
@@ -139,20 +183,15 @@
 		49F2127716EEA6F100721674 /* quicksynth */ = {
 			isa = PBXGroup;
 			children = (
+				49A070EE1718C62F00FC74AE /* Interface */,
 				49F2128016EEA6F100721674 /* QSAppDelegate.h */,
 				49F2128116EEA6F100721674 /* QSAppDelegate.m */,
 				49F2128916EEA6F100721674 /* QSViewController.h */,
 				49F2128A16EEA6F100721674 /* QSViewController.m */,
 				49F2128C16EEA6F100721674 /* QSViewController.xib */,
+				49AE8ED9171615F800A84C5A /* Score */,
+				49AE8ED8171615DC00A84C5A /* AudioEngine */,
 				49F2127816EEA6F100721674 /* Supporting Files */,
-				49F32A4016EEECBE00D8329C /* QSScore.h */,
-				49F32A4116EEECBE00D8329C /* QSScore.m */,
-				49F32A4316EEEDA700D8329C /* QSSound.h */,
-				49F32A4416EEEDA700D8329C /* QSSound.m */,
-				49BB6941170CDB0900029AE9 /* QSAudioEngine.h */,
-				49BB6942170CDB0900029AE9 /* QSAudioEngine.m */,
-				49F32A4616EEF81000D8329C /* QSModifier.h */,
-				49F32A4716EEF81000D8329C /* QSModifier.m */,
 			);
 			path = quicksynth;
 			sourceTree = "<group>";
@@ -308,6 +347,9 @@
 				49F32A4516EEEDA800D8329C /* QSSound.m in Sources */,
 				49F32A4816EEF81000D8329C /* QSModifier.m in Sources */,
 				49BB6943170CDB0900029AE9 /* QSAudioEngine.m in Sources */,
+				49AE8ED7171615C000A84C5A /* QSSoundNode.m in Sources */,
+				49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */,
+				49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

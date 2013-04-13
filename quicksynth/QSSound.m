@@ -46,4 +46,17 @@
     return [modifiers allValues];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    QSSound *newSound = [[QSSound alloc]initWithID:self.ID];
+    newSound.startTime = self.startTime;
+    newSound.duration = self.duration;
+    newSound.frequency = self.frequency;
+    newSound.waveType = self.waveType;
+    for (QSModifier *modifier in [self getModifiers]) {
+        [newSound addModifier:modifier];
+    }
+    return newSound;
+}
+
 @end

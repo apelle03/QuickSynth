@@ -30,6 +30,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)resetViewLayers
+{
+    [self.view bringSubviewToFront:toolbar];
+    [self.view bringSubviewToFront:toolbox];
+    [self.view bringSubviewToFront:waveformGeneratorAnchor];
+    [self.view bringSubviewToFront:waveformGeneratorModule];
+    [self.view bringSubviewToFront:envelopeAnchor];
+    [self.view bringSubviewToFront:envelopeModule];
+}
+
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
@@ -54,28 +64,36 @@
     if (CGRectIntersectsRect(control.frame, scoreView.frame)) {
         if (control == waveformGeneratorModule) {
             // Add sound to score
-            int soundID = [[score addSound] intValue];
-            
-            // Add sound module to view
-            UIButton *soundModule = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            [soundModule setFrame:control.frame];
-            [soundModule setTag:soundID];
-            [soundModule setTitle:[NSString stringWithFormat:@"%d", soundID] forState:UIControlStateNormal];
-            [soundModule addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
-            [soundModule addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-            [soundModule addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
-            [soundModule addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-            [soundModule addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
-            [self.view insertSubview:soundModule aboveSubview:control];
-            [soundItems setObject:soundModule forKey:[NSNumber numberWithInt:soundID]];
+            NSNumber *soundID = [score addSound];
             
             // Set sound default properties
-            QSSound *sound = [score getSoundForID:[NSNumber numberWithInt:soundID]];
-            sound.startTime = soundModule.frame.origin.x / 100;
-            sound.duration = 1;
+            QSSound *sound = [score getSoundForID:soundID];
             sound.frequency = 440;
             sound.waveType = SIN;
+            
+            // Add sound button to view
+            QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];// buttonWithType:UIButtonTypeRoundedRect];
+            soundButton.sound = sound;
+//            [soundButton setFrame:control.frame];
+            [soundButton setTag:[soundID intValue]];
+//            [soundButton setTitle:[NSString stringWithFormat:@"%d", [soundID intValue]] forState:UIControlStateNormal];
+            [soundButton addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
+            [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+            [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+            [soundButton addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+            [soundButton addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
+            [self.view insertSubview:soundButton belowSubview:toolbar];
+            
+            // Add sound module to soundItems and scoreView
+            [soundItems setObject:soundButton forKey:soundID];
+            [scoreView addObject:soundButton forKey:soundID];
+            
+            // Set sound non-default properties
+            sound.startTime = [scoreView getStartTimeForX:soundButton.frame.origin.x];
+            sound.duration = [scoreView getDurationForWidth:soundButton.frame.size.width];
+            
         } else if (control == envelopeModule) {
+            /*
             for (UIButton *sound in [soundItems allValues]) {
                 if (CGRectIntersectsRect(control.frame, sound.frame)) {
                     int modifierID = [[score addModifierToSound:[NSNumber numberWithInt:sound.tag]] intValue];
@@ -95,6 +113,7 @@
                     }
                 }
             }
+            */
         }
         [audioEngine update];
     }
@@ -109,6 +128,8 @@
 - (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    UIControl *control = (UIControl*)sender;
+    [self.view bringSubviewToFront:control];
 }
 
 - (IBAction)scoreModuleMoved:(id)sender withEvent:(UIEvent *)event
@@ -134,10 +155,41 @@
 
 - (IBAction)scoreModuleReleased:(id)sender withEvent:(UIEvent *)event
 {
-    UIControl *control = sender;
-    NSNumber *moduleID = [NSNumber numberWithInteger:control.tag];
-    QSSound *sound = [score getSoundForID:moduleID];
-    sound.startTime = control.frame.origin.x / 100;
+    QSSoundButton *control = sender;
+    
+    CGPoint touchPoint = [[[event touchesForView:control] anyObject] locationInView:self.view];
+    CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
+    CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
+    
+    if (CGRectContainsPoint(deleteFrame, touchPoint)) {
+        [score removeSoundForID:control.sound.ID];
+        [control removeFromSuperview];
+        [audioEngine update];
+    } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
+    } else {
+        control.sound.startTime = [scoreView getStartTimeForX:control.frame.origin.x];
+        [control removeFromSuperview];
+        [self.view insertSubview:control belowSubview:toolbar];
+    }
+}
+
+- (IBAction)scoreViewPressed:(id)sender withEvent:(UIEvent *)event
+{
+    prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+}
+
+- (IBAction)scoreViewMoved:(id)sender withEvent:(UIEvent *)event
+{
+    CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    int deltaX = newPoint.x - prevPoint.x;
+    int deltaY = newPoint.y - prevPoint.y;
+    [scoreView scroll:CGPointMake(deltaX, deltaY)];
+    prevPoint = newPoint;
+}
+
+- (IBAction)scoreViewReleased:(id)sender withEvent:(UIEvent *)event
+{
+    
 }
 
 - (IBAction)playClicked:(id)sender

@@ -22,6 +22,8 @@
 - (NSArray*)getSoundIDs;
 - (NSArray*)getSounds;
 
+- (void)removeSoundForID:(NSNumber*)soundID;
+
 - (NSNumber*)addModifierToSound:(NSNumber*)soundID;
 - (QSModifier*)getModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID;
 

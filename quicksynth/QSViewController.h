@@ -8,15 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+#import "QSScoreView.h"
+
 #import "QSScore.h"
 #import "QSSound.h"
 #import "QSAudioEngine.h"
 
 @interface QSViewController : UIViewController {
     IBOutlet UIImageView *toolbox;
-    IBOutlet UIScrollView *scoreView;
+    IBOutlet QSScoreView *scoreView;
     IBOutlet UIButton *waveformGeneratorAnchor, *waveformGeneratorModule;
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
+    
+    IBOutlet UIToolbar *toolbar;
+    IBOutlet UIBarButtonItem *trash, *save;
     
     CGPoint prevPoint;
     

@@ -19,10 +19,11 @@
 @synthesize mixerUnit;
 
 @synthesize playing;
-//@synthesize startTime;
+@synthesize soundNodes;
 
 - (id) init {
     NSLog(@"init");
+    soundNodes = [[NSMutableArray alloc] init];
     [self createAUGraph];
     [self initGraph];
     
@@ -98,12 +99,22 @@
 - (void) update {
     if (score) {
         [self stopGraph];
-        NSArray *sounds = [score getSounds];
-        UInt32 numBuses = sounds.count;
-        AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numBuses, sizeof(numBuses));
         
-        for (int i = 0; i < numBuses; i++) {
-            QSSound *sound = sounds[i];
+        // Disconnect old sound nodes from mixer	
+        for (int i = 0; i < soundNodes.count; i++) {
+            AUGraphDisconnectNodeInput(scoreGraph, mixerNode, i);
+            AUGraphRemoveNode(scoreGraph, ((QSSoundNode*)soundNodes[i]).node);
+        }
+        [soundNodes removeAllObjects];
+
+        // Add new sounds
+        NSArray *newSounds = [score getSounds];
+
+        UInt32 numSounds = newSounds.count;
+        AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numSounds, sizeof(numSounds));
+
+        for (int i = 0; i < newSounds.count; i++) {
+            QSSound *sound = newSounds[i];
             
             AudioComponentDescription soundDesc;
             soundDesc.componentType = kAudioUnitType_Mixer;
@@ -135,6 +146,8 @@
             soundInput.inputProc = &renderTone;
             soundInput.inputProcRefCon = (__bridge void *)(sound);
             AUGraphSetNodeInputCallback(scoreGraph, soundNode, 0, &soundInput);
+            
+            [soundNodes addObject:[[QSSoundNode alloc] initWithAUNode:soundNode]];
         }
         CAShow(scoreGraph);
     }
@@ -194,7 +207,6 @@ OSStatus renderTone(void *inRefCon,
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     NSTimeInterval curTime = -[startTime timeIntervalSinceNow];
-    //NSLog(@"%f\n", curTime);
     // Generate the samples
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {

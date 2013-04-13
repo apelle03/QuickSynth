@@ -18,7 +18,7 @@ typedef enum waveTypes {
     SAWTOOTH
 } WaveType;
 
-@interface QSSound : NSObject {
+@interface QSSound : NSObject <NSCopying> {
     NSMutableDictionary *modifiers;
 }
 
@@ -34,5 +34,7 @@ typedef enum waveTypes {
 - (void) addModifier:(QSModifier*)modifier;
 - (QSModifier*) getModifier:(NSNumber*)modifierID;
 - (NSArray*) getModifiers;
+
+- (id)copyWithZone:(NSZone *)zone;
 
 @end
