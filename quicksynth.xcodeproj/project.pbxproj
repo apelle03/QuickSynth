@@ -11,6 +11,8 @@
 		49A08E4F1718FEFC00362360 /* QSSoundPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A08E4D1718FEFC00362360 /* QSSoundPopoverController.m */; };
 		49A08E501718FEFC00362360 /* QSSoundPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSSoundPopoverController.xib */; };
 		49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A8F1A317178BD1002E3453 /* QSScoreView.m */; };
+		49AC9EDF1719EF05003450EB /* QSOptionsPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC9EDD1719EF04003450EB /* QSOptionsPopoverController.m */; };
+		49AC9EE01719EF05003450EB /* QSOptionsPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */; };
 		49AE8ED7171615C000A84C5A /* QSSoundNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE8ED6171615C000A84C5A /* QSSoundNode.m */; };
 		49BB6943170CDB0900029AE9 /* QSAudioEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BB6942170CDB0900029AE9 /* QSAudioEngine.m */; };
 		49DEFE111703BE7C004EA2AE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */; };
@@ -55,6 +57,10 @@
 		49A08E5117190DF000362360 /* WaveType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaveType.h; sourceTree = "<group>"; };
 		49A8F1A217178BD1002E3453 /* QSScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScoreView.h; sourceTree = "<group>"; };
 		49A8F1A317178BD1002E3453 /* QSScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScoreView.m; sourceTree = "<group>"; };
+		49AC9EDC1719EF04003450EB /* QSOptionsPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOptionsPopoverController.h; sourceTree = "<group>"; };
+		49AC9EDD1719EF04003450EB /* QSOptionsPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOptionsPopoverController.m; sourceTree = "<group>"; };
+		49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSOptionsPopoverController.xib; sourceTree = "<group>"; };
+		49AC9EE11719F976003450EB /* SnapSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapSize.h; sourceTree = "<group>"; };
 		49AE8ED5171615C000A84C5A /* QSSoundNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundNode.h; sourceTree = "<group>"; };
 		49AE8ED6171615C000A84C5A /* QSSoundNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSoundNode.m; sourceTree = "<group>"; };
 		49BB6941170CDB0900029AE9 /* QSAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSAudioEngine.h; sourceTree = "<group>"; };
@@ -128,6 +134,10 @@
 				49A08E4C1718FEFC00362360 /* QSSoundPopoverController.h */,
 				49A08E4D1718FEFC00362360 /* QSSoundPopoverController.m */,
 				49A08E4E1718FEFC00362360 /* QSSoundPopoverController.xib */,
+				49AC9EDC1719EF04003450EB /* QSOptionsPopoverController.h */,
+				49AC9EDD1719EF04003450EB /* QSOptionsPopoverController.m */,
+				49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */,
+				49AC9EE11719F976003450EB /* SnapSize.h */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -317,6 +327,7 @@
 				49F2128816EEA6F100721674 /* Default-568h@2x.png in Resources */,
 				49F2128E16EEA6F100721674 /* QSViewController.xib in Resources */,
 				49A08E501718FEFC00362360 /* QSSoundPopoverController.xib in Resources */,
+				49AC9EE01719EF05003450EB /* QSOptionsPopoverController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +373,7 @@
 				49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */,
 				49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */,
 				49A08E4F1718FEFC00362360 /* QSSoundPopoverController.m in Sources */,
+				49AC9EDF1719EF05003450EB /* QSOptionsPopoverController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

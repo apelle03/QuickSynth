@@ -13,6 +13,9 @@
 @synthesize score;
 @synthesize audioEngine;
 
+@synthesize _options;
+@synthesize _optionsController;
+
 @synthesize _soundDetails;
 @synthesize _soundDetailsController;
 
@@ -28,6 +31,13 @@
     audioEngine.score = score;
     
     snapFraction = .25;
+    
+    _options = [[QSOptionsPopoverController alloc] init];
+    _optionsController = [[UIPopoverController alloc] initWithContentViewController:_options];
+    _options.container = _optionsController;
+    [_options.apply addTarget:self action:@selector(optionsApplied:) forControlEvents:UIControlEventTouchUpInside];
+    [_options.cancel addTarget:self action:@selector(optionsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+    [_optionsController setPopoverContentSize:_options.view.frame.size];
     
     _soundDetails = [[QSSoundPopoverController alloc] init];
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_soundDetails];
@@ -223,6 +233,67 @@
 - (IBAction)stopClicked:(id)sender
 {
     [audioEngine stop];
+}
+
+- (IBAction)optionsClicked:(id)sender
+{
+    [_optionsController presentPopoverFromBarButtonItem:option permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
+}
+
+- (IBAction)optionsApplied:(id)sender
+{
+    [_optionsController dismissPopoverAnimated:true];
+    scoreView.bpm = [_options getBPM];
+    snapFraction = snapToFraction([_options getSnapSize]);
+    for (QSSoundButton *button in [soundItems allValues]) {
+        button.sound.startTime = [scoreView getStartTimeForX:button.frame.origin.x];
+        button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
+    }
+}
+
+- (IBAction)optionsCancelled:(id)sender
+{
+    [_optionsController dismissPopoverAnimated:true];
+    [_options setBPM:scoreView.bpm];
+    [_options setSnapSize:fractionToSnap(snapFraction)];
+}
+
+float snapToFraction(SnapSize size) {
+    switch (size) {
+        case WHOLE:
+            return 1;
+        case HALF:
+            return .5;
+        case THIRD:
+            return 1.0/3;
+        case QUARTER:
+            return .25;
+        case EIGTH:
+            return .125;
+        case SIXTEENTH:
+            return .0625;
+            
+        default:
+            return 1;
+    }
+}
+
+SnapSize fractionToSnap(float fraction) {
+    if (fabsf(fraction - 1) < .001) {
+        return WHOLE;
+    } else if (fabsf(fraction - .5) < .001) {
+        return HALF;
+    } else if (fabsf(fraction - (1.0/3)) < .001) {
+        return THIRD;
+    } else if (fabsf(fraction - .25) < .001) {
+        return QUARTER;
+    } else if (fabsf(fraction - .125) < .001) {
+        return EIGTH;
+    } else if (fabsf(fraction - .0625) < .001) {
+        return SIXTEENTH;
+    } else {
+        return WHOLE;
+    }
 }
 
 @end

@@ -101,6 +101,12 @@
 								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="147197275"/>
 							</object>
+							<object class="IBUIBarButtonItem" id="1035214451">
+								<string key="IBUITitle">Options</string>
+								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="147197275"/>
+							</object>
 						</array>
 					</object>
 					<object class="IBUIImageView" id="251549660">
@@ -157,6 +163,7 @@
 						<string key="NSFrame">{{20, 629}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -322,6 +329,14 @@
 					<int key="connectionID">302</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">option</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="1035214451"/>
+					</object>
+					<int key="connectionID">511</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">playClicked:</string>
 						<reference key="source" ref="1023563858"/>
@@ -471,6 +486,14 @@
 						<int key="IBEventType">8</int>
 					</object>
 					<int key="connectionID">312</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">optionsClicked:</string>
+						<reference key="source" ref="1035214451"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">508</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -900,6 +923,7 @@
 							<reference ref="445951370"/>
 							<reference ref="67963627"/>
 							<reference ref="235234828"/>
+							<reference ref="1035214451"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
 					</object>
@@ -1155,6 +1179,11 @@
 						<reference key="object" ref="893719280"/>
 						<reference key="parent" ref="766721923"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">507</int>
+						<reference key="object" ref="1035214451"/>
+						<reference key="parent" ref="147197275"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1238,6 +1267,7 @@
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="500.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="501.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="507.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="66.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<array class="NSMutableArray" key="66.IBViewMetadataConstraints">
 					<reference ref="297621135"/>
@@ -1251,7 +1281,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">506</int>
+			<int key="maxID">511</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1275,6 +1305,9 @@
 					<string key="className">QSViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="optionsApplied:">id</string>
+						<string key="optionsCancelled:">id</string>
+						<string key="optionsClicked:">id</string>
 						<string key="playClicked:">id</string>
 						<string key="scoreModuleMoved:withEvent:">id</string>
 						<string key="scoreModulePressed:withEvent:">id</string>
@@ -1288,6 +1321,18 @@
 						<string key="toolboxModuleReleased:withEvent:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="optionsApplied:">
+							<string key="name">optionsApplied:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="optionsCancelled:">
+							<string key="name">optionsCancelled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="optionsClicked:">
+							<string key="name">optionsClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="playClicked:">
 							<string key="name">playClicked:</string>
 							<string key="candidateClassName">id</string>
@@ -1336,6 +1381,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="envelopeAnchor">UIButton</string>
 						<string key="envelopeModule">UIButton</string>
+						<string key="option">UIBarButtonItem</string>
 						<string key="save">UIBarButtonItem</string>
 						<string key="scoreView">QSScoreView</string>
 						<string key="toolbar">UIToolbar</string>
@@ -1352,6 +1398,10 @@
 						<object class="IBToOneOutletInfo" key="envelopeModule">
 							<string key="name">envelopeModule</string>
 							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="option">
+							<string key="name">option</string>
+							<string key="candidateClassName">UIBarButtonItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="save">
 							<string key="name">save</string>

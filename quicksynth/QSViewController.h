@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "QSScoreView.h"
+#import "QSOptionsPopoverController.h"
 #import "QSSoundPopoverController.h"
 
 #import "QSScore.h"
@@ -22,7 +23,7 @@
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
     
     IBOutlet UIToolbar *toolbar;
-    IBOutlet UIBarButtonItem *trash, *save;
+    IBOutlet UIBarButtonItem *trash, *save, *option;
     
     float snapFraction;
     
@@ -35,6 +36,9 @@
 
 @property (nonatomic, retain) QSScore *score;
 @property (nonatomic, retain) QSAudioEngine *audioEngine;
+
+@property (nonatomic, retain) QSOptionsPopoverController *_options;
+@property (nonatomic, retain) UIPopoverController *_optionsController;
 
 @property (nonatomic, retain) QSSoundPopoverController *_soundDetails;
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;

@@ -49,7 +49,6 @@
 
 - (IBAction)apply:(id)sender
 {
-    NSLog(@"apply");
     sound.waveType = [self getWaveType];
     sound.frequency = [self getFrequency];
     sound.gain = [self getGain];
