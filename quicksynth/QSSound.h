@@ -9,14 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 
-#import "QSModifier.h"
+#import "WaveType.h"
 
-typedef enum waveTypes {
-    SIN,
-    SQUARE,
-    TRIANGLE,
-    SAWTOOTH
-} WaveType;
+#import "QSModifier.h"
 
 @interface QSSound : NSObject <NSCopying> {
     NSMutableDictionary *modifiers;

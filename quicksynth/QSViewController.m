@@ -12,6 +12,9 @@
 
 @synthesize audioEngine;
 
+@synthesize _soundDetails;
+@synthesize _soundDetailsController;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -22,6 +25,11 @@
     
     audioEngine = [[QSAudioEngine alloc] init];
     audioEngine.score = score;
+    
+    _soundDetails = [[QSSoundPopoverController alloc] init];
+    _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_soundDetails];
+    _soundDetails.container = _soundDetailsController;
+    [_soundDetailsController setPopoverContentSize:_soundDetails.view.frame.size];
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,14 +77,12 @@
             // Set sound default properties
             QSSound *sound = [score getSoundForID:soundID];
             sound.frequency = 440;
-            sound.waveType = SIN;
+            sound.waveType = SINE;
             
             // Add sound button to view
             QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];// buttonWithType:UIButtonTypeRoundedRect];
             soundButton.sound = sound;
-//            [soundButton setFrame:control.frame];
             [soundButton setTag:[soundID intValue]];
-//            [soundButton setTitle:[NSString stringWithFormat:@"%d", [soundID intValue]] forState:UIControlStateNormal];
             [soundButton addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
             [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
             [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
@@ -128,12 +134,14 @@
 - (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    moved = false;
     UIControl *control = (UIControl*)sender;
     [self.view bringSubviewToFront:control];
 }
 
 - (IBAction)scoreModuleMoved:(id)sender withEvent:(UIEvent *)event
 {
+    moved = true;
     CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
     UIControl *control = sender;
     int deltaX = newPoint.x - prevPoint.x;
@@ -161,7 +169,12 @@
     CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
     CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
     
-    if (CGRectContainsPoint(deleteFrame, touchPoint)) {
+    if (!moved) {
+        _soundDetails.sound = control.sound;
+        [_soundDetails setWaveType:control.sound.waveType];
+        [_soundDetails setFrequency:control.sound.frequency];
+        [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
+    } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
         [score removeSoundForID:control.sound.ID];
         [control removeFromSuperview];
         [audioEngine update];

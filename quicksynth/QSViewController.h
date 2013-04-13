@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "QSScoreView.h"
+#import "QSSoundPopoverController.h"
 
 #import "QSScore.h"
 #import "QSSound.h"
@@ -24,6 +25,7 @@
     IBOutlet UIBarButtonItem *trash, *save;
     
     CGPoint prevPoint;
+    Boolean moved;
     
     NSMutableDictionary *soundItems;
     NSMutableDictionary *modifierIetms;
@@ -31,6 +33,9 @@
     QSScore *score;
 }
 
-@property (readwrite) QSAudioEngine *audioEngine;
+@property (nonatomic, retain) QSAudioEngine *audioEngine;
+
+@property (nonatomic, retain) QSSoundPopoverController *_soundDetails;
+@property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 
 @end

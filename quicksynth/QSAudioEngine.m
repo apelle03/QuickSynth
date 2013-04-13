@@ -211,7 +211,7 @@ OSStatus renderTone(void *inRefCon,
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
-                case SIN:
+                case SINE:
                     buffer[frame] = (AudioSampleType)(sin(sound.theta) * amplitude * 32767);
                     break;
                 default:
