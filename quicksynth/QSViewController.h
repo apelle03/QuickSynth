@@ -24,15 +24,16 @@
     IBOutlet UIToolbar *toolbar;
     IBOutlet UIBarButtonItem *trash, *save;
     
+    float snapFraction;
+    
     CGPoint prevPoint;
     Boolean moved;
     
     NSMutableDictionary *soundItems;
     NSMutableDictionary *modifierIetms;
-    
-    QSScore *score;
 }
 
+@property (nonatomic, retain) QSScore *score;
 @property (nonatomic, retain) QSAudioEngine *audioEngine;
 
 @property (nonatomic, retain) QSSoundPopoverController *_soundDetails;

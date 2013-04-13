@@ -91,6 +91,20 @@
     return width / ((SPACING * _scale) * (bpm / 60.0));
 }
 
+- (float)getXForClosestBeat:(float)x
+{
+    return [self getX:x ForFraction:1];
+}
+
+- (float)getX:(float)x ForFraction:(float)fraction
+{
+    float pixFrom0 = x - _offset.x;
+    float fractionSize = SPACING * _scale * fraction;
+    float nearestFraction = roundf(pixFrom0 / fractionSize);
+    float nearestFractionPixFrom0 = nearestFraction * fractionSize;
+    return nearestFractionPixFrom0 + _offset.x;
+}
+
 - (void)scroll:(CGPoint)offset
 {
     // Set new offset

@@ -29,6 +29,9 @@
 - (float)getWidthForDuration:(float)duration;
 - (float)getDurationForWidth:(float)width;
 
+- (float)getXForClosestBeat:(float)x;
+- (float)getX:(float)x ForFraction:(float)fraction;
+
 - (void)scroll:(CGPoint)offset;
 
 @end

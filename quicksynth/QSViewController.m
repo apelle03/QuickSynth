@@ -10,6 +10,7 @@
 
 @implementation QSViewController
 
+@synthesize score;
 @synthesize audioEngine;
 
 @synthesize _soundDetails;
@@ -26,6 +27,8 @@
     audioEngine = [[QSAudioEngine alloc] init];
     audioEngine.score = score;
     
+    snapFraction = .25;
+    
     _soundDetails = [[QSSoundPopoverController alloc] init];
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_soundDetails];
     _soundDetails.container = _soundDetailsController;
@@ -38,14 +41,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)resetViewLayers
+- (void)snapToGrid:(QSSoundButton*)button
 {
-    [self.view bringSubviewToFront:toolbar];
-    [self.view bringSubviewToFront:toolbox];
-    [self.view bringSubviewToFront:waveformGeneratorAnchor];
-    [self.view bringSubviewToFront:waveformGeneratorModule];
-    [self.view bringSubviewToFront:envelopeAnchor];
-    [self.view bringSubviewToFront:envelopeModule];
+    float start = [scoreView getX: button.frame.origin.x
+                      ForFraction: snapFraction];
+    float end = [scoreView getX: button.frame.origin.x + button.frame.size.width
+                    ForFraction: snapFraction];
+    [button setFrame:CGRectMake(start, button.frame.origin.y, end - start, button.frame.size.height)];
+    
+    [self setSoundTimes:button];
+}
+
+- (void)setSoundTimes:(QSSoundButton*)button
+{
+    button.sound.startTime = [scoreView getStartTimeForX:button.frame.origin.x];
+    button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
 }
 
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event
@@ -81,7 +91,7 @@
             sound.gain = .25;
             
             // Add sound button to view
-            QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];// buttonWithType:UIButtonTypeRoundedRect];
+            QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];
             soundButton.sound = sound;
             [soundButton setTag:[soundID intValue]];
             [soundButton addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
@@ -89,15 +99,12 @@
             [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
             [soundButton addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpInside];
             [soundButton addTarget:self action:@selector(scoreModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
+            [self snapToGrid:soundButton];
             [self.view insertSubview:soundButton belowSubview:toolbar];
             
             // Add sound module to soundItems and scoreView
             [soundItems setObject:soundButton forKey:soundID];
             [scoreView addObject:soundButton forKey:soundID];
-            
-            // Set sound non-default properties
-            sound.startTime = [scoreView getStartTimeForX:soundButton.frame.origin.x];
-            sound.duration = [scoreView getDurationForWidth:soundButton.frame.size.width];
             
         } else if (control == envelopeModule) {
             /*
@@ -183,6 +190,7 @@
     } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
     } else {
         control.sound.startTime = [scoreView getStartTimeForX:control.frame.origin.x];
+        [self snapToGrid:control];
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
     }
