@@ -211,10 +211,18 @@ OSStatus renderTone(void *inRefCon,
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
-                case SINE:
-                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * amplitude * 32767);
+                case SQUARE:
+                    buffer[frame] = (sound.theta < M_PI) ? (amplitude * 32767) : (-amplitude * 32767);
                     break;
+                case TRIANGLE:
+                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * amplitude * 32767;
+                    break;
+                case SAWTOOTH:
+                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * amplitude * 32767;
+                    break;
+                case SINE:
                 default:
+                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * amplitude * 32767);
                     break;
             }
             sound.theta += theta_increment;
