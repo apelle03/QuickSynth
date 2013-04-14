@@ -45,7 +45,6 @@
 						<array class="NSMutableArray" key="NSSubviews"/>
 						<string key="NSFrame">{{0, 44}, {1024, 458}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="251549660"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="383975272">
@@ -59,7 +58,6 @@
 						<int key="NSvFlags">266</int>
 						<string key="NSFrameSize">{1024, 44}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="319376988"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -114,7 +112,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 502}, {1024, 246}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="268465356"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -129,7 +126,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 629}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="141021614"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -162,8 +158,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 629}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -185,7 +179,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 522}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="359396754"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -208,7 +201,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 522}, {100, 100}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="831934554"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -230,7 +222,6 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {1024, 748}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="147197275"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -1283,162 +1274,7 @@
 			<nil key="sourceID"/>
 			<int key="maxID">511</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">NSLayoutConstraint</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSScoreView</string>
-					<string key="superclassName">UIControl</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSScoreView.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">QSViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="optionsApplied:">id</string>
-						<string key="optionsCancelled:">id</string>
-						<string key="optionsClicked:">id</string>
-						<string key="playClicked:">id</string>
-						<string key="scoreModuleMoved:withEvent:">id</string>
-						<string key="scoreModulePressed:withEvent:">id</string>
-						<string key="scoreModuleReleased:withEvent:">id</string>
-						<string key="scoreViewMoved:withEvent:">id</string>
-						<string key="scoreViewPressed:withEvent:">id</string>
-						<string key="scoreViewReleased:withEvent:">id</string>
-						<string key="stopClicked:">id</string>
-						<string key="toolboxModuleMoved:withEvent:">id</string>
-						<string key="toolboxModulePressed:withEvent:">id</string>
-						<string key="toolboxModuleReleased:withEvent:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="optionsApplied:">
-							<string key="name">optionsApplied:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="optionsCancelled:">
-							<string key="name">optionsCancelled:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="optionsClicked:">
-							<string key="name">optionsClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="playClicked:">
-							<string key="name">playClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreModuleMoved:withEvent:">
-							<string key="name">scoreModuleMoved:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreModulePressed:withEvent:">
-							<string key="name">scoreModulePressed:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreModuleReleased:withEvent:">
-							<string key="name">scoreModuleReleased:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreViewMoved:withEvent:">
-							<string key="name">scoreViewMoved:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreViewPressed:withEvent:">
-							<string key="name">scoreViewPressed:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="scoreViewReleased:withEvent:">
-							<string key="name">scoreViewReleased:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="stopClicked:">
-							<string key="name">stopClicked:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toolboxModuleMoved:withEvent:">
-							<string key="name">toolboxModuleMoved:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toolboxModulePressed:withEvent:">
-							<string key="name">toolboxModulePressed:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toolboxModuleReleased:withEvent:">
-							<string key="name">toolboxModuleReleased:withEvent:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="envelopeAnchor">UIButton</string>
-						<string key="envelopeModule">UIButton</string>
-						<string key="option">UIBarButtonItem</string>
-						<string key="save">UIBarButtonItem</string>
-						<string key="scoreView">QSScoreView</string>
-						<string key="toolbar">UIToolbar</string>
-						<string key="toolbox">UIImageView</string>
-						<string key="trash">UIBarButtonItem</string>
-						<string key="waveformGeneratorAnchor">UIButton</string>
-						<string key="waveformGeneratorModule">UIButton</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="envelopeAnchor">
-							<string key="name">envelopeAnchor</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="envelopeModule">
-							<string key="name">envelopeModule</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="option">
-							<string key="name">option</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="save">
-							<string key="name">save</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="scoreView">
-							<string key="name">scoreView</string>
-							<string key="candidateClassName">QSScoreView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toolbar">
-							<string key="name">toolbar</string>
-							<string key="candidateClassName">UIToolbar</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="toolbox">
-							<string key="name">toolbox</string>
-							<string key="candidateClassName">UIImageView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="trash">
-							<string key="name">trash</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="waveformGeneratorAnchor">
-							<string key="name">waveformGeneratorAnchor</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="waveformGeneratorModule">
-							<string key="name">waveformGeneratorModule</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/QSViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBIPadFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

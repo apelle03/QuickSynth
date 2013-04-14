@@ -36,6 +36,14 @@
     _border = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(self.bounds, 1, 1) cornerRadius:10];
     [_border fill];
     [_border stroke];
+    
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    [[NSString stringWithFormat: @"%.0fHz\n%.2f", sound.frequency, sound.gain]
+                     drawInRect: CGRectInset(self.bounds, 4, 0)
+                       withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                  lineBreakMode: NSLineBreakByCharWrapping
+                      alignment: NSTextAlignmentRight];
+    CGContextStrokePath(context);
 }
 
 @end

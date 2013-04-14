@@ -42,5 +42,6 @@
 
 @property (nonatomic, retain) QSSoundPopoverController *_soundDetails;
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
+@property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
 
 @end

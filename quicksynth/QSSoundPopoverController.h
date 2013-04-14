@@ -19,8 +19,8 @@
     IBOutlet UITextField *gainText;
 }
 
-@property (nonatomic, retain) QSSound *sound;
-@property (nonatomic, assign) UIPopoverController *container;
+@property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
+@property (nonatomic, retain, readonly) IBOutlet UIButton *cancel;
 
 - (void)setWaveType:(WaveType)type;
 - (WaveType)getWaveType;

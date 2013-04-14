@@ -176,8 +176,14 @@
         offset += spacing;
     }
     for (int i = 0; i < width / spacing; i ++) {
-        CGContextMoveToPoint(context, i * spacing + offset, 0);
+        CGContextMoveToPoint(context, i * spacing + offset, 20);
         CGContextAddLineToPoint(context, i * spacing + offset, height);
+        float time = [self getStartTimeForX:(i * spacing + offset)];
+        [[NSString stringWithFormat: @"% 2.0f:%02.0f", (time / 60 > 0) ? floor(time / 60) : ceil(time / 60), fabs(fmodf(time, 60))]
+                         drawInRect: CGRectMake(i * spacing + offset - (spacing / 2), 0, spacing, 40)
+                           withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                      lineBreakMode: NSLineBreakByCharWrapping
+                          alignment: NSTextAlignmentCenter];
     }
     
     CGContextStrokePath(context);

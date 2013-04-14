@@ -1,13 +1,14 @@
 //
-//  SnapSize.h
+//  QSSnapSize.h
 //  quicksynth
 //
 //  Created by Andrew on 4/13/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#ifndef quicksynth_SnapSize_h
-#define quicksynth_SnapSize_h
+#import <Foundation/Foundation.h>
+
+@interface QSSnapSize : NSObject
 
 typedef enum snapSizes {
     WHOLE = 0,
@@ -18,4 +19,7 @@ typedef enum snapSizes {
     SIXTEENTH = 5
 } SnapSize;
 
-#endif
++ (float)snapToFraction:(SnapSize)size;
++ (SnapSize)fractionToSnap:(float)fraction;
+
+@end

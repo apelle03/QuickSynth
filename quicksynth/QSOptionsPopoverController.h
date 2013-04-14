@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SnapSize.h"
+#import "QSSnapSize.h"
 
 @interface QSOptionsPopoverController : UIViewController {
     IBOutlet UISlider *bpmSlider;
@@ -18,8 +18,6 @@
 
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
 @property (nonatomic, retain, readonly) IBOutlet UIButton *cancel;
-
-@property (nonatomic, assign) UIPopoverController *container;
 
 - (void)setBPM:(float)bpm;
 - (float)getBPM;

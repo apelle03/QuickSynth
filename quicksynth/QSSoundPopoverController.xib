@@ -212,6 +212,7 @@
 						<string key="NSFrame">{{222, 134}, {100, 44}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -409,6 +410,22 @@
 					<int key="connectionID">224</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">apply</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="818960942"/>
+					</object>
+					<int key="connectionID">229</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">cancel</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="245278876"/>
+					</object>
+					<int key="connectionID">230</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">freqSliderChanged:</string>
 						<reference key="source" ref="587011022"/>
@@ -425,24 +442,6 @@
 						<int key="IBEventType">18</int>
 					</object>
 					<int key="connectionID">164</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">apply:</string>
-						<reference key="source" ref="818960942"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">188</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">cancel:</string>
-						<reference key="source" ref="245278876"/>
-						<reference key="destination" ref="841351856"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">190</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1340,7 +1339,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">224</int>
+			<int key="maxID">230</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1356,21 +1355,11 @@
 					<string key="className">QSSoundPopoverController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="apply:">id</string>
-						<string key="cancel:">id</string>
 						<string key="freqSliderChanged:">id</string>
 						<string key="freqTextChanged:">id</string>
 						<string key="gainSliderChanged:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="apply:">
-							<string key="name">apply:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="cancel:">
-							<string key="name">cancel:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="freqSliderChanged:">
 							<string key="name">freqSliderChanged:</string>
 							<string key="candidateClassName">id</string>
@@ -1385,6 +1374,8 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="apply">UIButton</string>
+						<string key="cancel">UIButton</string>
 						<string key="freqSlider">UISlider</string>
 						<string key="freqText">UITextField</string>
 						<string key="gainSlider">UISlider</string>
@@ -1392,6 +1383,14 @@
 						<string key="waveSelector">UISegmentedControl</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="apply">
+							<string key="name">apply</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="cancel">
+							<string key="name">cancel</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="freqSlider">
 							<string key="name">freqSlider</string>
 							<string key="candidateClassName">UISlider</string>

@@ -10,7 +10,6 @@
 
 @implementation QSOptionsPopoverController
 
-@synthesize container;
 @synthesize apply, cancel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

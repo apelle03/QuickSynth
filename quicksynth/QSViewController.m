@@ -18,6 +18,7 @@
 
 @synthesize _soundDetails;
 @synthesize _soundDetailsController;
+@synthesize _soundDetailsButton;
 
 - (void)viewDidLoad
 {
@@ -31,18 +32,18 @@
     audioEngine.score = score;
     
     snapFraction = .25;
-    
+
+    // General Options Popover
     _options = [[QSOptionsPopoverController alloc] init];
     _optionsController = [[UIPopoverController alloc] initWithContentViewController:_options];
-    _options.container = _optionsController;
-    [_options.apply addTarget:self action:@selector(optionsApplied:) forControlEvents:UIControlEventTouchUpInside];
-    [_options.cancel addTarget:self action:@selector(optionsCancelled:) forControlEvents:UIControlEventTouchUpInside];
     [_optionsController setPopoverContentSize:_options.view.frame.size];
     
+    // Sound Details Popover
     _soundDetails = [[QSSoundPopoverController alloc] init];
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_soundDetails];
-    _soundDetails.container = _soundDetailsController;
     [_soundDetailsController setPopoverContentSize:_soundDetails.view.frame.size];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -188,10 +189,12 @@
     CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
     
     if (!moved) {
-        _soundDetails.sound = control.sound;
+        _soundDetailsButton = control;
         [_soundDetails setWaveType:control.sound.waveType];
         [_soundDetails setFrequency:control.sound.frequency];
         [_soundDetails setGain:control.sound.gain];
+        [_soundDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+        [_soundDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
         [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
     } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
         [score removeSoundForID:control.sound.ID];
@@ -237,6 +240,8 @@
 
 - (IBAction)optionsClicked:(id)sender
 {
+    [_options.apply addTarget:self action:@selector(optionsApplied:) forControlEvents:UIControlEventTouchUpInside];
+    [_options.cancel addTarget:self action:@selector(optionsCancelled:) forControlEvents:UIControlEventTouchUpInside];
     [_optionsController presentPopoverFromBarButtonItem:option permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
@@ -244,7 +249,7 @@
 {
     [_optionsController dismissPopoverAnimated:true];
     scoreView.bpm = [_options getBPM];
-    snapFraction = snapToFraction([_options getSnapSize]);
+    snapFraction = [QSSnapSize snapToFraction:[_options getSnapSize]];
     for (QSSoundButton *button in [soundItems allValues]) {
         button.sound.startTime = [scoreView getStartTimeForX:button.frame.origin.x];
         button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
@@ -255,45 +260,23 @@
 {
     [_optionsController dismissPopoverAnimated:true];
     [_options setBPM:scoreView.bpm];
-    [_options setSnapSize:fractionToSnap(snapFraction)];
+    [_options setSnapSize:[QSSnapSize fractionToSnap:snapFraction]];
 }
 
-float snapToFraction(SnapSize size) {
-    switch (size) {
-        case WHOLE:
-            return 1;
-        case HALF:
-            return .5;
-        case THIRD:
-            return 1.0/3;
-        case QUARTER:
-            return .25;
-        case EIGTH:
-            return .125;
-        case SIXTEENTH:
-            return .0625;
-            
-        default:
-            return 1;
-    }
+- (IBAction)soundDetailsApplied:(id)sender
+{
+    [_soundDetailsController dismissPopoverAnimated:true];
+    _soundDetailsButton.sound.waveType = [_soundDetails getWaveType];
+    _soundDetailsButton.sound.frequency = [_soundDetails getFrequency];
+    _soundDetailsButton.sound.gain = [_soundDetails getGain];
+    [_soundDetailsButton setNeedsDisplay];
+    _soundDetailsButton = nil;
 }
 
-SnapSize fractionToSnap(float fraction) {
-    if (fabsf(fraction - 1) < .001) {
-        return WHOLE;
-    } else if (fabsf(fraction - .5) < .001) {
-        return HALF;
-    } else if (fabsf(fraction - (1.0/3)) < .001) {
-        return THIRD;
-    } else if (fabsf(fraction - .25) < .001) {
-        return QUARTER;
-    } else if (fabsf(fraction - .125) < .001) {
-        return EIGTH;
-    } else if (fabsf(fraction - .0625) < .001) {
-        return SIXTEENTH;
-    } else {
-        return WHOLE;
-    }
+- (IBAction)soundDetailsCancelled:(id)sender
+{
+    [_soundDetailsController dismissPopoverAnimated:true];
+    _soundDetailsButton = nil;
 }
 
 @end

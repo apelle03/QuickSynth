@@ -10,7 +10,7 @@
 
 @implementation QSSoundPopoverController
 
-@synthesize sound, container;
+@synthesize apply, cancel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,19 +45,6 @@
 - (IBAction)gainSliderChanged:(id)sender
 {
     [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
-}
-
-- (IBAction)apply:(id)sender
-{
-    sound.waveType = [self getWaveType];
-    sound.frequency = [self getFrequency];
-    sound.gain = [self getGain];
-    [container dismissPopoverAnimated:true];
-}
-
-- (IBAction)cancel:(id)sender
-{
-    [container dismissPopoverAnimated:true];
 }
 
 - (void)setWaveType:(WaveType)type
