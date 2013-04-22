@@ -47,6 +47,19 @@
     [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
 }
 
+- (IBAction)gainTextChanged:(id)sender
+{
+    float value = [gainText.text floatValue];
+    if (value > 1) { value = 1; }
+    else if (value < 0) { value = 0; }
+    [gainSlider setValue:value];
+}
+
+- (IBAction)gainTextFinished:(id)sender
+{
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
 - (void)setWaveType:(WaveType)type
 {
     [waveSelector setSelectedSegmentIndex:type];

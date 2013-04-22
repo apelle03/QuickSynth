@@ -28,7 +28,7 @@
     float snapFraction;
     
     CGPoint prevPoint;
-    Boolean moved;
+    Boolean moved, front, back;
     
     NSMutableDictionary *soundItems;
     NSMutableDictionary *modifierIetms;

@@ -36,9 +36,34 @@
     _border = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(self.bounds, 1, 1) cornerRadius:10];
     [_border fill];
     [_border stroke];
+
+    UIImage *image;
+    switch (sound.waveType) {
+        case SINE:
+            image = [UIImage imageNamed:@"sine.png"];
+            break;
+        case SQUARE:
+            image = [UIImage imageNamed:@"square.png"];
+            break;
+        case TRIANGLE:
+            image = [UIImage imageNamed:@"triangle.png"];
+            break;
+        case SAWTOOTH:
+            image = [UIImage imageNamed:@"sawtooth.png"];
+            break;
+        default:
+            image = [UIImage imageNamed:@"sine.png"];
+            break;
+    }
+    [image drawInRect:self.bounds];
     
     CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
-    [[NSString stringWithFormat: @"%.0fHz\n%.2f", sound.frequency, sound.gain]
+    [[NSString stringWithFormat: @"%.0fHz", sound.frequency]
+                     drawInRect: CGRectInset(self.bounds, 4, 0)
+                       withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                  lineBreakMode: NSLineBreakByCharWrapping
+                      alignment: NSTextAlignmentLeft];
+    [[NSString stringWithFormat: @"%.2f", sound.gain]
                      drawInRect: CGRectInset(self.bounds, 4, 0)
                        withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
                   lineBreakMode: NSLineBreakByCharWrapping

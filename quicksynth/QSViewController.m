@@ -69,6 +69,10 @@
     button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+// TOOLOX MODUE MOVEMENT
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
@@ -150,11 +154,22 @@
     }
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+// SCORE MODUE MOVEMENT
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 - (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event
 {
     prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
     moved = false;
     UIControl *control = (UIControl*)sender;
+    front = false;
+    back = false;
+    if ([[[event allTouches] anyObject] locationInView:control].x < 20) {
+        front = true;
+    } else if ([[[event allTouches] anyObject] locationInView:control].x > control.bounds.size.width - 20) {
+        back = true;
+    }
     [self.view bringSubviewToFront:control];
 }
 
@@ -165,11 +180,23 @@
     UIControl *control = sender;
     int deltaX = newPoint.x - prevPoint.x;
     int deltaY = newPoint.y - prevPoint.y;
-    CGPoint newCenter;
-    newCenter.x = control.center.x + deltaX;
-    newCenter.y = control.center.y + deltaY;
-    control.center = newCenter;
     
+    if (!front && !back) {
+        CGPoint newCenter;
+        newCenter.x = control.center.x + deltaX;
+        newCenter.y = control.center.y + deltaY;
+        control.center = newCenter;
+    } else if (front) {
+        [control setFrame:CGRectMake(control.frame.origin.x + deltaX, control.frame.origin.y + deltaY,
+                                     control.frame.size.width - deltaX, control.frame.size.height)];
+        [control setNeedsDisplay];
+    } else if (back) {
+        [control setFrame:CGRectMake(control.frame.origin.x, control.frame.origin.y + deltaY,
+                                     control.frame.size.width + deltaX, control.frame.size.height)];
+        [control setNeedsDisplay];
+    }
+    
+    /*
     for (QSModifier *modifier in [[score getSoundForID:[NSNumber numberWithInt:control.tag]] getModifiers]) {
         UIButton *modifierView = [modifierIetms objectForKey:modifier.ID];
         CGPoint newCenter;
@@ -177,6 +204,7 @@
         newCenter.y = modifierView.center.y + deltaY;
         modifierView.center = newCenter;
     }
+    */
     prevPoint = newPoint;
 }
 
@@ -196,18 +224,25 @@
         [_soundDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
         [_soundDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
         [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
+        
+        [control removeFromSuperview];
+        [self.view insertSubview:control belowSubview:toolbar];
     } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
         [score removeSoundForID:control.sound.ID];
         [control removeFromSuperview];
         [audioEngine update];
     } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
     } else {
-        control.sound.startTime = [scoreView getStartTimeForX:control.frame.origin.x];
         [self snapToGrid:control];
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
+        [control setNeedsDisplay];
     }
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+// SCORE VIEW MOVEMENT
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 - (IBAction)scoreViewPressed:(id)sender withEvent:(UIEvent *)event
 {
@@ -228,6 +263,10 @@
     
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+// TOOLBAR ITEM ACTIONS
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 - (IBAction)playClicked:(id)sender
 {
     [audioEngine play];
@@ -245,6 +284,10 @@
     [_optionsController presentPopoverFromBarButtonItem:option permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------
+// POPUPS CLOSED
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 - (IBAction)optionsApplied:(id)sender
 {
     [_optionsController dismissPopoverAnimated:true];
@@ -254,6 +297,7 @@
         button.sound.startTime = [scoreView getStartTimeForX:button.frame.origin.x];
         button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
     }
+    [scoreView setNeedsDisplay];
 }
 
 - (IBAction)optionsCancelled:(id)sender

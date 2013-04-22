@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		499ED9281725C2DC00440EB7 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9271725C2DC00440EB7 /* Default-Landscape~ipad.png */; };
+		499ED92A1725C2E500440EB7 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9291725C2E500440EB7 /* Default-Landscape@2x~ipad.png */; };
+		499ED92E1725C3CB00440EB7 /* icon-retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED92D1725C3CB00440EB7 /* icon-retina.png */; };
+		499ED92F1725C40600440EB7 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED92B1725C32D00440EB7 /* icon.png */; };
+		499ED9381725C44200440EB7 /* icon-retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9301725C44200440EB7 /* icon-retina.png */; };
+		499ED9391725C44200440EB7 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9311725C44200440EB7 /* icon.png */; };
+		499ED93A1725C44200440EB7 /* sawtooth.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9321725C44200440EB7 /* sawtooth.png */; };
+		499ED93B1725C44200440EB7 /* sine.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9331725C44200440EB7 /* sine.png */; };
+		499ED93C1725C44200440EB7 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9341725C44200440EB7 /* splash.png */; };
+		499ED93D1725C44200440EB7 /* square.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9351725C44200440EB7 /* square.png */; };
+		499ED93E1725C44200440EB7 /* store-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9361725C44200440EB7 /* store-icon.png */; };
+		499ED93F1725C44200440EB7 /* triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9371725C44200440EB7 /* triangle.png */; };
 		49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A070EC1718C62A00FC74AE /* QSSoundButton.m */; };
 		49A08E4F1718FEFC00362360 /* QSSoundPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A08E4D1718FEFC00362360 /* QSSoundPopoverController.m */; };
 		49A08E501718FEFC00362360 /* QSSoundPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSSoundPopoverController.xib */; };
@@ -50,6 +62,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		499ED9271725C2DC00440EB7 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		499ED9291725C2E500440EB7 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		499ED92B1725C32D00440EB7 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		499ED92D1725C3CB00440EB7 /* icon-retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-retina.png"; sourceTree = "<group>"; };
+		499ED9301725C44200440EB7 /* icon-retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-retina.png"; sourceTree = "<group>"; };
+		499ED9311725C44200440EB7 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		499ED9321725C44200440EB7 /* sawtooth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sawtooth.png; sourceTree = "<group>"; };
+		499ED9331725C44200440EB7 /* sine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sine.png; sourceTree = "<group>"; };
+		499ED9341725C44200440EB7 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
+		499ED9351725C44200440EB7 /* square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = square.png; sourceTree = "<group>"; };
+		499ED9361725C44200440EB7 /* store-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "store-icon.png"; sourceTree = "<group>"; };
+		499ED9371725C44200440EB7 /* triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangle.png; sourceTree = "<group>"; };
 		49A070EB1718C62A00FC74AE /* QSSoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundButton.h; sourceTree = "<group>"; };
 		49A070EC1718C62A00FC74AE /* QSSoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSoundButton.m; sourceTree = "<group>"; };
 		49A08E4C1718FEFC00362360 /* QSSoundPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundPopoverController.h; sourceTree = "<group>"; };
@@ -173,6 +197,10 @@
 		49F2126516EEA6F100721674 = {
 			isa = PBXGroup;
 			children = (
+				499ED92D1725C3CB00440EB7 /* icon-retina.png */,
+				499ED92B1725C32D00440EB7 /* icon.png */,
+				499ED9291725C2E500440EB7 /* Default-Landscape@2x~ipad.png */,
+				499ED9271725C2DC00440EB7 /* Default-Landscape~ipad.png */,
 				49DEFE121703BE8C004EA2AE /* CoreAudio.framework */,
 				49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */,
 				49DEFE0E1703B64D004EA2AE /* AudioUnit.framework */,
@@ -222,6 +250,14 @@
 		49F2127816EEA6F100721674 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				499ED9301725C44200440EB7 /* icon-retina.png */,
+				499ED9311725C44200440EB7 /* icon.png */,
+				499ED9321725C44200440EB7 /* sawtooth.png */,
+				499ED9331725C44200440EB7 /* sine.png */,
+				499ED9341725C44200440EB7 /* splash.png */,
+				499ED9351725C44200440EB7 /* square.png */,
+				499ED9361725C44200440EB7 /* store-icon.png */,
+				499ED9371725C44200440EB7 /* triangle.png */,
 				49F2127916EEA6F100721674 /* quicksynth-Info.plist */,
 				49F2127A16EEA6F100721674 /* InfoPlist.strings */,
 				49F2127D16EEA6F100721674 /* main.m */,
@@ -331,6 +367,18 @@
 				49F2128E16EEA6F100721674 /* QSViewController.xib in Resources */,
 				49A08E501718FEFC00362360 /* QSSoundPopoverController.xib in Resources */,
 				49AC9EE01719EF05003450EB /* QSOptionsPopoverController.xib in Resources */,
+				499ED9281725C2DC00440EB7 /* Default-Landscape~ipad.png in Resources */,
+				499ED92A1725C2E500440EB7 /* Default-Landscape@2x~ipad.png in Resources */,
+				499ED92E1725C3CB00440EB7 /* icon-retina.png in Resources */,
+				499ED92F1725C40600440EB7 /* icon.png in Resources */,
+				499ED9381725C44200440EB7 /* icon-retina.png in Resources */,
+				499ED9391725C44200440EB7 /* icon.png in Resources */,
+				499ED93A1725C44200440EB7 /* sawtooth.png in Resources */,
+				499ED93B1725C44200440EB7 /* sine.png in Resources */,
+				499ED93C1725C44200440EB7 /* splash.png in Resources */,
+				499ED93D1725C44200440EB7 /* square.png in Resources */,
+				499ED93E1725C44200440EB7 /* store-icon.png in Resources */,
+				499ED93F1725C44200440EB7 /* triangle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

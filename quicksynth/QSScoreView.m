@@ -127,6 +127,7 @@
         _lastPinchLocation = [recognizer locationInView:self];
     }
     
+    if (recognizer.numberOfTouches != 2) { return; }
     // Scale view
     int thisPinchX = abs([recognizer locationOfTouch:0 inView:self].x - [recognizer locationOfTouch:1 inView:self].x);
     if (thisPinchX == 0) {
@@ -175,17 +176,28 @@
     if (offset < 0) {
         offset += spacing;
     }
-    for (int i = 0; i < width / spacing; i ++) {
+    for (int i = 0; i < width / spacing; i++) {
         CGContextMoveToPoint(context, i * spacing + offset, 20);
         CGContextAddLineToPoint(context, i * spacing + offset, height);
-        float time = [self getStartTimeForX:(i * spacing + offset)];
-        [[NSString stringWithFormat: @"% 2.0f:%02.0f", (time / 60 > 0) ? floor(time / 60) : ceil(time / 60), fabs(fmodf(time, 60))]
-                         drawInRect: CGRectMake(i * spacing + offset - (spacing / 2), 0, spacing, 40)
+    }
+    CGContextStrokePath(context);
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor redColor].CGColor);
+    CGContextSetLineWidth(context, 1.5);
+    int secs = ceil([self getStartTimeForX:0]);
+    float x = [self getXForStartTime:secs];
+    spacing = [self getXForStartTime:secs + 1] - x;
+    while (x >= 0 && x <= width) {
+        [[NSString stringWithFormat: @"% 2.0f:%02.0f", (secs / 60 > 0) ? floor(secs / 60) : ceil(secs / 60), fabs(fmodf(secs, 60))]
+                         drawInRect: CGRectMake(x - (spacing / 2), 0, spacing, 40)
                            withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
                       lineBreakMode: NSLineBreakByCharWrapping
                           alignment: NSTextAlignmentCenter];
+        CGContextMoveToPoint(context, x, 20);
+        CGContextAddLineToPoint(context, x, 30);
+        secs++;
+        x = [self getXForStartTime:secs];
     }
-    
     CGContextStrokePath(context);
 }
 
