@@ -16,7 +16,7 @@
 @synthesize _options;
 @synthesize _optionsController;
 
-@synthesize _soundDetails;
+@synthesize _waveformDetails;
 @synthesize _soundDetailsController;
 @synthesize _soundDetailsButton;
 
@@ -39,11 +39,9 @@
     [_optionsController setPopoverContentSize:_options.view.frame.size];
     
     // Sound Details Popover
-    _soundDetails = [[QSSoundPopoverController alloc] init];
-    _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_soundDetails];
-    [_soundDetailsController setPopoverContentSize:_soundDetails.view.frame.size];
+    _waveformDetails = [[QSWaveformPopover alloc] init];
     
-    
+    _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_waveformDetails];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,19 +93,26 @@
     UIControl *control = sender;
     
     if (CGRectIntersectsRect(control.frame, scoreView.frame)) {
-        if (control == waveformGeneratorModule) {
+        if (control == waveformGeneratorModule || control == pulseGeneratorModule || control == noiseGeneratorModule) {
             // Add sound to score
-            NSNumber *soundID = [score addSound];
-            
-            // Set sound default properties
-            QSSound *sound = [score getSoundForID:soundID];
-            sound.frequency = 440;
-            sound.waveType = SINE;
-            sound.gain = .25;
+            NSNumber *soundID;
+            QSSoundButton *soundButton;
+            if (control == waveformGeneratorModule) {
+                soundID = [score addWaveform];
+                // Set sound default properties
+                QSWaveform *sound = (QSWaveform*)[score getSoundForID:soundID];
+                sound.frequency = 440;
+                sound.waveType = SINE;
+                sound.gain = .25;
+                soundButton = [[QSWaveformButton alloc] initWithFrame:control.frame];
+            } else if (control == pulseGeneratorModule) {
+                soundID = [score addPulse];
+            } else if (control == noiseGeneratorModule) {
+                soundID = [score addNoise];
+            }
             
             // Add sound button to view
-            QSSoundButton *soundButton = [[QSSoundButton alloc] initWithFrame:control.frame];
-            soundButton.sound = sound;
+            soundButton.sound = [score getSoundForID:soundID];
             [soundButton setTag:[soundID intValue]];
             [soundButton addTarget:self action:@selector(scoreModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
             [soundButton addTarget:self action:@selector(scoreModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
@@ -218,11 +223,21 @@
     
     if (!moved) {
         _soundDetailsButton = control;
-        [_soundDetails setWaveType:control.sound.waveType];
-        [_soundDetails setFrequency:control.sound.frequency];
-        [_soundDetails setGain:control.sound.gain];
-        [_soundDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
-        [_soundDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+        if ([control isKindOfClass:[QSWaveformButton class]]) {
+            [_waveformDetails setWaveType:((QSWaveform*)control.sound).waveType];
+            [_waveformDetails setFrequency:((QSWaveform*)control.sound).frequency];
+            [_waveformDetails setGain:((QSWaveform*)control.sound).gain];
+            [_waveformDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_waveformDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_soundDetailsController setContentViewController:_waveformDetails];
+            [_soundDetailsController setPopoverContentSize:_waveformDetails.view.bounds.size];
+        }/* else if ([control isKindOfClass:[QSPulseButton class]]) {
+            
+        } else if ([control isKindOfClass:[qsNoiseButton class]]) {
+            
+        }
+        */
+        
         [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
         
         [control removeFromSuperview];
@@ -310,9 +325,13 @@
 - (IBAction)soundDetailsApplied:(id)sender
 {
     [_soundDetailsController dismissPopoverAnimated:true];
-    _soundDetailsButton.sound.waveType = [_soundDetails getWaveType];
-    _soundDetailsButton.sound.frequency = [_soundDetails getFrequency];
-    _soundDetailsButton.sound.gain = [_soundDetails getGain];
+    if ([_soundDetailsButton isKindOfClass:[QSWaveformButton class]]) {
+        ((QSWaveform*)_soundDetailsButton.sound).waveType = [_waveformDetails getWaveType];
+        ((QSWaveform*)_soundDetailsButton.sound).frequency = [_waveformDetails getFrequency];
+        ((QSWaveform*)_soundDetailsButton.sound).gain = [_waveformDetails getGain];
+    }
+#warning TODO: add other types
+    
     [_soundDetailsButton setNeedsDisplay];
     _soundDetailsButton = nil;
 }

@@ -80,7 +80,7 @@
         
         // Mixer Input Callbacks
         AURenderCallbackStruct mixerInput;
-        mixerInput.inputProc = &renderTone;
+        mixerInput.inputProc = &renderWaveform;
         mixerInput.inputProcRefCon = (__bridge void *)(self);
         AUGraphSetNodeInputCallback(scoreGraph, mixerNode, i, &mixerInput);
     }
@@ -143,7 +143,15 @@
             AudioUnitSetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, sizeof(soundStreamDesc));
             
             AURenderCallbackStruct soundInput;
-            soundInput.inputProc = &renderTone;
+            if ([sound isKindOfClass:[QSWaveform class]]) {
+                soundInput.inputProc = &renderWaveform;
+            }/* else if ([sound isKindOfClass:[QSPulse class]]) {
+                
+            } else if ([sound isKindOfClass:[QSNoise class]]) {
+                
+            }
+              */
+#warning TODO: add these types
             soundInput.inputProcRefCon = (__bridge void *)(sound);
             AUGraphSetNodeInputCallback(scoreGraph, soundNode, 0, &soundInput);
             
@@ -195,13 +203,13 @@
     [self stopGraph];
 }
 
-OSStatus renderTone(void *inRefCon,
+OSStatus renderWaveform(void *inRefCon,
                     AudioUnitRenderActionFlags *ioActionFlags,
                     const AudioTimeStamp *inTimeStamp,
                     UInt32 inBusNumber,
                     UInt32 inNumberFrames,
                     AudioBufferList *ioData) {
-    QSSound *sound = (__bridge QSSound *)(inRefCon);
+    QSWaveform *sound = (__bridge QSWaveform *)(inRefCon);
     double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;

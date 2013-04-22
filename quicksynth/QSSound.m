@@ -10,13 +10,11 @@
 
 @implementation QSSound
 
-@synthesize ID, startTime, duration, frequency, waveType, gain;
-@synthesize theta;
+@synthesize ID, startTime, duration;
 
 - (id)init
 {
     modifiers = [[NSMutableDictionary alloc] init];
-    theta = 0;
     return self;
 }
 
@@ -44,19 +42,6 @@
 - (NSArray*) getModifiers
 {
     return [modifiers allValues];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    QSSound *newSound = [[QSSound alloc]initWithID:self.ID];
-    newSound.startTime = self.startTime;
-    newSound.duration = self.duration;
-    newSound.frequency = self.frequency;
-    newSound.waveType = self.waveType;
-    for (QSModifier *modifier in [self getModifiers]) {
-        [newSound addModifier:modifier];
-    }
-    return newSound;
 }
 
 @end

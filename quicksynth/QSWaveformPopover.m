@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#import "QSSoundPopoverController.h"
+#import "QSWaveformPopover.h"
 
-@implementation QSSoundPopoverController
+@implementation QSWaveformPopover
 
 @synthesize apply, cancel;
 

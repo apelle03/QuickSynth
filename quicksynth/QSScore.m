@@ -26,6 +26,33 @@
     return thisID;
 }
 
+- (NSNumber*)addWaveform
+{
+    [sounds setObject:[[QSWaveform alloc] initWithID:nextID] forKey:nextID];
+    
+    NSNumber *thisID = nextID;
+    nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
+    return thisID;
+}
+
+- (NSNumber*)addPulse
+{
+    [sounds setObject:[[QSSound alloc] initWithID:nextID] forKey:nextID];
+    
+    NSNumber *thisID = nextID;
+    nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
+    return thisID;
+}
+
+- (NSNumber*)addNoise
+{
+    [sounds setObject:[[QSSound alloc] initWithID:nextID] forKey:nextID];
+    
+    NSNumber *thisID = nextID;
+    nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
+    return thisID;
+}
+
 - (QSSound*)getSoundForID:(NSNumber *)soundID
 {
     return [sounds objectForKey:soundID];

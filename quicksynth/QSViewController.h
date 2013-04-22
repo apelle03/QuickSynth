@@ -10,7 +10,9 @@
 
 #import "QSScoreView.h"
 #import "QSOptionsPopoverController.h"
-#import "QSSoundPopoverController.h"
+
+#import "QSWaveformButton.h"
+#import "QSWaveformPopover.h"
 
 #import "QSScore.h"
 #import "QSSound.h"
@@ -19,7 +21,11 @@
 @interface QSViewController : UIViewController {
     IBOutlet UIImageView *toolbox;
     IBOutlet QSScoreView *scoreView;
+    // Sound generators
     IBOutlet UIButton *waveformGeneratorAnchor, *waveformGeneratorModule;
+    IBOutlet UIButton *pulseGeneratorAnchor, *pulseGeneratorModule;
+    IBOutlet UIButton *noiseGeneratorAnchor, *noiseGeneratorModule;
+    // Modifiers
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
     
     IBOutlet UIToolbar *toolbar;
@@ -40,7 +46,8 @@
 @property (nonatomic, retain) QSOptionsPopoverController *_options;
 @property (nonatomic, retain) UIPopoverController *_optionsController;
 
-@property (nonatomic, retain) QSSoundPopoverController *_soundDetails;
+@property (nonatomic, retain) QSWaveformPopover *_waveformDetails;
+
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
 

@@ -188,7 +188,7 @@
     float x = [self getXForStartTime:secs];
     spacing = [self getXForStartTime:secs + 1] - x;
     while (x >= 0 && x <= width) {
-        [[NSString stringWithFormat: @"% 2.0f:%02.0f", (secs / 60 > 0) ? floor(secs / 60) : ceil(secs / 60), fabs(fmodf(secs, 60))]
+        [[NSString stringWithFormat: @"% 2.0f:%02.0f", fabs(secs / 60.0) * ((secs >= 0) ? 1 : -1), fabs(fmodf(secs, 60))]
                          drawInRect: CGRectMake(x - (spacing / 2), 0, spacing, 40)
                            withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
                       lineBreakMode: NSLineBreakByCharWrapping

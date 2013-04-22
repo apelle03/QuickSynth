@@ -11,7 +11,7 @@
 #import "WaveType.h"
 #import "QSSound.h"
 
-@interface QSSoundPopoverController : UIViewController {
+@interface QSWaveformPopover : UIViewController {
     IBOutlet UISegmentedControl *waveSelector;
     IBOutlet UISlider *freqSlider;
     IBOutlet UITextField *freqText;

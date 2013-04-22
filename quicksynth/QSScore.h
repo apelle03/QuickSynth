@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #import "QSSound.h"
+#import "QSWaveform.h"
+
 #import "QSModifier.h"
 
 @interface QSScore : NSObject {
@@ -17,7 +19,12 @@
 }
 
 - (id)init;
+
 - (NSNumber*)addSound;
+- (NSNumber*)addWaveform;
+- (NSNumber*)addPulse;
+- (NSNumber*)addNoise;
+
 - (QSSound*)getSoundForID:(NSNumber*)soundID;
 - (NSArray*)getSoundIDs;
 - (NSArray*)getSounds;
