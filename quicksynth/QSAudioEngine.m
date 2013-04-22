@@ -145,9 +145,9 @@
             AURenderCallbackStruct soundInput;
             if ([sound isKindOfClass:[QSWaveform class]]) {
                 soundInput.inputProc = &renderWaveform;
-            }/* else if ([sound isKindOfClass:[QSPulse class]]) {
-                
-            } else if ([sound isKindOfClass:[QSNoise class]]) {
+            } else if ([sound isKindOfClass:[QSPulse class]]) {
+                soundInput.inputProc = &renderPulse;
+            }/* else if ([sound isKindOfClass:[QSNoise class]]) {
                 
             }
               */
@@ -232,6 +232,32 @@ OSStatus renderWaveform(void *inRefCon,
                     buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.gain * 32767);
                     break;
             }
+            sound.theta += theta_increment;
+            if (sound.theta > 2.0 * M_PI) {
+                sound.theta -= 2.0 * M_PI;
+            }
+        } else {
+            buffer[frame] = 0;
+        }
+    }
+    return noErr;
+}
+
+OSStatus renderPulse(void *inRefCon,
+                        AudioUnitRenderActionFlags *ioActionFlags,
+                        const AudioTimeStamp *inTimeStamp,
+                        UInt32 inBusNumber,
+                        UInt32 inNumberFrames,
+                        AudioBufferList *ioData) {
+    QSPulse *sound = (__bridge QSPulse *)(inRefCon);
+    double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
+    const int channel = 0;
+    AudioSampleType *buffer = ioData->mBuffers[channel].mData;
+    NSTimeInterval curTime = -[startTime timeIntervalSinceNow];
+    // Generate the samples
+    for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
+        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
+            buffer[frame] = (sound.theta < (M_PI * 2 * sound.duty)) ? (sound.gain * 32767) : (-sound.gain * 32767);
             sound.theta += theta_increment;
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;

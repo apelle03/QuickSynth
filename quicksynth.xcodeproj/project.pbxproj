@@ -26,6 +26,7 @@
 		499ED9501725F0A800440EB7 /* QSPulseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 499ED94F1725F0A800440EB7 /* QSPulseButton.m */; };
 		499ED9541725F0EB00440EB7 /* QSPulsePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 499ED9521725F0EB00440EB7 /* QSPulsePopover.m */; };
 		499ED9551725F0EB00440EB7 /* QSPulsePopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499ED9531725F0EB00440EB7 /* QSPulsePopover.xib */; };
+		499ED9581725F1B900440EB7 /* QSPulse.m in Sources */ = {isa = PBXBuildFile; fileRef = 499ED9571725F1B900440EB7 /* QSPulse.m */; };
 		49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A070EC1718C62A00FC74AE /* QSSoundButton.m */; };
 		49A08E4F1718FEFC00362360 /* QSWaveformPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A08E4D1718FEFC00362360 /* QSWaveformPopover.m */; };
 		49A08E501718FEFC00362360 /* QSWaveformPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSWaveformPopover.xib */; };
@@ -92,6 +93,8 @@
 		499ED9511725F0EB00440EB7 /* QSPulsePopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPulsePopover.h; sourceTree = "<group>"; };
 		499ED9521725F0EB00440EB7 /* QSPulsePopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPulsePopover.m; sourceTree = "<group>"; };
 		499ED9531725F0EB00440EB7 /* QSPulsePopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSPulsePopover.xib; sourceTree = "<group>"; };
+		499ED9561725F1B900440EB7 /* QSPulse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSPulse.h; sourceTree = "<group>"; };
+		499ED9571725F1B900440EB7 /* QSPulse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSPulse.m; sourceTree = "<group>"; };
 		49A070EB1718C62A00FC74AE /* QSSoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSoundButton.h; sourceTree = "<group>"; };
 		49A070EC1718C62A00FC74AE /* QSSoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSoundButton.m; sourceTree = "<group>"; };
 		49A08E4C1718FEFC00362360 /* QSWaveformPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSWaveformPopover.h; sourceTree = "<group>"; };
@@ -249,6 +252,8 @@
 				49F32A4416EEEDA700D8329C /* QSSound.m */,
 				499ED9441725E59E00440EB7 /* QSWaveform.h */,
 				499ED9451725E59E00440EB7 /* QSWaveform.m */,
+				499ED9561725F1B900440EB7 /* QSPulse.h */,
+				499ED9571725F1B900440EB7 /* QSPulse.m */,
 			);
 			name = Score;
 			sourceTree = "<group>";
@@ -494,6 +499,7 @@
 				499ED9491725E8D500440EB7 /* QSWaveformButton.m in Sources */,
 				499ED9501725F0A800440EB7 /* QSPulseButton.m in Sources */,
 				499ED9541725F0EB00440EB7 /* QSPulsePopover.m in Sources */,
+				499ED9581725F1B900440EB7 /* QSPulse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

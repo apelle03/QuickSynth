@@ -42,6 +42,11 @@
     [freqSlider setValue:[freqText.text floatValue]];
 }
 
+- (IBAction)freqTextFinished:(id)sender
+{
+    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+}
+
 - (IBAction)gainSliderChanged:(id)sender
 {
     [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
@@ -49,10 +54,7 @@
 
 - (IBAction)gainTextChanged:(id)sender
 {
-    float value = [gainText.text floatValue];
-    if (value > 1) { value = 1; }
-    else if (value < 0) { value = 0; }
-    [gainSlider setValue:value];
+    [gainSlider setValue:[gainText.text floatValue]];
 }
 
 - (IBAction)gainTextFinished:(id)sender

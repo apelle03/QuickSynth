@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSNumber *ID;
 @property (nonatomic, readwrite) float startTime;
 @property (nonatomic, readwrite) float duration;
+@property (nonatomic, readwrite) float gain;
 
 - (id) initWithID:(NSNumber*)ID;
 

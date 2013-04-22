@@ -10,7 +10,7 @@
 
 @implementation QSSound
 
-@synthesize ID, startTime, duration;
+@synthesize ID, startTime, duration, gain;
 
 - (id)init
 {

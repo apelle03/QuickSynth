@@ -8,11 +8,9 @@
 
 #import "QSPulsePopover.h"
 
-@interface QSPulsePopover ()
-
-@end
-
 @implementation QSPulsePopover
+
+@synthesize apply, cancel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +31,83 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)dutySliderChanged:(id)sender
+{
+    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
+}
+
+- (IBAction)dutyTextChanged:(id)sender
+{
+    [dutySlider setValue:[dutyText.text floatValue]];
+}
+
+- (IBAction)dutyTextFinished:(id)sender
+{
+    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
+}
+
+- (IBAction)freqSliderChanged:(id)sender
+{
+    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+}
+
+- (IBAction)freqTextChanged:(id)sender
+{
+    [freqSlider setValue:[freqText.text floatValue]];
+}
+
+- (IBAction)freqTextFinished:(id)sender
+{
+    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+}
+
+- (IBAction)gainSliderChanged:(id)sender
+{
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
+- (IBAction)gainTextChanged:(id)sender
+{
+    [gainSlider setValue:[gainText.text floatValue]];
+}
+
+- (IBAction)gainTextFinished:(id)sender
+{
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
+- (void)setDuty:(float)duty
+{
+    [dutySlider setValue:duty];
+}
+
+- (float)getDuty
+{
+    return dutySlider.value;
+}
+
+- (void)setFrequency:(float)frequency
+{
+    [freqSlider setValue:frequency];
+    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+}
+
+- (float)getFrequency
+{
+    return freqSlider.value;
+}
+
+- (void)setGain:(float)gain
+{
+    [gainSlider setValue:gain];
+    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+}
+
+- (float)getGain
+{
+    return gainSlider.value;
 }
 
 @end

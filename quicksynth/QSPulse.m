@@ -1,16 +1,16 @@
 //
-//  QSWaveform.m
+//  QSPulse.m
 //  quicksynth
 //
 //  Created by Andrew on 4/22/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#import "QSWaveform.h"
+#import "QSPulse.h"
 
-@implementation QSWaveform
+@implementation QSPulse
 
-@synthesize frequency, waveType, theta;
+@synthesize frequency, duty, theta;
 
 - (id)init
 {

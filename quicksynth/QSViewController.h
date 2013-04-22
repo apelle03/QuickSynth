@@ -14,8 +14,13 @@
 #import "QSWaveformButton.h"
 #import "QSWaveformPopover.h"
 
+#import "QSPulseButton.h"
+#import "QSPulsePopover.h"
+
 #import "QSScore.h"
 #import "QSSound.h"
+#import "QSWaveform.h"
+#import "QSPulse.h"
 #import "QSAudioEngine.h"
 
 @interface QSViewController : UIViewController {
@@ -47,6 +52,7 @@
 @property (nonatomic, retain) UIPopoverController *_optionsController;
 
 @property (nonatomic, retain) QSWaveformPopover *_waveformDetails;
+@property (nonatomic, retain) QSPulsePopover *_pulseDetails;
 
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
