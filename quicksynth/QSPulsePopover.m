@@ -81,6 +81,7 @@
 - (void)setDuty:(float)duty
 {
     [dutySlider setValue:duty];
+    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
 }
 
 - (float)getDuty

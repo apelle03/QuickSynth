@@ -163,6 +163,10 @@
     
     if (control == waveformGeneratorModule) {
         [control setFrame:waveformGeneratorAnchor.frame];
+    } else if (control == pulseGeneratorModule) {
+        [control setFrame:pulseGeneratorAnchor.frame];
+    } else if (control == noiseGeneratorModule) {
+        [control setFrame:noiseGeneratorAnchor.frame];
     } else if (control == envelopeModule) {
         [control setFrame:envelopeAnchor.frame];
     }
