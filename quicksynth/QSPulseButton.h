@@ -7,6 +7,7 @@
 //
 
 #import "QSSoundButton.h"
+#import "QSPulse.h"
 
 @interface QSPulseButton : QSSoundButton
 

@@ -19,13 +19,32 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    // Drawing code
+    [super drawRect:rect];
+    QSPulse *sound = (QSPulse*)super.sound;
+    UIImage *image =[UIImage imageNamed:@"pulse.png"];
+    [image drawInRect:self.bounds];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [UIColor blackColor].CGColor);
+    [[NSString stringWithFormat: @"%.0fHz", sound.frequency]
+                     drawInRect: CGRectInset(self.bounds, 4, 0)
+                       withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                  lineBreakMode: NSLineBreakByCharWrapping
+                      alignment: NSTextAlignmentLeft];
+    [[NSString stringWithFormat: @"%.2f", sound.gain]
+                     drawInRect: CGRectInset(self.bounds, 4, 0)
+                       withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                  lineBreakMode: NSLineBreakByCharWrapping
+                      alignment: NSTextAlignmentRight];
+    [[NSString stringWithFormat: @"%.2f", sound.duty]
+                     drawInRect: CGRectInset(CGRectMake(0, self.bounds.size.height - 20, self.bounds.size.width, 20), 4, 0)
+                       withFont: [UIFont fontWithName:@"Trebuchet MS" size:14]
+                  lineBreakMode: NSLineBreakByCharWrapping
+                      alignment: NSTextAlignmentRight];
+    CGContextStrokePath(context);
 }
-*/
 
 @end
