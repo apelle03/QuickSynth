@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "QSSimpleSlider.h"
+#import "QSNoteSlider.h"
+
 @interface QSPulsePopover : UIViewController {
-    IBOutlet UISlider *dutySlider;
-    IBOutlet UITextField *dutyText;
-    IBOutlet UISlider *freqSlider;
-    IBOutlet UITextField *freqText;
-    IBOutlet UISlider *gainSlider;
-    IBOutlet UITextField *gainText;
+    IBOutlet QSNoteSlider *freqSlider;
+    IBOutlet QSSimpleSlider *gainSlider, *dutySlider;
 }
 
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;

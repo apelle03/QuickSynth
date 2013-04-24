@@ -23,7 +23,21 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+    gainSlider.name = @"Gain";
+    gainSlider.format = @"%1.3f";
+    gainSlider.unit = @"%";
+    gainSlider.min = 0;
+    gainSlider.max = 1;
+    gainSlider.value = .250;
+
+    dutySlider.name = @"Duty";
+    dutySlider.format = @"%1.3f";
+    dutySlider.unit = @"%";
+    dutySlider.min = 0;
+    dutySlider.max = 1;
+    dutySlider.value = .5;
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -33,66 +47,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)dutySliderChanged:(id)sender
-{
-    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
-}
-
-- (IBAction)dutyTextChanged:(id)sender
-{
-    [dutySlider setValue:[dutyText.text floatValue]];
-}
-
-- (IBAction)dutyTextFinished:(id)sender
-{
-    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
-}
-
-- (IBAction)freqSliderChanged:(id)sender
-{
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
-}
-
-- (IBAction)freqTextChanged:(id)sender
-{
-    [freqSlider setValue:[freqText.text floatValue]];
-}
-
-- (IBAction)freqTextFinished:(id)sender
-{
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
-}
-
-- (IBAction)gainSliderChanged:(id)sender
-{
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
-}
-
-- (IBAction)gainTextChanged:(id)sender
-{
-    [gainSlider setValue:[gainText.text floatValue]];
-}
-
-- (IBAction)gainTextFinished:(id)sender
-{
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
-}
-
-- (void)setDuty:(float)duty
-{
-    [dutySlider setValue:duty];
-    [dutyText setText:[NSString stringWithFormat:@"%1.3f", dutySlider.value]];
-}
-
-- (float)getDuty
-{
-    return dutySlider.value;
-}
-
 - (void)setFrequency:(float)frequency
 {
-    [freqSlider setValue:frequency];
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+    freqSlider.value = frequency;
 }
 
 - (float)getFrequency
@@ -102,13 +59,22 @@
 
 - (void)setGain:(float)gain
 {
-    [gainSlider setValue:gain];
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+    gainSlider.value = gain;
 }
 
 - (float)getGain
 {
     return gainSlider.value;
+}
+
+- (void)setDuty:(float)duty
+{
+    dutySlider.value = duty;
+}
+
+- (float)getDuty
+{
+    return dutySlider.value;
 }
 
 @end

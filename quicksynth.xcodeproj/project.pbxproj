@@ -33,6 +33,10 @@
 		49A08E501718FEFC00362360 /* QSWaveformPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSWaveformPopover.xib */; };
 		49A5B70A171A2F3A00199158 /* QSSnapSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A5B709171A2F3A00199158 /* QSSnapSize.m */; };
 		49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A8F1A317178BD1002E3453 /* QSScoreView.m */; };
+		49AA75EB17286F77002BB0D5 /* QSSimpleSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA75EA17286F77002BB0D5 /* QSSimpleSlider.m */; };
+		49AA75ED17286F8F002BB0D5 /* QSSimpleSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AA75EC17286F8F002BB0D5 /* QSSimpleSlider.xib */; };
+		49AA75F017287A8B002BB0D5 /* QSNoteSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA75EF17287A8B002BB0D5 /* QSNoteSlider.m */; };
+		49AA75F217287A9C002BB0D5 /* QSNoteSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AA75F117287A9C002BB0D5 /* QSNoteSlider.xib */; };
 		49AC9EDF1719EF05003450EB /* QSOptionsPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AC9EDD1719EF04003450EB /* QSOptionsPopoverController.m */; };
 		49AC9EE01719EF05003450EB /* QSOptionsPopoverController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */; };
 		49AE8ED7171615C000A84C5A /* QSSoundNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AE8ED6171615C000A84C5A /* QSSoundNode.m */; };
@@ -107,6 +111,12 @@
 		49A5B709171A2F3A00199158 /* QSSnapSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSnapSize.m; sourceTree = "<group>"; };
 		49A8F1A217178BD1002E3453 /* QSScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScoreView.h; sourceTree = "<group>"; };
 		49A8F1A317178BD1002E3453 /* QSScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScoreView.m; sourceTree = "<group>"; };
+		49AA75E917286F77002BB0D5 /* QSSimpleSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSimpleSlider.h; sourceTree = "<group>"; };
+		49AA75EA17286F77002BB0D5 /* QSSimpleSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSimpleSlider.m; sourceTree = "<group>"; };
+		49AA75EC17286F8F002BB0D5 /* QSSimpleSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSSimpleSlider.xib; sourceTree = "<group>"; };
+		49AA75EE17287A8A002BB0D5 /* QSNoteSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNoteSlider.h; sourceTree = "<group>"; };
+		49AA75EF17287A8B002BB0D5 /* QSNoteSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNoteSlider.m; sourceTree = "<group>"; };
+		49AA75F117287A9C002BB0D5 /* QSNoteSlider.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSNoteSlider.xib; sourceTree = "<group>"; };
 		49AC9EDC1719EF04003450EB /* QSOptionsPopoverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSOptionsPopoverController.h; sourceTree = "<group>"; };
 		49AC9EDD1719EF04003450EB /* QSOptionsPopoverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSOptionsPopoverController.m; sourceTree = "<group>"; };
 		49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSOptionsPopoverController.xib; sourceTree = "<group>"; };
@@ -216,6 +226,7 @@
 		49A070EE1718C62F00FC74AE /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				49AA75DE17285719002BB0D5 /* Popover Controls */,
 				499ED94A1725E8DB00440EB7 /* Sound */,
 				499ED94B1725E8E700440EB7 /* Waveform */,
 				499ED94C1725E8EE00440EB7 /* Pulse */,
@@ -229,6 +240,19 @@
 				49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */,
 			);
 			name = Interface;
+			sourceTree = "<group>";
+		};
+		49AA75DE17285719002BB0D5 /* Popover Controls */ = {
+			isa = PBXGroup;
+			children = (
+				49AA75E917286F77002BB0D5 /* QSSimpleSlider.h */,
+				49AA75EA17286F77002BB0D5 /* QSSimpleSlider.m */,
+				49AA75EC17286F8F002BB0D5 /* QSSimpleSlider.xib */,
+				49AA75EE17287A8A002BB0D5 /* QSNoteSlider.h */,
+				49AA75EF17287A8B002BB0D5 /* QSNoteSlider.m */,
+				49AA75F117287A9C002BB0D5 /* QSNoteSlider.xib */,
+			);
+			name = "Popover Controls";
 			sourceTree = "<group>";
 		};
 		49AE8ED8171615DC00A84C5A /* AudioEngine */ = {
@@ -452,6 +476,8 @@
 				499ED9431725E35E00440EB7 /* pulse.png in Resources */,
 				499ED9551725F0EB00440EB7 /* QSPulsePopover.xib in Resources */,
 				499F529417270E8200C0385B /* envelope.png in Resources */,
+				49AA75ED17286F8F002BB0D5 /* QSSimpleSlider.xib in Resources */,
+				49AA75F217287A9C002BB0D5 /* QSNoteSlider.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +530,8 @@
 				499ED9501725F0A800440EB7 /* QSPulseButton.m in Sources */,
 				499ED9541725F0EB00440EB7 /* QSPulsePopover.m in Sources */,
 				499ED9581725F1B900440EB7 /* QSPulse.m in Sources */,
+				49AA75EB17286F77002BB0D5 /* QSSimpleSlider.m in Sources */,
+				49AA75F017287A8B002BB0D5 /* QSNoteSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,6 +23,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    gainSlider.name = @"Gain";
+    gainSlider.format = @"%1.3f";
+    gainSlider.unit = @"%";
+    gainSlider.min = 0;
+    gainSlider.max = 1;
+    gainSlider.value = .250;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -30,36 +37,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)freqSliderChanged:(id)sender
-{
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
-}
-
-- (IBAction)freqTextChanged:(id)sender
-{
-    [freqSlider setValue:[freqText.text floatValue]];
-}
-
-- (IBAction)freqTextFinished:(id)sender
-{
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
-}
-
-- (IBAction)gainSliderChanged:(id)sender
-{
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
-}
-
-- (IBAction)gainTextChanged:(id)sender
-{
-    [gainSlider setValue:[gainText.text floatValue]];
-}
-
-- (IBAction)gainTextFinished:(id)sender
-{
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
 }
 
 - (void)setWaveType:(WaveType)type
@@ -74,19 +51,17 @@
 
 - (void)setFrequency:(float)frequency
 {
-    [freqSlider setValue:frequency];
-    [freqText setText:[NSString stringWithFormat:@"%.0f", freqSlider.value]];
+    noteSlider.value = frequency;
 }
 
 - (float)getFrequency
 {
-    return freqSlider.value;
+    return noteSlider.value;
 }
 
 - (void)setGain:(float)gain
 {
-    [gainSlider setValue:gain];
-    [gainText setText:[NSString stringWithFormat:@"%1.3f", gainSlider.value]];
+    gainSlider.value = gain;
 }
 
 - (float)getGain

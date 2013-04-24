@@ -11,12 +11,13 @@
 #import "WaveType.h"
 #import "QSSound.h"
 
+#import "QSSimpleSlider.h"
+#import "QSNoteSlider.h"
+
 @interface QSWaveformPopover : UIViewController {
     IBOutlet UISegmentedControl *waveSelector;
-    IBOutlet UISlider *freqSlider;
-    IBOutlet UITextField *freqText;
-    IBOutlet UISlider *gainSlider;
-    IBOutlet UITextField *gainText;
+    IBOutlet QSNoteSlider *noteSlider;
+    IBOutlet QSSimpleSlider *gainSlider;
 }
 
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
