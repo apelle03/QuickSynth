@@ -31,6 +31,7 @@
 		49A070ED1718C62A00FC74AE /* QSSoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A070EC1718C62A00FC74AE /* QSSoundButton.m */; };
 		49A08E4F1718FEFC00362360 /* QSWaveformPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A08E4D1718FEFC00362360 /* QSWaveformPopover.m */; };
 		49A08E501718FEFC00362360 /* QSWaveformPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSWaveformPopover.xib */; };
+		49A170CE1728B70A00A9B0CA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A170CD1728B70A00A9B0CA /* Crashlytics.framework */; };
 		49A5B70A171A2F3A00199158 /* QSSnapSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A5B709171A2F3A00199158 /* QSSnapSize.m */; };
 		49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A8F1A317178BD1002E3453 /* QSScoreView.m */; };
 		49AA75EB17286F77002BB0D5 /* QSSimpleSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA75EA17286F77002BB0D5 /* QSSimpleSlider.m */; };
@@ -107,6 +108,7 @@
 		49A08E4D1718FEFC00362360 /* QSWaveformPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSWaveformPopover.m; sourceTree = "<group>"; };
 		49A08E4E1718FEFC00362360 /* QSWaveformPopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSWaveformPopover.xib; sourceTree = "<group>"; };
 		49A08E5117190DF000362360 /* WaveType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaveType.h; sourceTree = "<group>"; };
+		49A170CD1728B70A00A9B0CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		49A5B708171A2F3A00199158 /* QSSnapSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSnapSize.h; sourceTree = "<group>"; };
 		49A5B709171A2F3A00199158 /* QSSnapSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSnapSize.m; sourceTree = "<group>"; };
 		49A8F1A217178BD1002E3453 /* QSScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScoreView.h; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				49F2127216EEA6F100721674 /* UIKit.framework in Frameworks */,
 				49F2127416EEA6F100721674 /* Foundation.framework in Frameworks */,
 				49F2127616EEA6F100721674 /* CoreGraphics.framework in Frameworks */,
+				49A170CE1728B70A00A9B0CA /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +186,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49936B6D1728ACB4005C6ACD /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				49F32A4316EEEDA700D8329C /* QSSound.h */,
+				49F32A4416EEEDA700D8329C /* QSSound.m */,
+				499ED9441725E59E00440EB7 /* QSWaveform.h */,
+				499ED9451725E59E00440EB7 /* QSWaveform.m */,
+				499ED9561725F1B900440EB7 /* QSPulse.h */,
+				499ED9571725F1B900440EB7 /* QSPulse.m */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		49936B6E1728ACC2005C6ACD /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				49F32A4616EEF81000D8329C /* QSModifier.h */,
+				49F32A4716EEF81000D8329C /* QSModifier.m */,
+			);
+			name = Modifiers;
+			sourceTree = "<group>";
+		};
 		499ED94A1725E8DB00440EB7 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,17 +294,11 @@
 		49AE8ED9171615F800A84C5A /* Score */ = {
 			isa = PBXGroup;
 			children = (
+				49936B6E1728ACC2005C6ACD /* Modifiers */,
+				49936B6D1728ACB4005C6ACD /* Sounds */,
 				49F32A4016EEECBE00D8329C /* QSScore.h */,
 				49F32A4116EEECBE00D8329C /* QSScore.m */,
-				49F32A4616EEF81000D8329C /* QSModifier.h */,
-				49F32A4716EEF81000D8329C /* QSModifier.m */,
 				49A08E5117190DF000362360 /* WaveType.h */,
-				49F32A4316EEEDA700D8329C /* QSSound.h */,
-				49F32A4416EEEDA700D8329C /* QSSound.m */,
-				499ED9441725E59E00440EB7 /* QSWaveform.h */,
-				499ED9451725E59E00440EB7 /* QSWaveform.m */,
-				499ED9561725F1B900440EB7 /* QSPulse.h */,
-				499ED9571725F1B900440EB7 /* QSPulse.m */,
 			);
 			name = Score;
 			sourceTree = "<group>";
@@ -291,6 +310,7 @@
 				499ED92B1725C32D00440EB7 /* icon.png */,
 				499ED9291725C2E500440EB7 /* Default-Landscape@2x~ipad.png */,
 				499ED9271725C2DC00440EB7 /* Default-Landscape~ipad.png */,
+				49A170CD1728B70A00A9B0CA /* Crashlytics.framework */,
 				49DEFE121703BE8C004EA2AE /* CoreAudio.framework */,
 				49DEFE101703BE7C004EA2AE /* AudioToolbox.framework */,
 				49DEFE0E1703B64D004EA2AE /* AudioUnit.framework */,
@@ -391,6 +411,7 @@
 				49F2126A16EEA6F100721674 /* Sources */,
 				49F2126B16EEA6F100721674 /* Frameworks */,
 				49F2126C16EEA6F100721674 /* Resources */,
+				49A170CC1728B6D600A9B0CA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -492,6 +513,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		49A170CC1728B6D600A9B0CA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 2696b6180c803c2901bd36859ff21f19420506cb";
+		};
 		49F2129216EEA6F100721674 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -642,6 +676,10 @@
 		49F212A716EEA6F100721674 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "quicksynth/quicksynth-Prefix.pch";
 				INFOPLIST_FILE = "quicksynth/quicksynth-Info.plist";
@@ -653,6 +691,10 @@
 		49F212A816EEA6F100721674 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "quicksynth/quicksynth-Prefix.pch";
 				INFOPLIST_FILE = "quicksynth/quicksynth-Info.plist";

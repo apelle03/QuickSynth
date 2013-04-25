@@ -11,11 +11,10 @@
 @implementation QSModifier
 
 @synthesize ID;
-@synthesize width;
+@synthesize startPercent, endPercent;
 
 - (id)init
 {
-    self.width = [NSNumber numberWithFloat:1.0];
     return self;
 }
 

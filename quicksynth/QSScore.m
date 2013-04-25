@@ -17,6 +17,10 @@
     return self;
 }
 
+//======================================================
+// SOUNDS
+//======================================================
+// Add Sounds
 - (NSNumber*)addSound
 {
     [sounds setObject:[[QSSound alloc] initWithID:nextID] forKey:nextID];
@@ -53,7 +57,8 @@
     return thisID;
 }
 
-- (QSSound*)getSoundForID:(NSNumber *)soundID
+// Get Sounds
+- (QSSound*)getSoundForID:(NSNumber*)soundID
 {
     return [sounds objectForKey:soundID];
 }
@@ -68,24 +73,50 @@
     return [sounds allValues];
 }
 
-- (void)removeSoundForID:(NSNumber *)soundID
+// Remove Sounds
+- (void)removeSoundForID:(NSNumber*)soundID
 {
     [sounds removeObjectForKey:soundID];
 }
 
+//======================================================
+// MODIFIERS
+//======================================================
+// Add Modifiers
 - (NSNumber*)addModifierToSound:(NSNumber*)soundID
 {
     QSSound *sound = [sounds objectForKey:soundID];
     [sound addModifier:[[QSModifier alloc] initWithID:nextID]];
-
+    
     NSNumber *thisID = nextID;
     nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
     return thisID;
 }
 
+- (NSNumber*)addEnvelopeToSound:(NSNumber*)soundID
+{
+    
+}
+
+// Get Sounds
 - (QSModifier*)getModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID
 {
     return [[sounds objectForKey:soundID] getModifier:modifierID];
+}
+
+- (NSArray*)getModifierIDsForSound:(NSNumber*)soundID {
+    return [[sounds objectForKey:soundID] getModifierIDs];
+}
+
+- (NSArray*)getModifiersForSound:(NSNumber*)soundID
+{
+    return [[sounds objectForKey:soundID] getModifiers];
+}
+
+// Remove Sounds
+- (void)removeModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID
+{
+    [[sounds objectForKey:soundID] removeModifier:modifierID];
 }
 
 @end

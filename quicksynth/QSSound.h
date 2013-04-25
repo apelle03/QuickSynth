@@ -26,6 +26,8 @@
 
 - (void) addModifier:(QSModifier*)modifier;
 - (QSModifier*) getModifier:(NSNumber*)modifierID;
+- (NSArray*) getModifierIDs;
 - (NSArray*) getModifiers;
+- (void) removeModifier:(NSNumber*)modifierID;
 
 @end

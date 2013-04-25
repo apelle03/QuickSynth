@@ -21,18 +21,32 @@
 
 - (id)init;
 
-- (NSNumber*)addSound;
+//======================================================
+// SOUNDS
+//======================================================
+// Add Sounds
+//- (NSNumber*)addSound;
 - (NSNumber*)addWaveform;
 - (NSNumber*)addPulse;
 - (NSNumber*)addNoise;
-
+// Get Sounds
 - (QSSound*)getSoundForID:(NSNumber*)soundID;
 - (NSArray*)getSoundIDs;
 - (NSArray*)getSounds;
-
+// Remove Sounds
 - (void)removeSoundForID:(NSNumber*)soundID;
 
-- (NSNumber*)addModifierToSound:(NSNumber*)soundID;
+//======================================================
+// MODIFIERS
+//======================================================
+// Add Modifiers
+//- (NSNumber*)addModifierToSound:(NSNumber*)soundID;
+- (NSNumber*)addEnvelopeToSound:(NSNumber*)soundID;
+// Get Sounds
 - (QSModifier*)getModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID;
+- (NSArray*)getModifierIDsForSound:(NSNumber*)soundID;
+- (NSArray*)getModifiersForSound:(NSNumber*)soundID;
+// Remove Sounds
+- (void)removeModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID;
 
 @end

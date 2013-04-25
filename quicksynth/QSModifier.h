@@ -11,7 +11,8 @@
 @interface QSModifier : NSObject
 
 @property (nonatomic, retain) NSNumber * ID;
-@property (nonatomic, retain) NSNumber * width;
+@property (nonatomic) float startPercent;
+@property (nonatomic) float endPercent;
 
 - (id)initWithID:(NSNumber*)ID;
 

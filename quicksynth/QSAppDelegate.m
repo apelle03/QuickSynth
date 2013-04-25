@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
+#import <Crashlytics/Crashlytics.h>
+
 #import "QSAppDelegate.h"
 
 #import "QSViewController.h"
@@ -14,6 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"2696b6180c803c2901bd36859ff21f19420506cb"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[QSViewController alloc] initWithNibName:@"QSViewController" bundle:nil];
