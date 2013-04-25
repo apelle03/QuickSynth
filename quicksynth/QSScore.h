@@ -13,6 +13,7 @@
 #import "QSPulse.h"
 
 #import "QSModifier.h"
+#import "QSEnvelope.h"
 
 @interface QSScore : NSObject {
     NSNumber *nextID;

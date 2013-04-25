@@ -75,7 +75,7 @@
 
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent *)event
 {
-    prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    soundPrevPoint = [[[event allTouches] anyObject] locationInView:self.view];
     [self.view bringSubviewToFront:sender];
 }
 
@@ -84,10 +84,10 @@
     CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
     UIControl *control = sender;
     CGPoint newCenter;
-    newCenter.x = control.center.x + (newPoint.x - prevPoint.x);
-    newCenter.y = control.center.y + (newPoint.y - prevPoint.y);
+    newCenter.x = control.center.x + (newPoint.x - soundPrevPoint.x);
+    newCenter.y = control.center.y + (newPoint.y - soundPrevPoint.y);
     control.center = newCenter;
-    prevPoint = newPoint;
+    soundPrevPoint = newPoint;
 }
 
 - (IBAction)toolboxModuleReleased:(id)sender withEvent:(UIEvent *)event
@@ -136,27 +136,36 @@
             [scoreView addObject:soundButton forKey:soundID];
             
         } else if (control == envelopeModule) {
-            /*
-            for (UIButton *sound in [soundItems allValues]) {
-                if (CGRectIntersectsRect(control.frame, sound.frame)) {
-                    int modifierID = [[score addModifierToSound:[NSNumber numberWithInt:sound.tag]] intValue];
-                    UIButton *modifier = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                    [modifier setTag:modifierID];
-                    [modifier setTitle:[NSString stringWithFormat:@"%d", modifierID] forState:UIControlStateNormal];
-                    [self.view insertSubview:modifier aboveSubview:control];
-                    [modifierIetms setObject:modifier forKey:[NSNumber numberWithInt:modifierID]];
-                    
-                    float offsetX = 0;
-                    for (QSModifier *m in [[score getSoundForID:[NSNumber numberWithInt:sound.tag]] getModifiers]) {
-                        float width = [m.width floatValue];
-                        UIButton *mView = [modifierIetms objectForKey:m.ID];
-                        [mView setFrame:CGRectMake(sound.frame.origin.x + offsetX, sound.frame.origin.y + sound.frame.size.height,
-                                                   sound.frame.size.width * width, 20)];
-                        offsetX += sound.frame.size.width * width;
+            for (QSSoundButton *soundButton in [soundItems allValues]) {
+                if (CGRectIntersectsRect(control.frame, soundButton.frame)) {
+                    NSNumber *soundID = soundButton.sound.ID;
+                    NSNumber *modifierID;
+                    QSModifierButton *modifierButton;
+                    if (control == envelopeModule) {
+                        int modNum = [score getModifiersForSound:soundID].count;
+                        modifierID = [score addEnvelopeToSound:soundID];
+                        // Set modifier default properties
+                        QSEnvelope *modifier = (QSEnvelope*)[score getModifierForSound:soundID withID:modifierID];
+                        modifier.startPercent = 0;
+                        modifier.endPercent = 1;
+                        modifierButton = [[QSEnvelopeButton alloc] initWithFrame:CGRectMake(soundButton.frame.origin.x, soundButton.frame.origin.y + soundButton.frame.size.height + 100 * modNum, soundButton.frame.size.width, 200)];
                     }
+                    
+                    // Add modifier button to view
+                    modifierButton.modifier = [score getModifierForSound:soundID withID:modifierID];
+                    [modifierButton setTag:[modifierID intValue]];
+                    [modifierButton addTarget:self action:@selector(modifierModulePressed:withEvent:) forControlEvents:UIControlEventTouchDown];
+                    [modifierButton addTarget:self action:@selector(modifierModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
+                    [modifierButton addTarget:self action:@selector(modifierModuleMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
+                    [modifierButton addTarget:self action:@selector(modifierModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpInside];
+                    [modifierButton addTarget:self action:@selector(modifierModuleReleased:withEvent:) forControlEvents:UIControlEventTouchUpOutside];
+                    [self.view insertSubview:modifierButton belowSubview:soundButton];
+                    
+                    // Add modifier module to scoreView
+                    [soundButton addModifierButton:modifierButton];
+                    [soundButton placeModifiers];
                 }
             }
-            */
         }
         [audioEngine update];
     }
@@ -178,52 +187,42 @@
 
 - (IBAction)scoreModulePressed:(id)sender withEvent:(UIEvent *)event
 {
-    prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
-    moved = false;
+    soundPrevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    soundMoved = false;
     UIControl *control = (UIControl*)sender;
-    front = false;
-    back = false;
+    soundFront = false;
+    soundBack = false;
     if ([[[event allTouches] anyObject] locationInView:control].x < 20) {
-        front = true;
+        soundFront = true;
     } else if ([[[event allTouches] anyObject] locationInView:control].x > control.bounds.size.width - 20) {
-        back = true;
+        soundBack = true;
     }
     [self.view bringSubviewToFront:control];
 }
 
 - (IBAction)scoreModuleMoved:(id)sender withEvent:(UIEvent *)event
 {
-    moved = true;
+    soundMoved = true;
     CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
     UIControl *control = sender;
-    int deltaX = newPoint.x - prevPoint.x;
-    int deltaY = newPoint.y - prevPoint.y;
+    int deltaX = newPoint.x - soundPrevPoint.x;
+    int deltaY = newPoint.y - soundPrevPoint.y;
     
-    if (!front && !back) {
+    if (!soundFront && !soundBack) {
         CGPoint newCenter;
         newCenter.x = control.center.x + deltaX;
         newCenter.y = control.center.y + deltaY;
         control.center = newCenter;
-    } else if (front) {
+    } else if (soundFront) {
         [control setFrame:CGRectMake(control.frame.origin.x + deltaX, control.frame.origin.y + deltaY,
                                      control.frame.size.width - deltaX, control.frame.size.height)];
         [control setNeedsDisplay];
-    } else if (back) {
+    } else if (soundBack) {
         [control setFrame:CGRectMake(control.frame.origin.x, control.frame.origin.y + deltaY,
                                      control.frame.size.width + deltaX, control.frame.size.height)];
         [control setNeedsDisplay];
     }
-    
-    /*
-    for (QSModifier *modifier in [[score getSoundForID:[NSNumber numberWithInt:control.tag]] getModifiers]) {
-        UIButton *modifierView = [modifierIetms objectForKey:modifier.ID];
-        CGPoint newCenter;
-        newCenter.x = modifierView.center.x + deltaX;
-        newCenter.y = modifierView.center.y + deltaY;
-        modifierView.center = newCenter;
-    }
-    */
-    prevPoint = newPoint;
+    soundPrevPoint = newPoint;
 }
 
 - (IBAction)scoreModuleReleased:(id)sender withEvent:(UIEvent *)event
@@ -234,7 +233,7 @@
     CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
     CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
     
-    if (!moved) {
+    if (!soundMoved) {
         _soundDetailsButton = control;
         if ([control isKindOfClass:[QSWaveformButton class]]) {
             [_soundDetailsController setContentViewController:_waveformDetails];
@@ -264,6 +263,10 @@
         [self.view insertSubview:control belowSubview:toolbar];
     } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
         [score removeSoundForID:control.sound.ID];
+        for (QSModifierButton *modifierButton in [control getModifierButtons]) {
+            [modifierButton removeFromSuperview];
+        }
+        [soundItems removeObjectForKey:control.sound.ID];
         [control removeFromSuperview];
         [audioEngine update];
     } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
@@ -276,21 +279,117 @@
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------
+// MODIFIER MODUE MOVEMENT
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+- (IBAction)modifierModulePressed:(id)sender withEvent:(UIEvent *)event
+{
+    modifierPrevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    modifierMoved = false;
+    UIControl *control = (UIControl*)sender;
+    modifierFront = false;
+    modifierBack = false;
+    if ([[[event allTouches] anyObject] locationInView:control].x < 20) {
+        modifierFront = true;
+    } else if ([[[event allTouches] anyObject] locationInView:control].x > control.bounds.size.width - 20) {
+        modifierBack = true;
+    }
+    [self.view bringSubviewToFront:control];
+}
+
+- (IBAction)modifierModuleMoved:(id)sender withEvent:(UIEvent *)event
+{
+    modifierMoved = true;
+    CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    UIControl *control = sender;
+    int deltaX = newPoint.x - modifierPrevPoint.x;
+    int deltaY = newPoint.y - modifierPrevPoint.y;
+    
+    if (!modifierFront && !modifierBack) {
+        CGPoint newCenter;
+        newCenter.x = control.center.x + deltaX;
+        newCenter.y = control.center.y + deltaY;
+        control.center = newCenter;
+    } else if (modifierFront) {
+        [control setFrame:CGRectMake(control.frame.origin.x + deltaX, control.frame.origin.y + deltaY,
+                                     control.frame.size.width - deltaX, control.frame.size.height)];
+        [control setNeedsDisplay];
+    } else if (modifierBack) {
+        [control setFrame:CGRectMake(control.frame.origin.x, control.frame.origin.y + deltaY,
+                                     control.frame.size.width + deltaX, control.frame.size.height)];
+        [control setNeedsDisplay];
+    }
+    modifierPrevPoint = newPoint;
+}
+
+- (IBAction)modifierModuleReleased:(id)sender withEvent:(UIEvent *)event
+{
+    QSModifierButton *control = sender;
+    
+    CGPoint touchPoint = [[[event touchesForView:control] anyObject] locationInView:self.view];
+    CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
+    CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
+    
+    if (!modifierMoved) {/*
+        _soundDetailsButton = control;
+        if ([control isKindOfClass:[QSWaveformButton class]]) {
+            [_soundDetailsController setContentViewController:_waveformDetails];
+            [_waveformDetails setWaveType:((QSWaveform*)control.sound).waveType];
+            [_waveformDetails setFrequency:((QSWaveform*)control.sound).frequency];
+            [_waveformDetails setGain:((QSWaveform*)control.sound).gain];
+            [_waveformDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_waveformDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_soundDetailsController setPopoverContentSize:_waveformDetails.view.bounds.size];
+        } else if ([control isKindOfClass:[QSPulseButton class]]) {
+            [_soundDetailsController setContentViewController:_pulseDetails];
+            [_pulseDetails setDuty:((QSPulse*)control.sound).duty];
+            [_pulseDetails setFrequency:((QSPulse*)control.sound).frequency];
+            [_pulseDetails setGain:((QSPulse*)control.sound).gain];
+            [_pulseDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_pulseDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_soundDetailsController setPopoverContentSize:_pulseDetails.view.bounds.size];
+        }/* else if ([control isKindOfClass:[qsNoiseButton class]]) {
+          
+          }
+          */
+#warning TODO: add types here
+/*
+        [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
+        
+        [control removeFromSuperview];
+        [self.view insertSubview:control belowSubview:toolbar];*/
+    } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
+        [score removeModifierForSound:control.modifier.ID withID:control.modifier.soundID];
+        [[soundItems objectForKey:control.modifier.soundID] removeModifierButton:control];
+        [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
+        [control removeFromSuperview];
+        [audioEngine update];
+    } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
+    } else {
+        //[self snapToGrid:control];
+        [control removeFromSuperview];
+        [self.view insertSubview:control belowSubview:toolbar];
+        [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
+        [control setNeedsDisplay];
+    }
+}
+
+//---------------------------------------------------------------------------------------------------------------------------------------
 // SCORE VIEW MOVEMENT
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 - (IBAction)scoreViewPressed:(id)sender withEvent:(UIEvent *)event
 {
-    prevPoint = [[[event allTouches] anyObject] locationInView:self.view];
+    soundPrevPoint = [[[event allTouches] anyObject] locationInView:self.view];
 }
 
 - (IBAction)scoreViewMoved:(id)sender withEvent:(UIEvent *)event
 {
     CGPoint newPoint = [[[event allTouches] anyObject] locationInView:self.view];
-    int deltaX = newPoint.x - prevPoint.x;
-    int deltaY = newPoint.y - prevPoint.y;
+    int deltaX = newPoint.x - soundPrevPoint.x;
+    int deltaY = newPoint.y - soundPrevPoint.y;
     [scoreView scroll:CGPointMake(deltaX, deltaY)];
-    prevPoint = newPoint;
+    soundPrevPoint = newPoint;
 }
 
 - (IBAction)scoreViewReleased:(id)sender withEvent:(UIEvent *)event

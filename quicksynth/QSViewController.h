@@ -7,20 +7,29 @@
 //
 
 #import <UIKit/UIKit.h>
-
+// UI
 #import "QSScoreView.h"
 #import "QSOptionsPopoverController.h"
 
+#import "QSSoundButton.h"
 #import "QSWaveformButton.h"
 #import "QSWaveformPopover.h"
-
 #import "QSPulseButton.h"
 #import "QSPulsePopover.h"
 
+#import "QSModifierButton.h"
+#import "QSEnvelopeButton.h"
+
+// AUDIO
 #import "QSScore.h"
+
 #import "QSSound.h"
 #import "QSWaveform.h"
 #import "QSPulse.h"
+
+#import "QSModifier.h"
+#import "QSEnvelope.h"
+
 #import "QSAudioEngine.h"
 
 @interface QSViewController : UIViewController {
@@ -38,8 +47,11 @@
     
     float snapFraction;
     
-    CGPoint prevPoint;
-    Boolean moved, front, back;
+    CGPoint soundPrevPoint;
+    Boolean soundMoved, soundFront, soundBack;
+    
+    CGPoint modifierPrevPoint;
+    Boolean modifierMoved, modifierFront, modifierBack;
     
     NSMutableDictionary *soundItems;
     NSMutableDictionary *modifierIetms;

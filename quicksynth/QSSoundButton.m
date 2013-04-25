@@ -12,30 +12,63 @@
 
 @synthesize sound;
 
-@synthesize _border;
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        modifiers = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setOpaque:FALSE];
-        _border = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(self.bounds, 1, 1) cornerRadius:10];
+        modifiers = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
+- (void)addModifierButton:(QSModifierButton*)modifierButton
 {
-    [super drawRect:rect];
-    
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-    CGContextSetLineWidth(context, 2.0);
-    
-    _border = [UIBezierPath bezierPathWithRoundedRect:CGRectInset(self.bounds, 1, 1) cornerRadius:10];
-    [_border fill];
-    [_border stroke];
+    NSLog(@"add mod");
+    [modifiers addObject:modifierButton];
+}
+
+- (NSArray*)getModifierButtons
+{
+    return modifiers;
+}
+
+- (void)removeModifierButton:(QSModifierButton*)modifierButton
+{
+    [modifiers removeObject:modifierButton];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    [self placeModifiers];
+}
+
+- (void)setCenter:(CGPoint)center
+{
+    [super setCenter:center];
+    [self placeModifiers];
+}
+
+- (void)placeModifiers
+{
+    int i = 0;
+    for (QSModifierButton *modifierButton in modifiers) {
+        [modifierButton setFrame:CGRectMake(self.frame.origin.x + self.frame.size.width * modifierButton.modifier.startPercent,
+                                            self.frame.origin.y + self.frame.size.height + 20 * i,
+                                            self.frame.size.width * (modifierButton.modifier.endPercent - modifierButton.modifier.startPercent),
+                                            20)];
+        i++;
+        [modifierButton setNeedsDisplay];
+    }
 }
 
 @end

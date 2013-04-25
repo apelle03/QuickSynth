@@ -87,6 +87,7 @@
 {
     QSSound *sound = [sounds objectForKey:soundID];
     [sound addModifier:[[QSModifier alloc] initWithID:nextID]];
+    [self getModifierForSound:soundID withID:nextID].soundID = soundID;
     
     NSNumber *thisID = nextID;
     nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
@@ -95,7 +96,13 @@
 
 - (NSNumber*)addEnvelopeToSound:(NSNumber*)soundID
 {
+    QSSound *sound = [sounds objectForKey:soundID];
+    [sound addModifier:[[QSEnvelope alloc] initWithID:nextID]];
+    [self getModifierForSound:soundID withID:nextID].soundID = soundID;
     
+    NSNumber *thisID = nextID;
+    nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
+    return thisID;
 }
 
 // Get Sounds

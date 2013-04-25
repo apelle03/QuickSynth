@@ -33,6 +33,10 @@
 		49A08E501718FEFC00362360 /* QSWaveformPopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A08E4E1718FEFC00362360 /* QSWaveformPopover.xib */; };
 		49A170CE1728B70A00A9B0CA /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49A170CD1728B70A00A9B0CA /* Crashlytics.framework */; };
 		49A5B70A171A2F3A00199158 /* QSSnapSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A5B709171A2F3A00199158 /* QSSnapSize.m */; };
+		49A643CF1729ADCB004E893E /* QSEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A643CE1729ADCB004E893E /* QSEnvelope.m */; };
+		49A643D31729AEBB004E893E /* QSModifierButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A643D21729AEBB004E893E /* QSModifierButton.m */; };
+		49A643D71729AF2A004E893E /* QSEnvelopeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A643D61729AF2A004E893E /* QSEnvelopeButton.m */; };
+		49A643DA1729B62D004E893E /* QSButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A643D91729B62D004E893E /* QSButton.m */; };
 		49A8F1A417178BD1002E3453 /* QSScoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A8F1A317178BD1002E3453 /* QSScoreView.m */; };
 		49AA75EB17286F77002BB0D5 /* QSSimpleSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 49AA75EA17286F77002BB0D5 /* QSSimpleSlider.m */; };
 		49AA75ED17286F8F002BB0D5 /* QSSimpleSlider.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49AA75EC17286F8F002BB0D5 /* QSSimpleSlider.xib */; };
@@ -111,6 +115,14 @@
 		49A170CD1728B70A00A9B0CA /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		49A5B708171A2F3A00199158 /* QSSnapSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSnapSize.h; sourceTree = "<group>"; };
 		49A5B709171A2F3A00199158 /* QSSnapSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSnapSize.m; sourceTree = "<group>"; };
+		49A643CD1729ADCB004E893E /* QSEnvelope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEnvelope.h; sourceTree = "<group>"; };
+		49A643CE1729ADCB004E893E /* QSEnvelope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSEnvelope.m; sourceTree = "<group>"; };
+		49A643D11729AEBB004E893E /* QSModifierButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSModifierButton.h; sourceTree = "<group>"; };
+		49A643D21729AEBB004E893E /* QSModifierButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSModifierButton.m; sourceTree = "<group>"; };
+		49A643D51729AF2A004E893E /* QSEnvelopeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSEnvelopeButton.h; sourceTree = "<group>"; };
+		49A643D61729AF2A004E893E /* QSEnvelopeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSEnvelopeButton.m; sourceTree = "<group>"; };
+		49A643D81729B62D004E893E /* QSButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSButton.h; sourceTree = "<group>"; };
+		49A643D91729B62D004E893E /* QSButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSButton.m; sourceTree = "<group>"; };
 		49A8F1A217178BD1002E3453 /* QSScoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSScoreView.h; sourceTree = "<group>"; };
 		49A8F1A317178BD1002E3453 /* QSScoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSScoreView.m; sourceTree = "<group>"; };
 		49AA75E917286F77002BB0D5 /* QSSimpleSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSimpleSlider.h; sourceTree = "<group>"; };
@@ -204,6 +216,8 @@
 			children = (
 				49F32A4616EEF81000D8329C /* QSModifier.h */,
 				49F32A4716EEF81000D8329C /* QSModifier.m */,
+				49A643CD1729ADCB004E893E /* QSEnvelope.h */,
+				49A643CE1729ADCB004E893E /* QSEnvelope.m */,
 			);
 			name = Modifiers;
 			sourceTree = "<group>";
@@ -211,6 +225,9 @@
 		499ED94A1725E8DB00440EB7 /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				499ED94B1725E8E700440EB7 /* Waveform */,
+				499ED94C1725E8EE00440EB7 /* Pulse */,
+				499ED94D1725E8F300440EB7 /* Noise */,
 				49A070EB1718C62A00FC74AE /* QSSoundButton.h */,
 				49A070EC1718C62A00FC74AE /* QSSoundButton.m */,
 			);
@@ -252,10 +269,10 @@
 			isa = PBXGroup;
 			children = (
 				49AA75DE17285719002BB0D5 /* Popover Controls */,
+				49A643D81729B62D004E893E /* QSButton.h */,
+				49A643D91729B62D004E893E /* QSButton.m */,
 				499ED94A1725E8DB00440EB7 /* Sound */,
-				499ED94B1725E8E700440EB7 /* Waveform */,
-				499ED94C1725E8EE00440EB7 /* Pulse */,
-				499ED94D1725E8F300440EB7 /* Noise */,
+				49A643D01729AE8A004E893E /* Modifier */,
 				49A8F1A217178BD1002E3453 /* QSScoreView.h */,
 				49A8F1A317178BD1002E3453 /* QSScoreView.m */,
 				49A5B708171A2F3A00199158 /* QSSnapSize.h */,
@@ -265,6 +282,25 @@
 				49AC9EDE1719EF05003450EB /* QSOptionsPopoverController.xib */,
 			);
 			name = Interface;
+			sourceTree = "<group>";
+		};
+		49A643D01729AE8A004E893E /* Modifier */ = {
+			isa = PBXGroup;
+			children = (
+				49A643D41729AF04004E893E /* Envelope */,
+				49A643D11729AEBB004E893E /* QSModifierButton.h */,
+				49A643D21729AEBB004E893E /* QSModifierButton.m */,
+			);
+			name = Modifier;
+			sourceTree = "<group>";
+		};
+		49A643D41729AF04004E893E /* Envelope */ = {
+			isa = PBXGroup;
+			children = (
+				49A643D51729AF2A004E893E /* QSEnvelopeButton.h */,
+				49A643D61729AF2A004E893E /* QSEnvelopeButton.m */,
+			);
+			name = Envelope;
 			sourceTree = "<group>";
 		};
 		49AA75DE17285719002BB0D5 /* Popover Controls */ = {
@@ -344,12 +380,12 @@
 		49F2127716EEA6F100721674 /* quicksynth */ = {
 			isa = PBXGroup;
 			children = (
-				49A070EE1718C62F00FC74AE /* Interface */,
 				49F2128016EEA6F100721674 /* QSAppDelegate.h */,
 				49F2128116EEA6F100721674 /* QSAppDelegate.m */,
 				49F2128916EEA6F100721674 /* QSViewController.h */,
 				49F2128A16EEA6F100721674 /* QSViewController.m */,
 				49F2128C16EEA6F100721674 /* QSViewController.xib */,
+				49A070EE1718C62F00FC74AE /* Interface */,
 				49AE8ED9171615F800A84C5A /* Score */,
 				49AE8ED8171615DC00A84C5A /* AudioEngine */,
 				49F2127816EEA6F100721674 /* Supporting Files */,
@@ -566,6 +602,10 @@
 				499ED9581725F1B900440EB7 /* QSPulse.m in Sources */,
 				49AA75EB17286F77002BB0D5 /* QSSimpleSlider.m in Sources */,
 				49AA75F017287A8B002BB0D5 /* QSNoteSlider.m in Sources */,
+				49A643CF1729ADCB004E893E /* QSEnvelope.m in Sources */,
+				49A643D31729AEBB004E893E /* QSModifierButton.m in Sources */,
+				49A643D71729AF2A004E893E /* QSEnvelopeButton.m in Sources */,
+				49A643DA1729B62D004E893E /* QSButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

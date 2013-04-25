@@ -8,12 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "QSButton.h"
+#import "QSModifierButton.h"
+
 #import "QSSound.h"
 
-@interface QSSoundButton : UIControl
+@interface QSSoundButton : QSButton {
+    NSMutableArray *modifiers;
+}
 
 @property (nonatomic, retain) QSSound *sound;
 
-@property (nonatomic, retain) UIBezierPath *_border;
+- (void)addModifierButton:(QSModifierButton*)modifierButton;
+- (NSArray*)getModifierButtons;
+- (void)removeModifierButton:(QSModifierButton*)modifierButton;
+
+- (void)placeModifiers;
 
 @end

@@ -11,6 +11,7 @@
 @interface QSModifier : NSObject
 
 @property (nonatomic, retain) NSNumber * ID;
+@property (nonatomic, retain) NSNumber * soundID;
 @property (nonatomic) float startPercent;
 @property (nonatomic) float endPercent;
 
