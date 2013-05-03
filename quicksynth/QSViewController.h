@@ -42,8 +42,11 @@
     // Modifiers
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
     
+    // Trash
+    IBOutlet UIButton *trash;
+    
     IBOutlet UIToolbar *toolbar;
-    IBOutlet UIBarButtonItem *trash, *save, *option;
+    IBOutlet UIBarButtonItem *option;
     
     float snapFraction;
     
@@ -68,5 +71,7 @@
 
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
+
+@property (nonatomic, retain) UITapGestureRecognizer *_resetZeroGesture;
 
 @end

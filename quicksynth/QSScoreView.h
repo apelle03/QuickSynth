@@ -33,5 +33,6 @@
 - (float)getX:(float)x ForFraction:(float)fraction;
 
 - (void)scroll:(CGPoint)offset;
+- (void)resetZero:(float)offset;
 
 @end

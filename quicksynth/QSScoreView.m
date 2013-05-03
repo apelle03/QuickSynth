@@ -161,6 +161,11 @@
     [self setNeedsDisplay];
 }
 
+- (void)resetZero:(float)offset
+{
+    _offset.x = offset;
+}
+
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];

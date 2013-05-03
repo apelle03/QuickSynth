@@ -21,6 +21,8 @@
 @synthesize _soundDetailsController;
 @synthesize _soundDetailsButton;
 
+@synthesize _resetZeroGesture;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,6 +46,11 @@
     _pulseDetails = [[QSPulsePopover alloc] init];
     
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_waveformDetails];
+    
+    _resetZeroGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetZero:)];
+    [_resetZeroGesture setNumberOfTapsRequired:2];
+    [_resetZeroGesture setNumberOfTouchesRequired:1];
+    [scoreView addGestureRecognizer:_resetZeroGesture];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,7 +101,7 @@
 {
     UIControl *control = sender;
     
-    if (CGRectIntersectsRect(control.frame, scoreView.frame)) {
+    if (CGRectIntersectsRect(control.frame, scoreView.frame) && !CGRectIntersectsRect(control.frame, trash.frame)) {
         if (control == waveformGeneratorModule || control == pulseGeneratorModule) {// || control == noiseGeneratorModule) {
             // Add sound to score
             NSNumber *soundID;
@@ -230,8 +237,6 @@
     QSSoundButton *control = sender;
     
     CGPoint touchPoint = [[[event touchesForView:control] anyObject] locationInView:self.view];
-    CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
-    CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
     
     if (!soundMoved) {
         _soundDetailsButton = control;
@@ -261,7 +266,7 @@
         
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
-    } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
+    } else if (CGRectIntersectsRect(control.frame, trash.frame) || CGRectContainsRect(control.frame, toolbox.frame)) {
         [score removeSoundForID:control.sound.ID];
         for (QSModifierButton *modifierButton in [control getModifierButtons]) {
             [modifierButton removeFromSuperview];
@@ -269,11 +274,20 @@
         [soundItems removeObjectForKey:control.sound.ID];
         [control removeFromSuperview];
         [audioEngine update];
-    } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
     } else {
         [self snapToGrid:control];
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
+        if (control.sound.duration == 0) {
+            if (soundFront) {
+                control.frame = CGRectMake(control.frame.origin.x - [scoreView getWidthForDuration:snapFraction], control.frame.origin.y,
+                                           [scoreView getWidthForDuration:snapFraction], control.frame.size.height);
+            } else {
+                control.frame = CGRectMake(control.frame.origin.x, control.frame.origin.y,
+                                           [scoreView getWidthForDuration:snapFraction], control.frame.size.height);
+            }
+            [self snapToGrid:control];
+        }
         [control setNeedsDisplay];
     }
 }
@@ -395,6 +409,17 @@
 - (IBAction)scoreViewReleased:(id)sender withEvent:(UIEvent *)event
 {
     
+}
+
+- (void)resetZero:(UITapGestureRecognizer*)recognizer
+{
+    CGPoint tap = [recognizer locationInView:scoreView];
+    int x = [scoreView getX:tap.x ForFraction:snapFraction];
+    [scoreView resetZero:x];
+    [scoreView setNeedsDisplay];
+    for (QSSoundButton *button in [soundItems allValues]) {
+        [self snapToGrid:button];
+    }
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------
