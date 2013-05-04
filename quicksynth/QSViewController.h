@@ -19,6 +19,7 @@
 
 #import "QSModifierButton.h"
 #import "QSEnvelopeButton.h"
+#import "QSEnvelopePopover.h"
 
 // AUDIO
 #import "QSScore.h"
@@ -71,6 +72,11 @@
 
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
+
+@property (nonatomic, retain) QSEnvelopePopover *_envelopeDetails;
+
+@property (nonatomic, retain) UIPopoverController *_modifierDetailsController;
+@property (nonatomic, retain) QSModifierButton *_modifierDetailsButton;
 
 @property (nonatomic, retain) UITapGestureRecognizer *_resetZeroGesture;
 

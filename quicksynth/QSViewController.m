@@ -21,6 +21,10 @@
 @synthesize _soundDetailsController;
 @synthesize _soundDetailsButton;
 
+@synthesize _envelopeDetails;
+@synthesize _modifierDetailsController;
+@synthesize _modifierDetailsButton;
+
 @synthesize _resetZeroGesture;
 
 - (void)viewDidLoad
@@ -46,6 +50,11 @@
     _pulseDetails = [[QSPulsePopover alloc] init];
     
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_waveformDetails];
+    
+    // Modifier Details Popover
+    _envelopeDetails = [[QSEnvelopePopover alloc] init];
+    
+    _modifierDetailsController = [[UIPopoverController alloc] initWithContentViewController:_envelopeDetails];
     
     _resetZeroGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetZero:)];
     [_resetZeroGesture setNumberOfTapsRequired:2];
@@ -355,34 +364,24 @@
 {
     QSModifierButton *control = sender;
     
-    if (!modifierMoved) {/*
-        _soundDetailsButton = control;
-        if ([control isKindOfClass:[QSWaveformButton class]]) {
-            [_soundDetailsController setContentViewController:_waveformDetails];
-            [_waveformDetails setWaveType:((QSWaveform*)control.sound).waveType];
-            [_waveformDetails setFrequency:((QSWaveform*)control.sound).frequency];
-            [_waveformDetails setGain:((QSWaveform*)control.sound).gain];
-            [_waveformDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
-            [_waveformDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
-            [_soundDetailsController setPopoverContentSize:_waveformDetails.view.bounds.size];
-        } else if ([control isKindOfClass:[QSPulseButton class]]) {
-            [_soundDetailsController setContentViewController:_pulseDetails];
-            [_pulseDetails setDuty:((QSPulse*)control.sound).duty];
-            [_pulseDetails setFrequency:((QSPulse*)control.sound).frequency];
-            [_pulseDetails setGain:((QSPulse*)control.sound).gain];
-            [_pulseDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
-            [_pulseDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
-            [_soundDetailsController setPopoverContentSize:_pulseDetails.view.bounds.size];
-        }/* else if ([control isKindOfClass:[qsNoiseButton class]]) {
-          
-          }
-          */
+    if (!modifierMoved) {
+        _modifierDetailsButton = control;
+        if ([control isKindOfClass:[QSEnvelopeButton class]]) {
+            [_modifierDetailsController setContentViewController:_envelopeDetails];
+            
+            //[_waveformDetails setWaveType:((QSWaveform*)control.sound).waveType];
+            //[_waveformDetails setFrequency:((QSWaveform*)control.sound).frequency];
+            //[_waveformDetails setGain:((QSWaveform*)control.sound).gain];
+            
+            [_envelopeDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_envelopeDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_modifierDetailsController setPopoverContentSize:_envelopeDetails.view.bounds.size];
+        }
 #warning TODO: add types here
-/*
-        [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
+        [_modifierDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
         
         [control removeFromSuperview];
-        [self.view insertSubview:control belowSubview:toolbar];*/
+        [self.view insertSubview:control belowSubview:toolbar];
     } else if (CGRectIntersectsRect(control.frame, trash.frame) || CGRectContainsRect(control.frame, toolbox.frame)) {
         [score removeModifierForSound:control.modifier.ID withID:control.modifier.soundID];
         [[soundItems objectForKey:control.modifier.soundID] removeModifierButton:control];
@@ -498,6 +497,23 @@
 {
     [_soundDetailsController dismissPopoverAnimated:true];
     _soundDetailsButton = nil;
+}
+
+- (IBAction)modifierDetailsApplied:(id)sender
+{
+    [_modifierDetailsController dismissPopoverAnimated:true];
+    if ([_modifierDetailsButton isKindOfClass:[QSEnvelopeButton class]]) {
+        
+    }
+#warning TODO: add other types
+    [_modifierDetailsButton setNeedsDisplay];
+    _modifierDetailsButton = nil;
+}
+
+- (IBAction)modifierDetailsCancelled:(id)sender
+{
+    [_modifierDetailsController dismissPopoverAnimated:true];
+    _modifierDetailsButton = nil;
 }
 
 @end
