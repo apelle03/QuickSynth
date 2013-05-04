@@ -19,7 +19,7 @@
     startMag = 0;
     endMag = 0;
     aMag = 1; dMag = .5; sMag = .5;
-    aLen = .1; dLen = .1; sLen = .8;
+    aLen = .1; dLen = .1; sLen = .7;
     return self;
 }
 

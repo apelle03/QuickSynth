@@ -76,6 +76,21 @@
     button.sound.duration = [scoreView getDurationForWidth:button.frame.size.width];
 }
 
+- (void)snapToGrid:(QSModifierButton*)modifier forSoundButton:(QSSoundButton*)sound
+{
+    float start = MAX([scoreView getX: modifier.frame.origin.x ForFraction: snapFraction], sound.frame.origin.x);
+    float end = MIN([scoreView getX: modifier.frame.origin.x + modifier.frame.size.width ForFraction: snapFraction],
+                    sound.frame.origin.x + sound.frame.size.width);
+    [modifier setFrame:CGRectMake(start, modifier.frame.origin.y, end - start, modifier.frame.size.height)];
+    [self setModifierPercents:modifier forSoundButton:sound];
+}
+
+- (void) setModifierPercents:(QSModifierButton*)modifier forSoundButton:(QSSoundButton*)sound
+{
+    modifier.modifier.startPercent = (modifier.frame.origin.x - sound.frame.origin.x) / sound.frame.size.width;
+    modifier.modifier.endPercent = (modifier.frame.origin.x + modifier.frame.size.width - sound.frame.origin.x) / sound.frame.size.width;
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------
 // TOOLOX MODUE MOVEMENT
 //---------------------------------------------------------------------------------------------------------------------------------------
@@ -340,10 +355,6 @@
 {
     QSModifierButton *control = sender;
     
-    CGPoint touchPoint = [[[event touchesForView:control] anyObject] locationInView:self.view];
-    CGRect deleteFrame = ((UIView*)toolbar.subviews[5]).frame;
-    CGRect saveFrame = ((UIView*)toolbar.subviews[6]).frame;
-    
     if (!modifierMoved) {/*
         _soundDetailsButton = control;
         if ([control isKindOfClass:[QSWaveformButton class]]) {
@@ -372,15 +383,14 @@
         
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];*/
-    } else if (CGRectContainsPoint(deleteFrame, touchPoint)) {
+    } else if (CGRectIntersectsRect(control.frame, trash.frame) || CGRectContainsRect(control.frame, toolbox.frame)) {
         [score removeModifierForSound:control.modifier.ID withID:control.modifier.soundID];
         [[soundItems objectForKey:control.modifier.soundID] removeModifierButton:control];
         [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
         [control removeFromSuperview];
         [audioEngine update];
-    } else if (CGRectContainsPoint(saveFrame, touchPoint)) {
     } else {
-        //[self snapToGrid:control];
+        [self snapToGrid:control forSoundButton:[soundItems objectForKey:control.modifier.soundID]];
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
         [[soundItems objectForKey:control.modifier.soundID] placeModifiers];

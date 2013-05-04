@@ -63,9 +63,9 @@
     int i = 0;
     for (QSModifierButton *modifierButton in modifiers) {
         [modifierButton setFrame:CGRectMake(self.frame.origin.x + self.frame.size.width * modifierButton.modifier.startPercent,
-                                            self.frame.origin.y + self.frame.size.height + 20 * i,
+                                            self.frame.origin.y + self.frame.size.height + 30 * i,
                                             self.frame.size.width * (modifierButton.modifier.endPercent - modifierButton.modifier.startPercent),
-                                            20)];
+                                            30)];
         i++;
         [modifierButton setNeedsDisplay];
     }
