@@ -13,13 +13,14 @@
 @interface QSNoteSlider : UIView {
     IBOutlet UIView *contentView;
     
-    IBOutlet UISlider *noteSlider, *freqSlider;
-    IBOutlet UITextField *noteText, *freqText;
+    IBOutlet UISlider *freqSlider;
+    IBOutlet UITextField *freqText;
+    IBOutlet UISegmentedControl *noteType, *noteOctive;
 }
 
 @property (nonatomic) float value;
 
-- (IBAction)noteSliderChanged:(id)sender;
+- (IBAction)noteChanged:(id)sender;
 - (IBAction)freqSliderChanged:(id)sender;
 - (IBAction)freqTextChanged:(id)sender;
 - (IBAction)freqTextFinalized:(id)sender;
