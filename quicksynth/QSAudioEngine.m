@@ -23,7 +23,7 @@
 
 - (id) init {
     NSLog(@"init");
-    soundNodes = [[NSMutableArray alloc] init];
+    soundNodes = [[NSMutableDictionary alloc] init];
     [self createAUGraph];
     [self initGraph];
     
@@ -100,62 +100,132 @@
     if (score) {
         [self stopGraph];
         
-        // Disconnect old sound nodes from mixer	
-        for (int i = 0; i < soundNodes.count; i++) {
+        // Disconnect old sound nodes from mixer
+        UInt32 numInputs = 0;
+        UInt32 inputSize = sizeof(numInputs);
+        AudioUnitGetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numInputs, &inputSize);
+        for (int i = 0; i < numInputs; i++) {
             AUGraphDisconnectNodeInput(scoreGraph, mixerNode, i);
-            AUGraphRemoveNode(scoreGraph, ((QSSoundNode*)soundNodes[i]).node);
         }
-        [soundNodes removeAllObjects];
+        
+        // Disconnect old modifiers
+        for (QSSoundNode *node in [soundNodes allValues]) {
+            AUGraphDisconnectNodeInput(scoreGraph, node.node, 0);
+        }
 
+        // Remove non existing AUNodes
+        NSMutableSet *IDs = [[NSMutableSet alloc] init];
+        for (NSNumber *ID in [score getSoundIDs]) {
+            [IDs addObjectsFromArray:[score getModifierIDsForSound:ID]];
+            [IDs addObject:ID];
+        }
+        for (NSNumber *ID in [soundNodes allKeys]) {
+            if (![IDs containsObject:ID]) {
+                AUGraphRemoveNode(scoreGraph, ((QSSoundNode*)[soundNodes objectForKey:ID]).node);
+                [soundNodes removeObjectForKey:ID];
+            }
+        }
+                
         // Add new sounds
         NSArray *newSounds = [score getSounds];
-
+        
         UInt32 numSounds = newSounds.count;
         AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numSounds, sizeof(numSounds));
 
         for (int i = 0; i < newSounds.count; i++) {
             QSSound *sound = newSounds[i];
+            //============================================================================
+            // Sound is not already created
+            //============================================================================
+            if ([soundNodes objectForKey:sound.ID] == nil) {
+                // Create sound node
+                AudioComponentDescription soundDesc;
+                soundDesc.componentType = kAudioUnitType_Mixer;
+                soundDesc.componentSubType = kAudioUnitSubType_MultiChannelMixer;
+                soundDesc.componentManufacturer = kAudioUnitManufacturer_Apple;
+                soundDesc.componentFlags = 0;
+                soundDesc.componentFlagsMask = 0;
+                AUNode soundNode;
+                AudioUnit soundUnit;
+                AUGraphAddNode(scoreGraph, &soundDesc, &soundNode);
+                AUGraphNodeInfo(scoreGraph, soundNode, NULL, &soundUnit);
+                
+                // Setup sound input stream
+                AudioStreamBasicDescription soundStreamDesc;
+                UInt32 size;
+                AudioUnitGetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, &size);
+                memset(&soundStreamDesc, 0, sizeof(soundStreamDesc));
+                soundStreamDesc.mSampleRate = 44100;
+                soundStreamDesc.mFormatID = kAudioFormatLinearPCM;
+                soundStreamDesc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+                soundStreamDesc.mBitsPerChannel = sizeof(AudioSampleType) * 8;
+                soundStreamDesc.mChannelsPerFrame = 1;
+                soundStreamDesc.mFramesPerPacket = 1;
+                soundStreamDesc.mBytesPerFrame = (soundStreamDesc.mBitsPerChannel / 8) * soundStreamDesc.mChannelsPerFrame;
+                soundStreamDesc.mBytesPerPacket = soundStreamDesc.mBytesPerFrame * soundStreamDesc.mFramesPerPacket;
+                AudioUnitSetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, sizeof(soundStreamDesc));
+                
+                // Add sound node to all sound nodes
+                [soundNodes setObject:[[QSSoundNode alloc] initWithAUNode:soundNode] forKey: sound.ID];
+            }
+            AUNode headNode = ((QSSoundNode*)[soundNodes objectForKey:sound.ID]).node;
             
-            AudioComponentDescription soundDesc;
-            soundDesc.componentType = kAudioUnitType_Mixer;
-            soundDesc.componentSubType = kAudioUnitSubType_MultiChannelMixer;
-            soundDesc.componentManufacturer = kAudioUnitManufacturer_Apple;
-            soundDesc.componentFlags = 0;
-            soundDesc.componentFlagsMask = 0;
-            AUNode soundNode;
-            AudioUnit soundUnit;
-            AUGraphAddNode(scoreGraph, &soundDesc, &soundNode);
-            AUGraphNodeInfo(scoreGraph, soundNode, NULL, &soundUnit);
-            AUGraphConnectNodeInput(scoreGraph, soundNode, 0, mixerNode, i);
-            
-            AudioStreamBasicDescription soundStreamDesc;
-            UInt32 size;
-            AudioUnitGetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, &size);
-            memset(&soundStreamDesc, 0, sizeof(soundStreamDesc));
-            soundStreamDesc.mSampleRate = 44100;
-            soundStreamDesc.mFormatID = kAudioFormatLinearPCM;
-            soundStreamDesc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-            soundStreamDesc.mBitsPerChannel = sizeof(AudioSampleType) * 8;
-            soundStreamDesc.mChannelsPerFrame = 1;
-            soundStreamDesc.mFramesPerPacket = 1;
-            soundStreamDesc.mBytesPerFrame = (soundStreamDesc.mBitsPerChannel / 8) * soundStreamDesc.mChannelsPerFrame;
-            soundStreamDesc.mBytesPerPacket = soundStreamDesc.mBytesPerFrame * soundStreamDesc.mFramesPerPacket;
-            AudioUnitSetProperty(soundUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, sizeof(soundStreamDesc));
-            
+            // Setup sound callback
             AURenderCallbackStruct soundInput;
             if ([sound isKindOfClass:[QSWaveform class]]) {
                 soundInput.inputProc = &renderWaveform;
             } else if ([sound isKindOfClass:[QSPulse class]]) {
                 soundInput.inputProc = &renderPulse;
-            }/* else if ([sound isKindOfClass:[QSNoise class]]) {
-                
             }
-              */
 #warning TODO: add these types
             soundInput.inputProcRefCon = (__bridge void *)(sound);
-            AUGraphSetNodeInputCallback(scoreGraph, soundNode, 0, &soundInput);
+            AUGraphSetNodeInputCallback(scoreGraph, headNode, 0, &soundInput);
             
-            [soundNodes addObject:[[QSSoundNode alloc] initWithAUNode:soundNode]];
+            // Create sound modifier chain
+            for (QSModifier *modifier in [score getModifiersForSound:sound.ID]) {
+                // Modifier needs node, add to head of chain
+                if ([modifier isKindOfClass:[QSLowPass class]]) {
+                    AUNode lowPassNode;
+                    if ([soundNodes objectForKey:modifier.ID] == nil) {
+                        // Create lowpass node
+                        AudioComponentDescription lowPassDesc;
+                        lowPassDesc.componentType = kAudioUnitType_Effect;
+                        lowPassDesc.componentSubType = kAudioUnitSubType_LowPassFilter;
+                        lowPassDesc.componentManufacturer = kAudioUnitManufacturer_Apple;
+                        lowPassDesc.componentFlags = 0;
+                        lowPassDesc.componentFlagsMask = 0;
+                        
+                        AUGraphAddNode(scoreGraph, &lowPassDesc, &lowPassNode);
+                        [soundNodes setObject:[[QSSoundNode alloc] initWithAUNode:lowPassNode] forKey: modifier.ID];
+                    }
+                    lowPassNode = ((QSSoundNode*)[soundNodes objectForKey:modifier.ID]).node;
+                    // Setup lowpass params
+                    AudioUnit lastUnit, lowPassUnit;
+                    AUGraphNodeInfo(scoreGraph, headNode, NULL, &lastUnit);
+                    AUGraphNodeInfo(scoreGraph, lowPassNode, NULL, &lowPassUnit);
+                    // Set stream format
+                    AudioStreamBasicDescription soundStreamDesc;
+                    UInt32 size;
+                    AudioUnitGetProperty(lowPassUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, &size);
+                    AudioUnitSetProperty(lastUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &soundStreamDesc, size);
+                    // set cutoff frequency
+                    //AudioUnitSetParameter(lowPassUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Input, 0, ((QSLowPass*)modifier).freq, 0);
+                    
+                    // Connect node and move head up
+                    NSLog(@"%ld", AUGraphConnectNodeInput(scoreGraph, headNode, 0, lowPassNode, 0));
+                    headNode = lowPassNode;
+                }
+            }
+            AudioUnit headUnit;
+            AUGraphNodeInfo(scoreGraph, headNode, NULL, &headUnit);
+            AudioStreamBasicDescription soundStreamDesc;
+            UInt32 size;
+            AudioUnitGetProperty(headUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &soundStreamDesc, &size);
+            AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, i, &soundStreamDesc, size);
+            
+            // Connect sound modifier chain to mixer
+            AUGraphConnectNodeInput(scoreGraph, headNode, 0, mixerNode, i);
+            
         }
         CAShow(scoreGraph);
     }
@@ -320,12 +390,18 @@ OSStatus renderPulse(void *inRefCon,
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     NSTimeInterval curTime = -[startTime timeIntervalSinceNow];
     // Generate the samples
+    sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
+    float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
-            buffer[frame] = (sound.theta < (M_PI * 2 * sound.duty)) ? (sound.gain * 32767) : (-sound.gain * 32767);
+            buffer[frame] = (sound.theta < (M_PI * 2 * sound.duty)) ? (sound.curGain * 32767) : (-sound.curGain * 32767);
             sound.theta += theta_increment;
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
+            }
+            sound.curGain += gain_increment;
+            if (sound.curGain > 1) {
+                sound.curGain = 1;
             }
         } else {
             buffer[frame] = 0;

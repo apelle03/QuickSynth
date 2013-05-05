@@ -220,6 +220,7 @@
     } else if (control == envelopeModule) {
         [control setFrame:envelopeAnchor.frame];
     } else if (control == lowpassModule) {
+        [audioEngine update];
         [control setFrame:lowpassAnchor.frame];
     }
 }
@@ -429,7 +430,7 @@
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
     } else if (CGRectIntersectsRect(trash.frame, control.frame) || CGRectContainsRect(toolbox.frame, control.frame)) {
-        [score removeModifierForSound:control.modifier.ID withID:control.modifier.soundID];
+        [score removeModifierForSound:control.modifier.soundID withID:control.modifier.ID];
         [[soundItems objectForKey:control.modifier.soundID] removeModifierButton:control];
         [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
         [control removeFromSuperview];

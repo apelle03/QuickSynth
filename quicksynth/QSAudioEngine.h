@@ -24,7 +24,8 @@
 @property (readwrite) AudioUnit mixerUnit;
 
 @property (readwrite) BOOL playing;
-@property (retain, readwrite) NSMutableArray *soundNodes;
+@property (retain, readwrite) NSMutableDictionary *soundNodes;
+//@property (retain, readwrite) NSMutableArray *soundNodes;
 
 - (id)init;
 - (void)update;
