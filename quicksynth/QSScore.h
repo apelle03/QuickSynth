@@ -14,6 +14,7 @@
 
 #import "QSModifier.h"
 #import "QSEnvelope.h"
+#import "QSLowPass.h"
 
 @interface QSScore : NSObject {
     NSNumber *nextID;
@@ -43,6 +44,7 @@
 // Add Modifiers
 //- (NSNumber*)addModifierToSound:(NSNumber*)soundID;
 - (NSNumber*)addEnvelopeToSound:(NSNumber*)soundID;
+- (NSNumber*)addLowPassToSound:(NSNumber*)soundID;
 // Get Sounds
 - (QSModifier*)getModifierForSound:(NSNumber*)soundID withID:(NSNumber*)modifierID;
 - (NSArray*)getModifierIDsForSound:(NSNumber*)soundID;

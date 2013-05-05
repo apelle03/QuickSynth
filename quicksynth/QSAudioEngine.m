@@ -276,7 +276,6 @@ OSStatus renderWaveform(void *inRefCon,
     // Generate the samples
     sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
     float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
-    NSLog(@"%f", gain_increment);
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {

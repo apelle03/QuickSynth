@@ -11,6 +11,7 @@
 @implementation QSWaveformPopover
 
 @synthesize apply, cancel;
+@synthesize size;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +31,7 @@
     gainSlider.min = 0;
     gainSlider.max = 1;
     gainSlider.value = .250;
+    size = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
     // Do any additional setup after loading the view from its nib.
 }
 

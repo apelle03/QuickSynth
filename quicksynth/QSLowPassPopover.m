@@ -1,18 +1,18 @@
 //
-//  QSEnvelopePopover.m
+//  QSLowPassPopover.m
 //  quicksynth
 //
 //  Created by Andrew on 5/4/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#import "QSEnvelopePopover.h"
+#import "QSLowPassPopover.h"
 
-@interface QSEnvelopePopover ()
+@interface QSLowPassPopover ()
 
 @end
 
-@implementation QSEnvelopePopover
+@implementation QSLowPassPopover
 
 @synthesize apply, cancel;
 @synthesize size;
@@ -37,6 +37,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setFrequency:(float)frequency {
+    noteSlider.value = frequency;
+}
+- (float)getFrequency {
+    return noteSlider.value;
 }
 
 - (void)setMax:(float)max {

@@ -1,14 +1,14 @@
 //
-//  QSEnvelopeButton.m
+//  QSLowPassButton.m
 //  quicksynth
 //
-//  Created by Andrew on 4/25/13.
+//  Created by Andrew on 5/4/13.
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#import "QSEnvelopeButton.h"
+#import "QSLowPassButton.h"
 
-@implementation QSEnvelopeButton
+@implementation QSLowPassButton
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -22,7 +22,7 @@
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
-    UIImage *image = [UIImage imageNamed:@"envelope.png"];
+    UIImage *image = [UIImage imageNamed:@"lowpass.png"];
     [image drawInRect:self.bounds];
 }
 

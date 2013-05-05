@@ -18,6 +18,7 @@
 
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
 @property (nonatomic, retain, readonly) IBOutlet UIButton *cancel;
+@property (nonatomic, readonly) CGSize size;
 
 - (void)setDuty:(float)duty;
 - (float)getDuty;

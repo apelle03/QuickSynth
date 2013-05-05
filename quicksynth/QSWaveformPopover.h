@@ -22,6 +22,7 @@
 
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
 @property (nonatomic, retain, readonly) IBOutlet UIButton *cancel;
+@property (nonatomic, readonly) CGSize size;
 
 - (void)setWaveType:(WaveType)type;
 - (WaveType)getWaveType;

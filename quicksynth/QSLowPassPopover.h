@@ -1,5 +1,5 @@
 //
-//  QSEnvelopePopover.h
+//  QSLowPassPopover.h
 //  quicksynth
 //
 //  Created by Andrew on 5/4/13.
@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QSNoteSlider.h"
 #import "QSADSRSlider.h"
 
-@interface QSEnvelopePopover : UIViewController {
+@interface QSLowPassPopover : UIViewController {
+    IBOutlet QSNoteSlider *noteSlider;
     IBOutlet QSADSRSlider *adsrSlider;
     IBOutlet UILabel *maxLabel, *midLabel, *minLabel;
 }
@@ -17,6 +19,9 @@
 @property (nonatomic, retain, readonly) IBOutlet UIButton *apply;
 @property (nonatomic, retain, readonly) IBOutlet UIButton *cancel;
 @property (nonatomic, readonly) CGSize size;
+
+- (void)setFrequency:(float)frequency;
+- (float)getFrequency;
 
 - (void)setMax:(float)max;
 - (void)setMin:(float)min;

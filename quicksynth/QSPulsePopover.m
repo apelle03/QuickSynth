@@ -11,6 +11,7 @@
 @implementation QSPulsePopover
 
 @synthesize apply, cancel;
+@synthesize size;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +39,7 @@
     dutySlider.max = 1;
     dutySlider.value = .5;
     
+    size = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
     // Do any additional setup after loading the view from its nib.
 }
 
