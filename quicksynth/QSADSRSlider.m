@@ -129,6 +129,31 @@
     if (newCenter.y > self.frame.size.height - 15) { newCenter.y = self.frame.size.height - 15; }
     if (control == start) { newCenter.x = 15; }
     if (control == end) { newCenter.x = self.frame.size.width - 15; }
+    if (control == a) {
+        if (newCenter.x > d.center.x) {
+            d.center = CGPointMake(newCenter.x, d.center.y);
+        }
+        if (newCenter.x > s.center.x) {
+            s.center = CGPointMake(newCenter.x, s.center.y);
+        }
+    }
+    if (control == d) {
+        if (newCenter.x < a.center.x) {
+            a.center = CGPointMake(newCenter.x, a.center.y);
+        }
+        if (newCenter.x > s.center.x) {
+            s.center = CGPointMake(newCenter.x, s.center.y);
+        }
+    }
+    if (control == s) {
+        if (newCenter.x < a.center.x) {
+            a.center = CGPointMake(newCenter.x, a.center.y);
+        }
+        if (newCenter.x < d.center.x) {
+            d.center = CGPointMake(newCenter.x, d.center.y);
+        }
+    }
+    
     control.center = newCenter;
     lastPoint = newPoint;
     [self updateValues];

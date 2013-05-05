@@ -220,7 +220,7 @@
 {
     soundPrevPoint = [[[event allTouches] anyObject] locationInView:self.view];
     soundMoved = false;
-    UIControl *control = (UIControl*)sender;
+    QSSoundButton *control = (QSSoundButton*)sender;
     soundFront = false;
     soundBack = false;
     if ([[[event allTouches] anyObject] locationInView:control].x < 20) {
@@ -229,6 +229,9 @@
         soundBack = true;
     }
     [self.view bringSubviewToFront:control];
+    for (QSModifierButton *modifier in [control getModifierButtons]) {
+        [self.view bringSubviewToFront:modifier];
+    }
 }
 
 - (IBAction)scoreModuleMoved:(id)sender withEvent:(UIEvent *)event
@@ -302,6 +305,10 @@
         [self snapToGrid:control];
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
+        for (QSModifierButton *modifier in [control getModifierButtons]) {
+            [modifier removeFromSuperview];
+            [self.view insertSubview:modifier belowSubview:toolbar];
+        }
         if (control.sound.duration == 0) {
             if (soundFront) {
                 control.frame = CGRectMake(control.frame.origin.x - [scoreView getWidthForDuration:snapFraction], control.frame.origin.y,
