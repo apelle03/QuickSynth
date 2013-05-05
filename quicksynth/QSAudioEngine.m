@@ -249,17 +249,17 @@
             NSTimeInterval sTime = dTime + sound.duration * (env.endPercent - env.startPercent) * env.sLen;
             NSTimeInterval endTime = sound.startTime + sound.duration * env.endPercent;
             if (curTime >= startTime && curTime < aTime) {
-                gainIncrement = (env.aMag - env.startMag) / (aTime - startTime);
+                gainIncrement += (env.aMag - env.startMag) / (aTime - startTime);
             } else if (curTime >= aTime && curTime < dTime) {
-                gainIncrement = (env.dMag - env.aMag) / (dTime - aTime);
+                gainIncrement += (env.dMag - env.aMag) / (dTime - aTime);
             } else if (curTime >= dTime && curTime < sTime) {
-                gainIncrement = (env.sMag - env.dMag) / (sTime - dTime);
+                gainIncrement += (env.sMag - env.dMag) / (sTime - dTime);
             } else if (curTime >= sTime && curTime < endTime) {
-                gainIncrement = (env.endMag - env.sMag) / (endTime - sTime);
+                gainIncrement += (env.endMag - env.sMag) / (endTime - sTime);
             }
         }
     }
-    return gainIncrement / 44100;
+    return sound.gain * gainIncrement / 44100;
 }
 
 OSStatus renderWaveform(void *inRefCon,
@@ -276,6 +276,7 @@ OSStatus renderWaveform(void *inRefCon,
     // Generate the samples
     sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
     float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
+    NSLog(@"%f", gain_increment);
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
@@ -298,6 +299,9 @@ OSStatus renderWaveform(void *inRefCon,
                 sound.theta -= 2.0 * M_PI;
             }
             sound.curGain += gain_increment;
+            if (sound.curGain > 1) {
+                sound.curGain = 1;
+            }
         } else {
             buffer[frame] = 0;
         }
