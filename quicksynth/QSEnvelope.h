@@ -12,6 +12,6 @@
 
 @property (nonatomic) float aMag, dMag, sMag;
 @property (nonatomic) float aLen, dLen, sLen;
-@property (nonatomic, readonly) float startMag, endMag;
+@property (nonatomic) float startMag, endMag;
 
 @end

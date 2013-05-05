@@ -10,7 +10,11 @@
 
 @interface QSADSRSlider : UIView
 
-@property (nonatomic, retain) UIView *contentView;
+@property (nonatomic) CGPoint lastPoint;
 @property (nonatomic, retain) UIButton *start, *a, *d, *s, *end;
+
+@property (nonatomic, readwrite) float max, min;
+@property (nonatomic, readwrite) float aPos, dPos, sPos;
+@property (nonatomic, readwrite) float startVal, aVal, dVal, sVal, endVal;
 
 @end

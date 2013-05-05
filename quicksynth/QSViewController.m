@@ -369,9 +369,16 @@
         if ([control isKindOfClass:[QSEnvelopeButton class]]) {
             [_modifierDetailsController setContentViewController:_envelopeDetails];
             
-            //[_waveformDetails setWaveType:((QSWaveform*)control.sound).waveType];
-            //[_waveformDetails setFrequency:((QSWaveform*)control.sound).frequency];
-            //[_waveformDetails setGain:((QSWaveform*)control.sound).gain];
+            [_envelopeDetails setAPos:((QSEnvelope*)control.modifier).aLen];
+            [_envelopeDetails setDPos:((QSEnvelope*)control.modifier).aLen + ((QSEnvelope*)control.modifier).dLen];
+            [_envelopeDetails setSPos:((QSEnvelope*)control.modifier).aLen + ((QSEnvelope*)control.modifier).dLen + ((QSEnvelope*)control.modifier).sLen];
+            [_envelopeDetails setStartVal:((QSEnvelope*)control.modifier).startMag];
+            [_envelopeDetails setAVal:((QSEnvelope*)control.modifier).aMag];
+            [_envelopeDetails setDVal:((QSEnvelope*)control.modifier).dMag];
+            [_envelopeDetails setSVal:((QSEnvelope*)control.modifier).sMag];
+            [_envelopeDetails setEndVal:((QSEnvelope*)control.modifier).endMag];
+            [_envelopeDetails setMax:1];
+            [_envelopeDetails setMin:0];
             
             [_envelopeDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_envelopeDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
@@ -503,7 +510,14 @@
 {
     [_modifierDetailsController dismissPopoverAnimated:true];
     if ([_modifierDetailsButton isKindOfClass:[QSEnvelopeButton class]]) {
-        
+        ((QSEnvelope*)_modifierDetailsButton.modifier).aLen = [_envelopeDetails getAPos];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).dLen = [_envelopeDetails getDPos] - [_envelopeDetails getAPos];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).sLen = [_envelopeDetails getSPos] - [_envelopeDetails getDPos];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).startMag = [_envelopeDetails getStartVal];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).aMag = [_envelopeDetails getAVal];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).dMag = [_envelopeDetails getDVal];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).sMag = [_envelopeDetails getSVal];
+        ((QSEnvelope*)_modifierDetailsButton.modifier).endMag = [_envelopeDetails getEndVal];
     }
 #warning TODO: add other types
     [_modifierDetailsButton setNeedsDisplay];
