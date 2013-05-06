@@ -205,18 +205,18 @@ static Float64 startTime;
                     // set cutoff frequency
                     QSFilter *filter = (QSFilter*)modifier;
                     if (filter.type == LOWPASS) {
-                        AudioUnitSetParameter(filterUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Input, 0, filter.freq, 0);
+                        AudioUnitSetParameter(filterUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
                     } else if (filter.type == HIGHPASS) {
-                        AudioUnitSetParameter(filterUnit, kHipassParam_CutoffFrequency, kAudioUnitScope_Input, 0, filter.freq, 0);
+                        AudioUnitSetParameter(filterUnit, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
                     } else if (filter.type == BANDPASS) {
-                        AudioUnitSetParameter(filterUnit, kBandpassParam_Bandwidth, kAudioUnitScope_Input, 0, filter.bandwidth, 0);
-                        AudioUnitSetParameter(filterUnit, kBandpassParam_CenterFrequency, kAudioUnitScope_Input, 0, filter.freq, 0);
+                        AudioUnitSetParameter(filterUnit, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, filter.bandwidth, 0);
+                        AudioUnitSetParameter(filterUnit, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
                     } else {
-                        AudioUnitSetParameter(filterUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Input, 0, filter.freq, 0);
+                        AudioUnitSetParameter(filterUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
                     }
                     
                     // Connect node and move head up
-                    NSLog(@"%ld", AUGraphConnectNodeInput(scoreGraph, headNode, 0, filterNode, 0));
+                    AUGraphConnectNodeInput(scoreGraph, headNode, 0, filterNode, 0);
                     headNode = filterNode;
                 }
             }
