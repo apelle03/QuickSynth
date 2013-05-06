@@ -21,6 +21,23 @@
 @synthesize playing;
 @synthesize soundNodes;
 
+static QSAudioEngine *instance;
+
++ (void)initialize
+{
+    static BOOL initialized = NO;
+    if(!initialized)
+    {
+        initialized = YES;
+        instance = [[QSAudioEngine alloc] init];
+    }
+}
+
++ (QSAudioEngine *)getInstance
+{
+    return instance;
+}
+
 - (id) init {
     NSLog(@"init");
     soundNodes = [[NSMutableDictionary alloc] init];
@@ -61,30 +78,6 @@
     // Mixer Input Setup
     UInt32 numBuses = 0;
     AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numBuses, sizeof(numBuses));
-    
-    for (int i = 0; i < numBuses; i++) {
-        // Mixer Input Stream Formats
-        AudioStreamBasicDescription desc;
-        UInt32 size;
-        AudioUnitGetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, i, &desc, &size);
-        memset(&desc, 0, sizeof(desc));
-        desc.mSampleRate = 44100;
-        desc.mFormatID = kAudioFormatLinearPCM;
-        desc.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-        desc.mBitsPerChannel = sizeof(AudioSampleType) * 8;
-        desc.mChannelsPerFrame = 1;
-        desc.mFramesPerPacket = 1;
-        desc.mBytesPerFrame = (desc.mBitsPerChannel / 8) * desc.mChannelsPerFrame;
-        desc.mBytesPerPacket = desc.mBytesPerFrame * desc.mFramesPerPacket;
-        AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, i, &desc, sizeof(desc));
-        
-        // Mixer Input Callbacks
-        AURenderCallbackStruct mixerInput;
-        mixerInput.inputProc = &renderWaveform;
-        mixerInput.inputProcRefCon = (__bridge void *)(self);
-        AUGraphSetNodeInputCallback(scoreGraph, mixerNode, i, &mixerInput);
-    }
-    
     
     // Mixer to I/O  connection
     AudioUnitElement ioUnitInputNumber = 0;
@@ -181,6 +174,7 @@
             soundInput.inputProcRefCon = (__bridge void *)(sound);
             AUGraphSetNodeInputCallback(scoreGraph, headNode, 0, &soundInput);
             
+            /*
             // Create sound modifier chain
             for (QSModifier *modifier in [score getModifiersForSound:sound.ID]) {
                 // Modifier needs node, add to head of chain
@@ -209,7 +203,7 @@
                     AudioUnitGetProperty(lowPassUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &soundStreamDesc, &size);
                     AudioUnitSetProperty(lastUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &soundStreamDesc, size);
                     // set cutoff frequency
-                    //AudioUnitSetParameter(lowPassUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Input, 0, ((QSLowPass*)modifier).freq, 0);
+                    AudioUnitSetParameter(lowPassUnit, kLowPassParam_CutoffFrequency, kAudioUnitScope_Input, 0, ((QSLowPass*)modifier).freq, 0);
                     
                     // Connect node and move head up
                     NSLog(@"%ld", AUGraphConnectNodeInput(scoreGraph, headNode, 0, lowPassNode, 0));
@@ -222,7 +216,7 @@
             UInt32 size;
             AudioUnitGetProperty(headUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 0, &soundStreamDesc, &size);
             AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, i, &soundStreamDesc, size);
-            
+            */
             // Connect sound modifier chain to mixer
             AUGraphConnectNodeInput(scoreGraph, headNode, 0, mixerNode, i);
             
@@ -284,7 +278,7 @@
     [self stopGraph];
 }
 
-+ (float) getGain:(QSSound*) sound atTime:(NSTimeInterval) curTime {
++ (float) getGain:(QSSound*)sound atTime:(NSTimeInterval)curTime {
     float gain = sound.gain;
     for (QSModifier *modifier in [sound getModifiers]) {
         if ([modifier isKindOfClass:[QSEnvelope class]]) {
@@ -295,7 +289,7 @@
             NSTimeInterval sTime = dTime + sound.duration * (env.endPercent - env.startPercent) * env.sLen;
             NSTimeInterval endTime = sound.startTime + sound.duration * env.endPercent;
             if (curTime >= startTime && curTime < aTime) {
-                gain *= (env.aMag - env.startMag) / (aTime - startTime) * (curTime - startTime);
+                gain *= env.startMag + (env.aMag - env.startMag) / (aTime - startTime) * (curTime - startTime);
             } else if (curTime >= aTime && curTime < dTime) {
                 gain *= env.aMag + (env.dMag - env.aMag) / (dTime - aTime) * (curTime - aTime);
             } else if (curTime >= dTime && curTime < sTime) {
@@ -308,7 +302,7 @@
     return gain;
 }
 
-+ (float) getGainIncrement:(QSSound*) sound atTime:(NSTimeInterval) curTime {
++ (float) getGainIncrement:(QSSound*)sound atTime:(NSTimeInterval)curTime {
     float gainIncrement = 0;
     for (QSModifier *modifier in [sound getModifiers]) {
         if ([modifier isKindOfClass:[QSEnvelope class]]) {
@@ -332,6 +326,43 @@
     return sound.gain * gainIncrement / 44100;
 }
 
+void getLPCoefficientsButterworth2Pole(const int samplerate, const float cutoff, float* const ax, float* const by)
+{
+    double PI    = 3.1415926535897932385;
+    double sqrt2 = 1.4142135623730950488;
+    
+    double QcRaw  = (2 * PI * cutoff) / samplerate; // Find cutoff frequency in [0..PI]
+    double QcWarp = tan(QcRaw); // Warp cutoff frequency
+    
+    double gain = 1 / (1+sqrt2/QcWarp + 2/(QcWarp*QcWarp));
+    by[2] = (1 - sqrt2/QcWarp + 2/(QcWarp*QcWarp)) * gain;
+    by[1] = (2 - 2 * 2/(QcWarp*QcWarp)) * gain;
+    by[0] = 1;
+    ax[0] = 1 * gain;
+    ax[1] = 2 * gain;
+    ax[2] = 1 * gain;
+}
+
++ (float) getCutoffFreq:(QSLowPass*)lowpass forSound:(QSSound*)sound atTime:(NSTimeInterval)curTime
+{
+    float freq = -1;
+    NSTimeInterval startTime = sound.startTime + sound.duration * lowpass.startPercent;
+    NSTimeInterval aTime = startTime + sound.duration * (lowpass.endPercent - lowpass.startPercent) * lowpass.aLen;
+    NSTimeInterval dTime = aTime + sound.duration * (lowpass.endPercent - lowpass.startPercent) * lowpass.dLen;
+    NSTimeInterval sTime = dTime + sound.duration * (lowpass.endPercent - lowpass.startPercent) * lowpass.sLen;
+    NSTimeInterval endTime = sound.startTime + sound.duration * lowpass.endPercent;
+    if (curTime >= startTime && curTime < aTime) {
+        freq = lowpass.freq + lowpass.startMag + (lowpass.aMag - lowpass.startMag) / (aTime - startTime) * (curTime - startTime);
+    } else if (curTime >= aTime && curTime < dTime) {
+        freq = lowpass.freq + lowpass.aMag + (lowpass.dMag - lowpass.aMag) / (dTime - aTime) * (curTime - aTime);
+    } else if (curTime >= dTime && curTime < sTime) {
+        freq = lowpass.freq + lowpass.dMag + (lowpass.sMag - lowpass.dMag) / (sTime - dTime) * (curTime - dTime);
+    } else if (curTime >= sTime && curTime < endTime) {
+        freq = lowpass.freq + lowpass.sMag + (lowpass.endMag - lowpass.sMag) / (endTime - sTime) * (curTime - sTime);
+    }
+    return freq;
+}
+
 OSStatus renderWaveform(void *inRefCon,
                     AudioUnitRenderActionFlags *ioActionFlags,
                     const AudioTimeStamp *inTimeStamp,
@@ -344,8 +375,8 @@ OSStatus renderWaveform(void *inRefCon,
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     NSTimeInterval curTime = -[startTime timeIntervalSinceNow]; // time in seconds
     // Generate the samples
-    sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
-    float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
+    //sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
+    //float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
@@ -367,14 +398,32 @@ OSStatus renderWaveform(void *inRefCon,
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
             }
-            sound.curGain += gain_increment;
+            //sound.curGain += gain_increment;
             if (sound.curGain > 1) {
                 sound.curGain = 1;
             }
         } else {
             buffer[frame] = 0;
         }
-    }
+    }/*
+    // Pass through filter
+    for (QSModifier *modifier in [sound getModifiers]) {
+        if ([modifier isKindOfClass:[QSLowPass class]]) {
+            float cutoff = [QSAudioEngine getCutoffFreq:(QSLowPass*)modifier forSound:sound atTime:curTime];
+            if (cutoff != -1) {
+                static float xv[3]; static float yv[3];
+                float ax[3]; float by[3];
+                getLPCoefficientsButterworth2Pole(44100, cutoff, ax, by);
+                for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
+                    xv[2] = xv[1]; xv[1] = xv[0];
+                    xv[0] = buffer[frame];
+                    yv[2] = yv[1]; yv[1] = yv[0];
+                    yv[0] = (ax[0] * xv[0] + ax[1] * xv[1] + ax[2] * xv[2] - by[1] * yv[0] - by[2] * yv[1]);
+                    buffer[frame] = yv[0];
+                }
+            }
+        }
+    }*/
     return noErr;
 }
 
@@ -405,6 +454,24 @@ OSStatus renderPulse(void *inRefCon,
             }
         } else {
             buffer[frame] = 0;
+        }
+    }
+    // Pass through filter
+    for (QSModifier *modifier in [sound getModifiers]) {
+        if ([modifier isKindOfClass:[QSLowPass class]]) {
+            float cutoff = [QSAudioEngine getCutoffFreq:(QSLowPass*)modifier forSound:sound atTime:curTime];
+            if (cutoff != -1) {
+                static float xv[3]; static float yv[3];
+                float ax[3]; float by[3];
+                getLPCoefficientsButterworth2Pole(44100, cutoff, ax, by);
+                for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
+                    xv[2] = xv[1]; xv[1] = xv[0];
+                    xv[0] = buffer[frame];
+                    yv[2] = yv[1]; yv[1] = yv[0];
+                    yv[0] = (ax[0] * xv[0] + ax[1] * xv[1] + ax[2] * xv[2] - by[1] * yv[0] - by[2] * yv[1]);
+                    buffer[frame] = yv[0];
+                }
+            }
         }
     }
     return noErr;

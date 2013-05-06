@@ -90,11 +90,11 @@
     float bottom = self.frame.size.height - 15;
     float pxPerValY = (self.frame.size.height - 30) / (_max - _min);
     float pxPerValX = (self.frame.size.width - 30);
-    start.frame = CGRectMake(0, bottom - pxPerValY * _startVal - 15, 30, 30);
-    a.frame = CGRectMake(pxPerValX * _aPos, bottom - pxPerValY * _aVal - 15, 30, 30);
-    d.frame = CGRectMake(pxPerValX * _dPos, bottom - pxPerValY * _dVal - 15, 30, 30);
-    s.frame = CGRectMake(pxPerValX * _sPos, bottom - pxPerValY * _sVal - 15, 30, 30);
-    end.frame = CGRectMake(self.frame.size.width - 30, bottom - pxPerValY * _endVal - 15, 30, 30);
+    start.frame = CGRectMake(0, bottom - pxPerValY * (_startVal - _min) - 15, 30, 30);
+    a.frame = CGRectMake(pxPerValX * _aPos, bottom - pxPerValY * (_aVal - _min) - 15, 30, 30);
+    d.frame = CGRectMake(pxPerValX * _dPos, bottom - pxPerValY * (_dVal - _min) - 15, 30, 30);
+    s.frame = CGRectMake(pxPerValX * _sPos, bottom - pxPerValY * (_sVal - _min) - 15, 30, 30);
+    end.frame = CGRectMake(self.frame.size.width - 30, bottom - pxPerValY * (_endVal - _min) - 15, 30, 30);
     [self setNeedsDisplay];
 }
 
@@ -106,11 +106,11 @@
     _aPos = a.frame.origin.x / pxPerValX;
     _dPos = d.frame.origin.x / pxPerValX;
     _sPos = s.frame.origin.x / pxPerValX;
-    _startVal = (start.frame.origin.y + 15 - bottom) / -pxPerValY;
-    _aVal = (a.frame.origin.y + 15 - bottom) / -pxPerValY;
-    _dVal = (d.frame.origin.y + 15 - bottom) / -pxPerValY;
-    _sVal = (s.frame.origin.y + 15 - bottom) / -pxPerValY;
-    _endVal = (end.frame.origin.y + 15 - bottom) / -pxPerValY;
+    _startVal = ((start.frame.origin.y + 15 - bottom) / -pxPerValY) + _min;
+    _aVal = ((a.frame.origin.y + 15 - bottom) / -pxPerValY) + _min;
+    _dVal = ((d.frame.origin.y + 15 - bottom) / -pxPerValY) + _min;
+    _sVal = ((s.frame.origin.y + 15 - bottom) / -pxPerValY) + _min;
+    _endVal = ((end.frame.origin.y + 15 - bottom) / -pxPerValY) + _min;
 }
 
 - (IBAction)nodePressed:(id)sender withEvent:(UIEvent*)event

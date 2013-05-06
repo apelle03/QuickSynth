@@ -42,12 +42,12 @@
 - (void)setMax:(float)max {
     adsrSlider.max = max;
     maxLabel.text = [NSString stringWithFormat:@"%.2f", max];
-    midLabel.text = [NSString stringWithFormat:@"%.2f", (adsrSlider.max - adsrSlider.min) / 2];
+    midLabel.text = [NSString stringWithFormat:@"%.2f", (adsrSlider.max + adsrSlider.min) / 2];
 }
 - (void)setMin:(float)min {
     adsrSlider.min = min;
     minLabel.text = [NSString stringWithFormat:@"%.2f", min];
-    midLabel.text = [NSString stringWithFormat:@"%.2f", (adsrSlider.max - adsrSlider.min) / 2];
+    midLabel.text = [NSString stringWithFormat:@"%.2f", (adsrSlider.max + adsrSlider.min) / 2];
 }
 - (void)setAPos:(float)aPos { adsrSlider.aPos = aPos; }
 - (void)setDPos:(float)dPos { adsrSlider.dPos = dPos; }

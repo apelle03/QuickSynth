@@ -20,8 +20,8 @@
     freq = 440;
     startMag = 0;
     endMag = 0;
-    aMag = 1; dMag = .5; sMag = .5;
-    aLen = .1; dLen = .1; sLen = .7;
+    aMag = 100; dMag = 50; sMag = 50;
+    aLen = .5; dLen = .3; sLen = .1;
     return self;
 }
 

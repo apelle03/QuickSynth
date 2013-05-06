@@ -36,7 +36,8 @@
     modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
     
-    audioEngine = [[QSAudioEngine alloc] init];
+    audioEngine = [QSAudioEngine getInstance];
+    //audioEngine = [[QSAudioEngine alloc] init];
     audioEngine.score = score;
     
     snapFraction = .25;
@@ -417,8 +418,8 @@
             [_lowPassDetails setDVal:((QSLowPass*)control.modifier).dMag];
             [_lowPassDetails setSVal:((QSLowPass*)control.modifier).sMag];
             [_lowPassDetails setEndVal:((QSLowPass*)control.modifier).endMag];
-            [_lowPassDetails setMax:1];
-            [_lowPassDetails setMin:0];
+            [_lowPassDetails setMax:1000];
+            [_lowPassDetails setMin:-1000];
             
             [_lowPassDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_lowPassDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
@@ -558,7 +559,7 @@
         ((QSEnvelope*)_modifierDetailsButton.modifier).dMag = [_envelopeDetails getDVal];
         ((QSEnvelope*)_modifierDetailsButton.modifier).sMag = [_envelopeDetails getSVal];
         ((QSEnvelope*)_modifierDetailsButton.modifier).endMag = [_envelopeDetails getEndVal];
-    } else if ([_modifierDetailsController isKindOfClass:[QSLowPassButton class]]) {
+    } else if ([_modifierDetailsButton isKindOfClass:[QSLowPassButton class]]) {
         ((QSLowPass*)_modifierDetailsButton.modifier).freq = [_lowPassDetails getFrequency];
         ((QSLowPass*)_modifierDetailsButton.modifier).aLen = [_lowPassDetails getAPos];
         ((QSLowPass*)_modifierDetailsButton.modifier).dLen = [_lowPassDetails getDPos] - [_lowPassDetails getAPos];

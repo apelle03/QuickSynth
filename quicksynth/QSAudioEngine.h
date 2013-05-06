@@ -25,7 +25,8 @@
 
 @property (readwrite) BOOL playing;
 @property (retain, readwrite) NSMutableDictionary *soundNodes;
-//@property (retain, readwrite) NSMutableArray *soundNodes;
+
++ (QSAudioEngine *)getInstance;
 
 - (id)init;
 - (void)update;
