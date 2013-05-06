@@ -429,6 +429,16 @@
             [_filterDetails setFilterType:((QSFilter*)control.modifier).type];
             [_filterDetails setFrequency:((QSFilter*)control.modifier).freq];
             [_filterDetails setBandwidth:((QSFilter*)control.modifier).bandwidth];
+            [_filterDetails setAPos:((QSFilter*)control.modifier).aLen];
+            [_filterDetails setDPos:((QSFilter*)control.modifier).aLen + ((QSFilter*)control.modifier).dLen];
+            [_filterDetails setSPos:((QSFilter*)control.modifier).aLen + ((QSFilter*)control.modifier).dLen + ((QSFilter*)control.modifier).sLen];
+            [_filterDetails setStartVal:((QSFilter*)control.modifier).startMag];
+            [_filterDetails setAVal:((QSFilter*)control.modifier).aMag];
+            [_filterDetails setDVal:((QSFilter*)control.modifier).dMag];
+            [_filterDetails setSVal:((QSFilter*)control.modifier).sMag];
+            [_filterDetails setEndVal:((QSFilter*)control.modifier).endMag];
+            [_filterDetails setMax:10000];
+            [_filterDetails setMin:-10000];
             
             [_filterDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_filterDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
@@ -583,6 +593,15 @@
         ((QSFilter*)_modifierDetailsButton.modifier).type = [_filterDetails getFilterType];
         ((QSFilter*)_modifierDetailsButton.modifier).freq = [_filterDetails getFrequency];
         ((QSFilter*)_modifierDetailsButton.modifier).bandwidth = [_filterDetails getBandwidth];
+        
+        ((QSFilter*)_modifierDetailsButton.modifier).aLen = [_filterDetails getAPos];
+        ((QSFilter*)_modifierDetailsButton.modifier).dLen = [_filterDetails getDPos] - [_filterDetails getAPos];
+        ((QSFilter*)_modifierDetailsButton.modifier).sLen = [_filterDetails getSPos] - [_filterDetails getDPos];
+        ((QSFilter*)_modifierDetailsButton.modifier).startMag = [_filterDetails getStartVal];
+        ((QSFilter*)_modifierDetailsButton.modifier).aMag = [_filterDetails getAVal];
+        ((QSFilter*)_modifierDetailsButton.modifier).dMag = [_filterDetails getDVal];
+        ((QSFilter*)_modifierDetailsButton.modifier).sMag = [_filterDetails getSVal];
+        ((QSFilter*)_modifierDetailsButton.modifier).endMag = [_filterDetails getEndVal];
         [audioEngine update];
     }
 #warning TODO: Add modifier settings application for other modifier types here

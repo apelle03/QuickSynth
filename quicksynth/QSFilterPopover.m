@@ -73,4 +73,32 @@
     return bandwidthSlider.value;
 }
 
+- (void)setMax:(float)max {
+    adsrSlider.max = max;
+    maxLabel.text = [NSString stringWithFormat:@"%.0f", max];
+    midLabel.text = [NSString stringWithFormat:@"%.0f", (adsrSlider.max + adsrSlider.min) / 2];
+}
+- (void)setMin:(float)min {
+    adsrSlider.min = min;
+    minLabel.text = [NSString stringWithFormat:@"%.0f", min];
+    midLabel.text = [NSString stringWithFormat:@"%.0f", (adsrSlider.max + adsrSlider.min) / 2];
+}
+- (void)setAPos:(float)aPos { adsrSlider.aPos = aPos; }
+- (void)setDPos:(float)dPos { adsrSlider.dPos = dPos; }
+- (void)setSPos:(float)sPos { adsrSlider.sPos = sPos; }
+- (void)setStartVal:(float)startVal { adsrSlider.startVal = startVal; }
+- (void)setAVal:(float)aVal { adsrSlider.aVal = aVal; }
+- (void)setDVal:(float)dVal { adsrSlider.dVal = dVal; }
+- (void)setSVal:(float)sVal { adsrSlider.sVal = sVal; }
+- (void)setEndVal:(float)endVal { adsrSlider.endVal = endVal; }
+
+- (float)getAPos { return adsrSlider.aPos; }
+- (float)getDPos { return adsrSlider.dPos; }
+- (float)getSPos { return adsrSlider.sPos; }
+- (float)getStartVal { return adsrSlider.startVal; }
+- (float)getAVal { return adsrSlider.aVal; }
+- (float)getDVal { return adsrSlider.dVal; }
+- (float)getSVal { return adsrSlider.sVal; }
+- (float)getEndVal { return adsrSlider.endVal; }
+
 @end

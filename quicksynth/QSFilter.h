@@ -15,4 +15,8 @@
 @property (nonatomic) float freq;
 @property (nonatomic) float bandwidth;
 
+@property (nonatomic) float aMag, dMag, sMag;
+@property (nonatomic) float aLen, dLen, sLen;
+@property (nonatomic) float startMag, endMag;
+
 @end

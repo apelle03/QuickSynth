@@ -22,6 +22,7 @@
 @synthesize soundNodes;
 
 static Float64 startTime;
+static AudioUnit *filters;
 
 - (id) init {
     NSLog(@"init");
@@ -103,6 +104,12 @@ static Float64 startTime;
                 [soundNodes removeObjectForKey:ID];
             }
         }
+        
+        // Make filter array
+        if (filters != NULL) { free(filters); }
+        int max = -1;
+        for (NSNumber *ID in IDs) { if ([ID intValue] > max) { max = [ID intValue]; } }
+        filters = (AudioUnit*)malloc(MAX(max, 0) * sizeof(*filters));
                 
         // Add new sounds
         NSArray *newSounds = [score getSounds];
@@ -110,7 +117,7 @@ static Float64 startTime;
         UInt32 numSounds = newSounds.count;
         AudioUnitSetProperty(mixerUnit, kAudioUnitProperty_ElementCount, kAudioUnitScope_Input, 0, &numSounds, sizeof(numSounds));
 
-        for (int i = 0; i < newSounds.count; i++) {
+        for (int i = 0; i < numSounds; i++) {
             QSSound *sound = newSounds[i];
             //============================================================================
             // Sound is not already created
@@ -197,6 +204,7 @@ static Float64 startTime;
                     AudioUnit lastUnit, filterUnit;
                     AUGraphNodeInfo(scoreGraph, headNode, NULL, &lastUnit);
                     AUGraphNodeInfo(scoreGraph, filterNode, NULL, &filterUnit);
+                    filters[[modifier.ID intValue]] = filterUnit;
                     // Set stream format
                     AudioStreamBasicDescription soundStreamDesc;
                     UInt32 size;
@@ -385,6 +393,21 @@ OSStatus renderNoise(void *inRefCon,
             buffer[frame] = 0;
         }
         sample++;
+    }
+    for (QSModifier *modifier in [sound getModifiers]) {
+        if ([modifier isKindOfClass:[QSFilter class]]) {
+            QSFilter *filter = (QSFilter*)modifier;
+            if (filter.type == LOWPASS) {
+                AudioUnitSetParameter(filters[[filter.ID intValue]], kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
+            } else if (filter.type == HIGHPASS) {
+                AudioUnitSetParameter(filters[[filter.ID intValue]], kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
+            } else if (filter.type == BANDPASS) {
+                AudioUnitSetParameter(filters[[filter.ID intValue]], kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, filter.bandwidth, 0);
+                AudioUnitSetParameter(filters[[filter.ID intValue]], kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
+            } else {
+                AudioUnitSetParameter(filters[[filter.ID intValue]], kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, filter.freq, 0);
+            }
+        }
     }
     return noErr;
 }

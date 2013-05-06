@@ -367,8 +367,8 @@
 		49A643D01729AE8A004E893E /* Modifier */ = {
 			isa = PBXGroup;
 			children = (
-				49A05E121736053D000FE51B /* Filter */,
 				49A643D41729AF04004E893E /* Envelope */,
+				49A05E121736053D000FE51B /* Filter */,
 				49A643D11729AEBB004E893E /* QSModifierButton.h */,
 				49A643D21729AEBB004E893E /* QSModifierButton.m */,
 			);
@@ -416,8 +416,8 @@
 		49AE8ED9171615F800A84C5A /* Score */ = {
 			isa = PBXGroup;
 			children = (
-				49936B6E1728ACC2005C6ACD /* Modifiers */,
 				49936B6D1728ACB4005C6ACD /* Sounds */,
+				49936B6E1728ACC2005C6ACD /* Modifiers */,
 				49F32A4016EEECBE00D8329C /* QSScore.h */,
 				49F32A4116EEECBE00D8329C /* QSScore.m */,
 				49A08E5117190DF000362360 /* WaveType.h */,
