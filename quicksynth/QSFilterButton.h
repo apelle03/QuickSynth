@@ -1,5 +1,5 @@
 //
-//  QSLowPassButton.h
+//  QSFilterButton.h
 //  quicksynth
 //
 //  Created by Andrew on 5/4/13.
@@ -7,7 +7,8 @@
 //
 
 #import "QSModifierButton.h"
+#import "QSFilter.h"
 
-@interface QSLowPassButton : QSModifierButton
+@interface QSFilterButton : QSModifierButton
 
 @end

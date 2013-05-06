@@ -544,19 +544,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">lowpassAnchor</string>
+						<string key="label">filterAnchor</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="188427881"/>
 					</object>
-					<int key="connectionID">1170</int>
+					<int key="connectionID">1178</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">lowpassModule</string>
+						<string key="label">filterModule</string>
 						<reference key="source" ref="841351856"/>
 						<reference key="destination" ref="638376777"/>
 					</object>
-					<int key="connectionID">1172</int>
+					<int key="connectionID">1179</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -1046,7 +1046,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1177</int>
+			<int key="maxID">1179</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1062,11 +1062,101 @@
 					<string key="className">QSViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="modifierDetailsApplied:">id</string>
+						<string key="modifierDetailsCancelled:">id</string>
+						<string key="modifierModuleMoved:withEvent:">id</string>
+						<string key="modifierModulePressed:withEvent:">id</string>
+						<string key="modifierModuleReleased:withEvent:">id</string>
+						<string key="optionsApplied:">id</string>
+						<string key="optionsCancelled:">id</string>
+						<string key="optionsClicked:">id</string>
+						<string key="playClicked:">id</string>
+						<string key="scoreModuleMoved:withEvent:">id</string>
+						<string key="scoreModulePressed:withEvent:">id</string>
+						<string key="scoreModuleReleased:withEvent:">id</string>
+						<string key="scoreViewMoved:withEvent:">id</string>
+						<string key="scoreViewPressed:withEvent:">id</string>
+						<string key="scoreViewReleased:withEvent:">id</string>
+						<string key="soundDetailsApplied:">id</string>
+						<string key="soundDetailsCancelled:">id</string>
+						<string key="stopClicked:">id</string>
 						<string key="toolboxModuleMoved:withEvent:">id</string>
 						<string key="toolboxModulePressed:withEvent:">id</string>
 						<string key="toolboxModuleReleased:withEvent:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="modifierDetailsApplied:">
+							<string key="name">modifierDetailsApplied:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifierDetailsCancelled:">
+							<string key="name">modifierDetailsCancelled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifierModuleMoved:withEvent:">
+							<string key="name">modifierModuleMoved:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifierModulePressed:withEvent:">
+							<string key="name">modifierModulePressed:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="modifierModuleReleased:withEvent:">
+							<string key="name">modifierModuleReleased:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="optionsApplied:">
+							<string key="name">optionsApplied:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="optionsCancelled:">
+							<string key="name">optionsCancelled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="optionsClicked:">
+							<string key="name">optionsClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="playClicked:">
+							<string key="name">playClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreModuleMoved:withEvent:">
+							<string key="name">scoreModuleMoved:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreModulePressed:withEvent:">
+							<string key="name">scoreModulePressed:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreModuleReleased:withEvent:">
+							<string key="name">scoreModuleReleased:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreViewMoved:withEvent:">
+							<string key="name">scoreViewMoved:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreViewPressed:withEvent:">
+							<string key="name">scoreViewPressed:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="scoreViewReleased:withEvent:">
+							<string key="name">scoreViewReleased:withEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="soundDetailsApplied:">
+							<string key="name">soundDetailsApplied:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="soundDetailsCancelled:">
+							<string key="name">soundDetailsCancelled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="stopClicked:">
+							<string key="name">stopClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toolboxModuleMoved:withEvent:">
 							<string key="name">toolboxModuleMoved:withEvent:</string>
 							<string key="candidateClassName">id</string>
@@ -1083,8 +1173,8 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="envelopeAnchor">UIButton</string>
 						<string key="envelopeModule">UIButton</string>
-						<string key="lowpassAnchor">UIButton</string>
-						<string key="lowpassModule">UIButton</string>
+						<string key="filterAnchor">UIButton</string>
+						<string key="filterModule">UIButton</string>
 						<string key="noiseGeneratorAnchor">UIButton</string>
 						<string key="noiseGeneratorModule">UIButton</string>
 						<string key="option">UIBarButtonItem</string>
@@ -1106,12 +1196,12 @@
 							<string key="name">envelopeModule</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="lowpassAnchor">
-							<string key="name">lowpassAnchor</string>
+						<object class="IBToOneOutletInfo" key="filterAnchor">
+							<string key="name">filterAnchor</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="lowpassModule">
-							<string key="name">lowpassModule</string>
+						<object class="IBToOneOutletInfo" key="filterModule">
+							<string key="name">filterModule</string>
 							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="noiseGeneratorAnchor">

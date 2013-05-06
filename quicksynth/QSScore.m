@@ -108,7 +108,7 @@
 - (NSNumber*)addLowPassToSound:(NSNumber *)soundID
 {
     QSSound *sound = [sounds objectForKey:soundID];
-    [sound addModifier:[[QSLowPass alloc] initWithID:nextID]];
+    [sound addModifier:[[QSFilter alloc] initWithID:nextID]];
     [self getModifierForSound:soundID withID:nextID].soundID = soundID;
     
     NSNumber *thisID = nextID;

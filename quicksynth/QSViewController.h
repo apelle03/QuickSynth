@@ -20,8 +20,8 @@
 #import "QSModifierButton.h"
 #import "QSEnvelopeButton.h"
 #import "QSEnvelopePopover.h"
-#import "QSLowPassButton.h"
-#import "QSLowPassPopover.h"
+#import "QSFilterButton.h"
+#import "QSFilterPopover.h"
 
 // AUDIO
 #import "QSScore.h"
@@ -44,7 +44,7 @@
     IBOutlet UIButton *noiseGeneratorAnchor, *noiseGeneratorModule;
     // Modifiers
     IBOutlet UIButton *envelopeAnchor, *envelopeModule;
-    IBOutlet UIButton *lowpassAnchor, *lowpassModule;
+    IBOutlet UIButton *filterAnchor, *filterModule;
     
     // Trash
     IBOutlet UIButton *trash;
@@ -76,7 +76,7 @@
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
 
 @property (nonatomic, retain) QSEnvelopePopover *_envelopeDetails;
-@property (nonatomic, retain) QSLowPassPopover *_lowPassDetails;
+@property (nonatomic, retain) QSFilterPopover *_filterDetails;
 @property (nonatomic, retain) UIPopoverController *_modifierDetailsController;
 @property (nonatomic, retain) QSModifierButton *_modifierDetailsButton;
 

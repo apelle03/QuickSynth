@@ -6,22 +6,17 @@
 //  Copyright (c) 2013 Andrew. All rights reserved.
 //
 
-#import "QSLowPass.h"
+#import "QSFilter.h"
 
-@implementation QSLowPass
+@implementation QSFilter
 
-@synthesize freq;
-@synthesize aMag, dMag, sMag;
-@synthesize aLen, dLen, sLen;
-@synthesize startMag, endMag;
+@synthesize type, freq, bandwidth;
 
 - (id)init
 {
+    type = LOWPASS;
     freq = 440;
-    startMag = 0;
-    endMag = 0;
-    aMag = 100; dMag = 50; sMag = 50;
-    aLen = .5; dLen = .3; sLen = .1;
+    bandwidth = 1000;
     return self;
 }
 

@@ -22,7 +22,7 @@
 @synthesize _soundDetailsButton;
 
 @synthesize _envelopeDetails;
-@synthesize _lowPassDetails;
+@synthesize _filterDetails;
 @synthesize _modifierDetailsController;
 @synthesize _modifierDetailsButton;
 
@@ -35,9 +35,8 @@
     soundItems = [[NSMutableDictionary alloc] init];
     modifierIetms = [[NSMutableDictionary alloc] init];
 	score = [[QSScore alloc] init];
-    
-    audioEngine = [QSAudioEngine getInstance];
-    //audioEngine = [[QSAudioEngine alloc] init];
+
+    audioEngine = [[QSAudioEngine alloc] init];
     audioEngine.score = score;
     
     snapFraction = .25;
@@ -55,7 +54,7 @@
     
     // Modifier Details Popover
     _envelopeDetails = [[QSEnvelopePopover alloc] init];
-    _lowPassDetails = [[QSLowPassPopover alloc] init];
+    _filterDetails = [[QSFilterPopover alloc] init];
     
     _modifierDetailsController = [[UIPopoverController alloc] initWithContentViewController:_envelopeDetails];
     
@@ -169,7 +168,7 @@
             [soundItems setObject:soundButton forKey:soundID];
             [scoreView addObject:soundButton forKey:soundID];
             
-        } else if (control == envelopeModule || control == lowpassModule) {
+        } else if (control == envelopeModule || control == filterModule) {
             for (QSSoundButton *soundButton in [soundItems allValues]) {
                 if (CGRectIntersectsRect(control.frame, soundButton.frame)) {
                     NSNumber *soundID = soundButton.sound.ID;
@@ -183,14 +182,14 @@
                         modifier.startPercent = 0;
                         modifier.endPercent = 1;
                         modifierButton = [[QSEnvelopeButton alloc] initWithFrame:CGRectMake(soundButton.frame.origin.x, soundButton.frame.origin.y + soundButton.frame.size.height + 100 * modNum, soundButton.frame.size.width, 200)];
-                    } else if (control == lowpassModule) {
+                    } else if (control == filterModule) {
                         int modNum = [score getModifiersForSound:soundID].count;
                         modifierID = [score addLowPassToSound:soundID];
                         // Set modifier default properties
-                        QSLowPass *modifier = (QSLowPass*)[score getModifierForSound:soundID withID:modifierID];
+                        QSFilter *modifier = (QSFilter*)[score getModifierForSound:soundID withID:modifierID];
                         modifier.startPercent = 0;
                         modifier.endPercent = 1;
-                        modifierButton = [[QSLowPassButton alloc] initWithFrame:CGRectMake(soundButton.frame.origin.x, soundButton.frame.origin.y + soundButton.frame.size.height + 100 * modNum, soundButton.frame.size.width, 200)];
+                        modifierButton = [[QSFilterButton alloc] initWithFrame:CGRectMake(soundButton.frame.origin.x, soundButton.frame.origin.y + soundButton.frame.size.height + 100 * modNum, soundButton.frame.size.width, 200)];
                     }
                     
                     // Add modifier button to view
@@ -220,9 +219,9 @@
         [control setFrame:noiseGeneratorAnchor.frame];
     } else if (control == envelopeModule) {
         [control setFrame:envelopeAnchor.frame];
-    } else if (control == lowpassModule) {
+    } else if (control == filterModule) {
         [audioEngine update];
-        [control setFrame:lowpassAnchor.frame];
+        [control setFrame:filterAnchor.frame];
     }
 }
 
@@ -406,24 +405,26 @@
             [_envelopeDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_envelopeDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
             [_modifierDetailsController setPopoverContentSize:_envelopeDetails.size];
-        } else if ([control isKindOfClass:[QSLowPassButton class]]) {
-            [_modifierDetailsController setContentViewController:_lowPassDetails];
+        } else if ([control isKindOfClass:[QSFilterButton class]]) {
+            [_modifierDetailsController setContentViewController:_filterDetails];
             
-            [_lowPassDetails setFrequency:((QSLowPass*)control.modifier).freq];
-            [_lowPassDetails setAPos:((QSLowPass*)control.modifier).aLen];
-            [_lowPassDetails setDPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen];
-            [_lowPassDetails setSPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen + ((QSLowPass*)control.modifier).sLen];
-            [_lowPassDetails setStartVal:((QSLowPass*)control.modifier).startMag];
-            [_lowPassDetails setAVal:((QSLowPass*)control.modifier).aMag];
-            [_lowPassDetails setDVal:((QSLowPass*)control.modifier).dMag];
-            [_lowPassDetails setSVal:((QSLowPass*)control.modifier).sMag];
-            [_lowPassDetails setEndVal:((QSLowPass*)control.modifier).endMag];
-            [_lowPassDetails setMax:1000];
-            [_lowPassDetails setMin:-1000];
+            [_filterDetails setFilterType:((QSFilter*)control.modifier).type];
+            [_filterDetails setFrequency:((QSFilter*)control.modifier).freq];
+            [_filterDetails setBandwidth:((QSFilter*)control.modifier).bandwidth];
+            //[_lowPassDetails setAPos:((QSLowPass*)control.modifier).aLen];
+            //[_lowPassDetails setDPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen];
+            //[_lowPassDetails setSPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen + ((QSLowPass*)control.modifier).sLen];
+            //[_lowPassDetails setStartVal:((QSLowPass*)control.modifier).startMag];
+            //[_lowPassDetails setAVal:((QSLowPass*)control.modifier).aMag];
+            //[_lowPassDetails setDVal:((QSLowPass*)control.modifier).dMag];
+            //[_lowPassDetails setSVal:((QSLowPass*)control.modifier).sMag];
+            //[_lowPassDetails setEndVal:((QSLowPass*)control.modifier).endMag];
+            //[_lowPassDetails setMax:1000];
+            //[_lowPassDetails setMin:-1000];
             
-            [_lowPassDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
-            [_lowPassDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
-            [_modifierDetailsController setPopoverContentSize:_lowPassDetails.size];
+            [_filterDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_filterDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_modifierDetailsController setPopoverContentSize:_filterDetails.size];
         }
 #warning TODO: add types here
         [_modifierDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
@@ -559,16 +560,19 @@
         ((QSEnvelope*)_modifierDetailsButton.modifier).dMag = [_envelopeDetails getDVal];
         ((QSEnvelope*)_modifierDetailsButton.modifier).sMag = [_envelopeDetails getSVal];
         ((QSEnvelope*)_modifierDetailsButton.modifier).endMag = [_envelopeDetails getEndVal];
-    } else if ([_modifierDetailsButton isKindOfClass:[QSLowPassButton class]]) {
-        ((QSLowPass*)_modifierDetailsButton.modifier).freq = [_lowPassDetails getFrequency];
-        ((QSLowPass*)_modifierDetailsButton.modifier).aLen = [_lowPassDetails getAPos];
-        ((QSLowPass*)_modifierDetailsButton.modifier).dLen = [_lowPassDetails getDPos] - [_lowPassDetails getAPos];
-        ((QSLowPass*)_modifierDetailsButton.modifier).sLen = [_lowPassDetails getSPos] - [_lowPassDetails getDPos];
-        ((QSLowPass*)_modifierDetailsButton.modifier).startMag = [_lowPassDetails getStartVal];
-        ((QSLowPass*)_modifierDetailsButton.modifier).aMag = [_lowPassDetails getAVal];
-        ((QSLowPass*)_modifierDetailsButton.modifier).dMag = [_lowPassDetails getDVal];
-        ((QSLowPass*)_modifierDetailsButton.modifier).sMag = [_lowPassDetails getSVal];
-        ((QSLowPass*)_modifierDetailsButton.modifier).endMag = [_lowPassDetails getEndVal];
+    } else if ([_modifierDetailsButton isKindOfClass:[QSFilterButton class]]) {
+        ((QSFilter*)_modifierDetailsButton.modifier).type = [_filterDetails getFilterType];
+        ((QSFilter*)_modifierDetailsButton.modifier).freq = [_filterDetails getFrequency];
+        ((QSFilter*)_modifierDetailsButton.modifier).bandwidth = [_filterDetails getBandwidth];
+        //((QSLowPass*)_modifierDetailsButton.modifier).aLen = [_lowPassDetails getAPos];
+        //((QSLowPass*)_modifierDetailsButton.modifier).dLen = [_lowPassDetails getDPos] - [_lowPassDetails getAPos];
+        //((QSLowPass*)_modifierDetailsButton.modifier).sLen = [_lowPassDetails getSPos] - [_lowPassDetails getDPos];
+        //((QSLowPass*)_modifierDetailsButton.modifier).startMag = [_lowPassDetails getStartVal];
+        //((QSLowPass*)_modifierDetailsButton.modifier).aMag = [_lowPassDetails getAVal];
+        //((QSLowPass*)_modifierDetailsButton.modifier).dMag = [_lowPassDetails getDVal];
+        //((QSLowPass*)_modifierDetailsButton.modifier).sMag = [_lowPassDetails getSVal];
+        //((QSLowPass*)_modifierDetailsButton.modifier).endMag = [_lowPassDetails getEndVal];
+        [audioEngine update];
     }
 #warning TODO: add other types
     [_modifierDetailsButton setNeedsDisplay];

@@ -7,12 +7,12 @@
 //
 
 #import "QSModifier.h"
+#import "FilterType.h"
 
-@interface QSLowPass : QSModifier
+@interface QSFilter : QSModifier
 
+@property (nonatomic) FilterType type;
 @property (nonatomic) float freq;
-@property (nonatomic) float aMag, dMag, sMag;
-@property (nonatomic) float aLen, dLen, sLen;
-@property (nonatomic) float startMag, endMag;
+@property (nonatomic) float bandwidth;
 
 @end

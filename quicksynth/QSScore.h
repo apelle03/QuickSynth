@@ -14,7 +14,7 @@
 
 #import "QSModifier.h"
 #import "QSEnvelope.h"
-#import "QSLowPass.h"
+#import "QSFilter.h"
 
 @interface QSScore : NSObject {
     NSNumber *nextID;
