@@ -154,8 +154,10 @@ static Float64 startTime;
                 soundInput.inputProc = &renderWaveform;
             } else if ([sound isKindOfClass:[QSPulse class]]) {
                 soundInput.inputProc = &renderPulse;
+            } else if ([sound isKindOfClass:[QSNoise class]]) {
+                soundInput.inputProc = &renderNoise;
             }
-#warning TODO: add these types
+#warning TODO: Add render callback function for new sound types here
             soundInput.inputProcRefCon = (__bridge void *)(sound);
             AUGraphSetNodeInputCallback(scoreGraph, headNode, 0, &soundInput);
             
@@ -251,7 +253,7 @@ static Float64 startTime;
             AUGraphStart(scoreGraph);
         }
         playing = TRUE;
-        startTime = -1;//[NSDate date];
+        startTime = -1;
     }
 }
 
@@ -274,8 +276,10 @@ static Float64 startTime;
                 ((QSWaveform*)sound).theta = 0;
             } else if ([sound isKindOfClass:[QSPulse class]]) {
                 ((QSPulse*)sound).theta = 0;
+            } else if ([sound isKindOfClass:[QSNoise class]]) {
+                ((QSNoise*)sound).sample = 0;
             }
-#warning TODO:add types
+#warning TODO: Add sound initializers here for new sound types
         }
     }
     [self startGraph];
@@ -348,6 +352,34 @@ OSStatus renderPulse(void *inRefCon,
             sound.theta += theta_increment;
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
+            }
+        } else {
+            buffer[frame] = 0;
+        }
+        sample++;
+    }
+    return noErr;
+}
+
+OSStatus renderNoise(void *inRefCon,
+                     AudioUnitRenderActionFlags *ioActionFlags,
+                     const AudioTimeStamp *inTimeStamp,
+                     UInt32 inBusNumber,
+                     UInt32 inNumberFrames,
+                     AudioBufferList *ioData) {
+    QSNoise *sound = (__bridge QSNoise *)(inRefCon);
+    const int channel = 0;
+    AudioSampleType *buffer = ioData->mBuffers[channel].mData;
+    if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
+    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
+    // Generate the samples
+    UInt64 sample = (curTime - sound.startTime) * 44100;
+    for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
+        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
+            buffer[frame] = sound.noise[sound.sample] * sound.envelope[sample] * 32767;
+            sound.sample++;
+            if (sound.sample > sound.numSamples) {
+                sound.sample = 0;
             }
         } else {
             buffer[frame] = 0;

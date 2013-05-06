@@ -11,6 +11,7 @@
 #import "QSSound.h"
 #import "QSWaveform.h"
 #import "QSPulse.h"
+#import "QSNoise.h"
 
 #import "QSModifier.h"
 #import "QSEnvelope.h"

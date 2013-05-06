@@ -13,6 +13,10 @@
 
 #import "QSSoundNode.h"
 
+#import "QSWaveform.h"
+#import "QSPulse.h"
+#import "QSNoise.h"
+
 @interface QSAudioEngine : NSObject
 
 @property (readwrite, retain) QSScore *score;

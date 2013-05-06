@@ -52,7 +52,7 @@
     _optionsController = [[UIPopoverController alloc] initWithContentViewController:_options];
     [_optionsController setPopoverContentSize:_options.view.frame.size];
     
-#warning TODO: create sound and modifier popover controllers here
+#warning TODO: Create sound and modifier popover controllers here
     // Sound Details Popover
     _waveformDetails = [[QSWaveformPopover alloc] init];
     _pulseDetails = [[QSPulsePopover alloc] init];
@@ -181,6 +181,7 @@
             [scoreView addObject:soundButton forKey:soundID];
             
         } else if (control == envelopeModule || control == filterModule) {
+#warning TODO: Modify above line to include new modifier type toolbox module
             for (QSSoundButton *soundButton in [soundItems allValues]) {
                 if (CGRectIntersectsRect(control.frame, soundButton.frame)) {
                     NSNumber *soundID = soundButton.sound.ID;
@@ -203,6 +204,7 @@
                         modifier.endPercent = 1;
                         modifierButton = [[QSFilterButton alloc] initWithFrame:CGRectMake(soundButton.frame.origin.x, soundButton.frame.origin.y + soundButton.frame.size.height + 100 * modNum, soundButton.frame.size.width, 200)];
                     }
+#warning TODO: Insert modifier add code for new types here
                     
                     // Add modifier button to view
                     modifierButton.modifier = [score getModifierForSound:soundID withID:modifierID];
@@ -432,7 +434,7 @@
             [_filterDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
             [_modifierDetailsController setPopoverContentSize:_filterDetails.size];
         }
-#warning TODO: add types here
+#warning TODO: Add popover controller invocation for modifier types here
         [_modifierDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
         
         [control removeFromSuperview];

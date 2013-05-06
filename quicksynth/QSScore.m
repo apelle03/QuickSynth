@@ -50,7 +50,7 @@
 
 - (NSNumber*)addNoise
 {
-    [sounds setObject:[[QSSound alloc] initWithID:nextID] forKey:nextID];
+    [sounds setObject:[[QSNoise alloc] initWithID:nextID] forKey:nextID];
     
     NSNumber *thisID = nextID;
     nextID = [NSNumber numberWithInt:[nextID intValue] + 1];
