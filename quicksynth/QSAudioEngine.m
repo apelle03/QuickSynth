@@ -349,21 +349,22 @@ OSStatus renderWaveform(void *inRefCon,
     // Generate the samples
     //sound.curGain = getGain(sound, curTime);
     //float gain_increment = getGainIncrement(sound, curTime);
+    UInt64 sample = (curTime - sound.startTime) * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
             switch (sound.waveType) {
                 case SQUARE:
-                    buffer[frame] = (sound.theta < M_PI) ? (sound.curGain * 32767) : (-sound.curGain * 32767);
+                    buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[sample] * 32767) : (-sound.envelope[sample] * 32767);
                     break;
                 case TRIANGLE:
-                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * sound.curGain * 32767;
+                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * sound.envelope[sample] * 32767;
                     break;
                 case SAWTOOTH:
-                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * sound.curGain * 32767;
+                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * sound.envelope[sample] * 32767;
                     break;
                 case SINE:
                 default:
-                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.curGain * 32767);
+                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.envelope[sample] * 32767);
                     break;
             }
             sound.theta += theta_increment;
@@ -377,6 +378,7 @@ OSStatus renderWaveform(void *inRefCon,
         } else {
             buffer[frame] = 0;
         }
+        sample++;
     }
     return noErr;
 }

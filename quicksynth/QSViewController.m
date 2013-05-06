@@ -210,6 +210,7 @@
                     // Add modifier module to scoreView
                     [soundButton addModifierButton:modifierButton];
                     [soundButton placeModifiers];
+                    [soundButton.sound updateEnvelope];
                 }
             }
         }
@@ -416,16 +417,6 @@
             [_filterDetails setFilterType:((QSFilter*)control.modifier).type];
             [_filterDetails setFrequency:((QSFilter*)control.modifier).freq];
             [_filterDetails setBandwidth:((QSFilter*)control.modifier).bandwidth];
-            //[_lowPassDetails setAPos:((QSLowPass*)control.modifier).aLen];
-            //[_lowPassDetails setDPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen];
-            //[_lowPassDetails setSPos:((QSLowPass*)control.modifier).aLen + ((QSLowPass*)control.modifier).dLen + ((QSLowPass*)control.modifier).sLen];
-            //[_lowPassDetails setStartVal:((QSLowPass*)control.modifier).startMag];
-            //[_lowPassDetails setAVal:((QSLowPass*)control.modifier).aMag];
-            //[_lowPassDetails setDVal:((QSLowPass*)control.modifier).dMag];
-            //[_lowPassDetails setSVal:((QSLowPass*)control.modifier).sMag];
-            //[_lowPassDetails setEndVal:((QSLowPass*)control.modifier).endMag];
-            //[_lowPassDetails setMax:1000];
-            //[_lowPassDetails setMin:-1000];
             
             [_filterDetails.apply addTarget:self action:@selector(modifierDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_filterDetails.cancel addTarget:self action:@selector(modifierDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
@@ -440,6 +431,7 @@
         [score removeModifierForSound:control.modifier.soundID withID:control.modifier.ID];
         [[soundItems objectForKey:control.modifier.soundID] removeModifierButton:control];
         [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
+        [((QSSoundButton*)[soundItems objectForKey:control.modifier.soundID]).sound updateEnvelope];
         [control removeFromSuperview];
         [audioEngine update];
     } else {
@@ -447,6 +439,7 @@
         [control removeFromSuperview];
         [self.view insertSubview:control belowSubview:toolbar];
         [[soundItems objectForKey:control.modifier.soundID] placeModifiers];
+        [((QSSoundButton*)[soundItems objectForKey:control.modifier.soundID]).sound updateEnvelope];
         [control setNeedsDisplay];
     }
 }
@@ -550,6 +543,7 @@
 #warning TODO: add other types
     
     [_soundDetailsButton setNeedsDisplay];
+    [_soundDetailsButton.sound updateEnvelope];
     _soundDetailsButton = nil;
 }
 
@@ -579,6 +573,7 @@
     }
 #warning TODO: add other types
     [_modifierDetailsButton setNeedsDisplay];
+    [((QSSoundButton*)[soundItems objectForKey:_modifierDetailsButton.modifier.soundID]).sound updateEnvelope];
     _modifierDetailsButton = nil;
 }
 

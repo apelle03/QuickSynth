@@ -12,6 +12,7 @@
 #import "WaveType.h"
 
 #import "QSModifier.h"
+#import "QSEnvelope.h"
 
 @interface QSSound : NSObject {
     NSMutableDictionary *modifiers;
@@ -22,8 +23,11 @@
 @property (nonatomic, readwrite) float duration;
 @property (nonatomic, readwrite) float gain;
 @property (nonatomic, readwrite) float curGain;
+@property (nonatomic, readonly)  float *envelope;
 
 - (id) initWithID:(NSNumber*)ID;
+
+- (void) updateEnvelope;
 
 - (void) addModifier:(QSModifier*)modifier;
 - (QSModifier*) getModifier:(NSNumber*)modifierID;
