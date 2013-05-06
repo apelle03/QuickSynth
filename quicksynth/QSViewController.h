@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 // UI
+#import "QSHelpViewController.h"
 #import "QSScoreView.h"
 #import "QSOptionsPopoverController.h"
 
@@ -67,6 +68,8 @@
 @property (nonatomic, retain) QSScore *score;
 @property (nonatomic, retain) QSAudioEngine *audioEngine;
 
+@property (nonatomic, retain) QSHelpViewController *_helpScreen;
+
 @property (nonatomic, retain) QSOptionsPopoverController *_options;
 @property (nonatomic, retain) UIPopoverController *_optionsController;
 
@@ -85,5 +88,7 @@
 - (IBAction)toolboxModulePressed:(id)sender withEvent:(UIEvent*)event;
 - (IBAction)toolboxModuleMoved:(id)sender withEvent:(UIEvent*)event;
 - (IBAction)toolboxModuleReleased:(id)sender withEvent:(UIEvent*)event;
+
+- (IBAction)helpClicked:(id)sender;
 
 @end

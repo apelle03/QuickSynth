@@ -809,6 +809,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">helpClicked:</string>
+						<reference key="source" ref="997529432"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">1180</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">toolboxModulePressed:withEvent:</string>
 						<reference key="source" ref="638376777"/>
 						<reference key="destination" ref="841351856"/>
@@ -1046,7 +1054,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1179</int>
+			<int key="maxID">1180</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1062,6 +1070,7 @@
 					<string key="className">QSViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="helpClicked:">id</string>
 						<string key="modifierDetailsApplied:">id</string>
 						<string key="modifierDetailsCancelled:">id</string>
 						<string key="modifierModuleMoved:withEvent:">id</string>
@@ -1085,6 +1094,10 @@
 						<string key="toolboxModuleReleased:withEvent:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="helpClicked:">
+							<string key="name">helpClicked:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="modifierDetailsApplied:">
 							<string key="name">modifierDetailsApplied:</string>
 							<string key="candidateClassName">id</string>

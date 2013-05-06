@@ -13,6 +13,8 @@
 @synthesize score;
 @synthesize audioEngine;
 
+@synthesize _helpScreen;
+
 @synthesize _options;
 @synthesize _optionsController;
 
@@ -40,6 +42,9 @@
     audioEngine.score = score;
     
     snapFraction = .25;
+    
+    // Help Screen
+    _helpScreen = [[QSHelpViewController alloc] init];
 
     // General Options Popover
     _options = [[QSOptionsPopoverController alloc] init];
@@ -501,6 +506,12 @@
     [_optionsController presentPopoverFromBarButtonItem:option permittedArrowDirections:UIPopoverArrowDirectionDown animated:true];
 }
 
+- (IBAction)helpClicked:(id)sender
+{
+    [_helpScreen setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self presentViewController:_helpScreen animated:true completion:^{}];
+}
+
 //---------------------------------------------------------------------------------------------------------------------------------------
 // POPUPS CLOSED
 //---------------------------------------------------------------------------------------------------------------------------------------
@@ -564,14 +575,6 @@
         ((QSFilter*)_modifierDetailsButton.modifier).type = [_filterDetails getFilterType];
         ((QSFilter*)_modifierDetailsButton.modifier).freq = [_filterDetails getFrequency];
         ((QSFilter*)_modifierDetailsButton.modifier).bandwidth = [_filterDetails getBandwidth];
-        //((QSLowPass*)_modifierDetailsButton.modifier).aLen = [_lowPassDetails getAPos];
-        //((QSLowPass*)_modifierDetailsButton.modifier).dLen = [_lowPassDetails getDPos] - [_lowPassDetails getAPos];
-        //((QSLowPass*)_modifierDetailsButton.modifier).sLen = [_lowPassDetails getSPos] - [_lowPassDetails getDPos];
-        //((QSLowPass*)_modifierDetailsButton.modifier).startMag = [_lowPassDetails getStartVal];
-        //((QSLowPass*)_modifierDetailsButton.modifier).aMag = [_lowPassDetails getAVal];
-        //((QSLowPass*)_modifierDetailsButton.modifier).dMag = [_lowPassDetails getDVal];
-        //((QSLowPass*)_modifierDetailsButton.modifier).sMag = [_lowPassDetails getSVal];
-        //((QSLowPass*)_modifierDetailsButton.modifier).endMag = [_lowPassDetails getEndVal];
         [audioEngine update];
     }
 #warning TODO: add other types
