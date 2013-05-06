@@ -10,7 +10,7 @@
 
 @implementation QSSound
 
-@synthesize ID, startTime, duration = _duration, gain = _gain, curGain, envelope = _envelope;
+@synthesize ID, startTime, duration = _duration, gain = _gain, envelope = _envelope;
 
 - (id)init
 {

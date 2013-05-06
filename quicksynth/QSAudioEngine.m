@@ -270,7 +270,6 @@ static Float64 startTime;
 - (void)play {
     if (score) {
         for (QSSound *sound in [score getSounds]) {
-            sound.curGain = sound.gain;
             if ([sound isKindOfClass:[QSWaveform class]]) {
                 ((QSWaveform*)sound).theta = 0;
             } else if ([sound isKindOfClass:[QSPulse class]]) {
@@ -286,54 +285,6 @@ static Float64 startTime;
     [self stopGraph];
 }
 
-static inline float getGain(QSSound *sound, NSTimeInterval curTime) {
-    float gain = sound.gain;
-    for (QSModifier *modifier in [sound getModifiers]) {
-        if ([modifier isKindOfClass:[QSEnvelope class]]) {
-            QSEnvelope *env = (QSEnvelope*)modifier;
-            NSTimeInterval startTime = sound.startTime + sound.duration * env.startPercent;
-            NSTimeInterval aTime = startTime + sound.duration * (env.endPercent - env.startPercent) * env.aLen;
-            NSTimeInterval dTime = aTime + sound.duration * (env.endPercent - env.startPercent) * env.dLen;
-            NSTimeInterval sTime = dTime + sound.duration * (env.endPercent - env.startPercent) * env.sLen;
-            NSTimeInterval endTime = sound.startTime + sound.duration * env.endPercent;
-            if (curTime >= startTime && curTime < aTime) {
-                gain *= env.startMag + (env.aMag - env.startMag) / (aTime - startTime) * (curTime - startTime);
-            } else if (curTime >= aTime && curTime < dTime) {
-                gain *= env.aMag + (env.dMag - env.aMag) / (dTime - aTime) * (curTime - aTime);
-            } else if (curTime >= dTime && curTime < sTime) {
-                gain *= env.dMag + (env.sMag - env.dMag) / (sTime - dTime) * (curTime - dTime);
-            } else if (curTime >= sTime && curTime < endTime) {
-                gain *= env.sMag + (env.endMag - env.sMag) / (endTime - sTime) * (curTime - sTime);
-            }
-        }
-    }
-    return gain;
-}
-
-static inline float getGainIncrement(QSSound *sound, NSTimeInterval curTime) {
-    float gainIncrement = 0;
-    for (QSModifier *modifier in [sound getModifiers]) {
-        if ([modifier isKindOfClass:[QSEnvelope class]]) {
-            QSEnvelope *env = (QSEnvelope*)modifier;
-            NSTimeInterval startTime = sound.startTime + sound.duration * env.startPercent;
-            NSTimeInterval aTime = startTime + sound.duration * (env.endPercent - env.startPercent) * env.aLen;
-            NSTimeInterval dTime = aTime + sound.duration * (env.endPercent - env.startPercent) * env.dLen;
-            NSTimeInterval sTime = dTime + sound.duration * (env.endPercent - env.startPercent) * env.sLen;
-            NSTimeInterval endTime = sound.startTime + sound.duration * env.endPercent;
-            if (curTime >= startTime && curTime < aTime) {
-                gainIncrement += (env.aMag - env.startMag) / (aTime - startTime);
-            } else if (curTime >= aTime && curTime < dTime) {
-                gainIncrement += (env.dMag - env.aMag) / (dTime - aTime);
-            } else if (curTime >= dTime && curTime < sTime) {
-                gainIncrement += (env.sMag - env.dMag) / (sTime - dTime);
-            } else if (curTime >= sTime && curTime < endTime) {
-                gainIncrement += (env.endMag - env.sMag) / (endTime - sTime);
-            }
-        }
-    }
-    return sound.gain * gainIncrement / 44100;
-}
-
 OSStatus renderWaveform(void *inRefCon,
                     AudioUnitRenderActionFlags *ioActionFlags,
                     const AudioTimeStamp *inTimeStamp,
@@ -345,10 +296,8 @@ OSStatus renderWaveform(void *inRefCon,
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
-    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime; //-[startTime timeIntervalSinceNow]; // time in seconds
+    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
     // Generate the samples
-    //sound.curGain = getGain(sound, curTime);
-    //float gain_increment = getGainIncrement(sound, curTime);
     UInt64 sample = (curTime - sound.startTime) * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
@@ -371,10 +320,6 @@ OSStatus renderWaveform(void *inRefCon,
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
             }
-            //sound.curGain += gain_increment;
-            if (sound.curGain > 1) {
-                sound.curGain = 1;
-            }
         } else {
             buffer[frame] = 0;
         }
@@ -389,30 +334,26 @@ OSStatus renderPulse(void *inRefCon,
                         UInt32 inBusNumber,
                         UInt32 inNumberFrames,
                         AudioBufferList *ioData) {
-    /*
     QSPulse *sound = (__bridge QSPulse *)(inRefCon);
     double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
-    NSTimeInterval curTime = -[startTime timeIntervalSinceNow];
+    if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
+    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
     // Generate the samples
-    //sound.curGain = [QSAudioEngine getGain:sound atTime:curTime];
-    //float gain_increment = [QSAudioEngine getGainIncrement:sound atTime:curTime];
+    UInt64 sample = (curTime - sound.startTime) * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
         if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
-            buffer[frame] = (sound.theta < (M_PI * 2 * sound.duty)) ? (sound.curGain * 32767) : (-sound.curGain * 32767);
+            buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[sample] * 32767) : (-sound.envelope[sample] * 32767);
             sound.theta += theta_increment;
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
             }
-            //sound.curGain += gain_increment;
-            if (sound.curGain > 1) {
-                sound.curGain = 1;
-            }
         } else {
             buffer[frame] = 0;
         }
-    }*/
+        sample++;
+    }
     return noErr;
 }
 
