@@ -17,6 +17,8 @@
 #import "QSWaveformPopover.h"
 #import "QSPulseButton.h"
 #import "QSPulsePopover.h"
+#import "QSNoiseButton.h"
+#import "QSNoisePopover.h"
 
 #import "QSModifierButton.h"
 #import "QSEnvelopeButton.h"
@@ -30,6 +32,7 @@
 #import "QSSound.h"
 #import "QSWaveform.h"
 #import "QSPulse.h"
+#import "QSNoise.h"
 
 #import "QSModifier.h"
 #import "QSEnvelope.h"
@@ -73,8 +76,10 @@
 @property (nonatomic, retain) QSOptionsPopoverController *_options;
 @property (nonatomic, retain) UIPopoverController *_optionsController;
 
+#warning TODO: Add declaration of sound and modifier popover controllers here
 @property (nonatomic, retain) QSWaveformPopover *_waveformDetails;
 @property (nonatomic, retain) QSPulsePopover *_pulseDetails;
+@property (nonatomic, retain) QSNoisePopover *_noiseDetails;
 @property (nonatomic, retain) UIPopoverController *_soundDetailsController;
 @property (nonatomic, retain) QSSoundButton *_soundDetailsButton;
 

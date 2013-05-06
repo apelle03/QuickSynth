@@ -20,6 +20,7 @@
 
 @synthesize _waveformDetails;
 @synthesize _pulseDetails;
+@synthesize _noiseDetails;
 @synthesize _soundDetailsController;
 @synthesize _soundDetailsButton;
 
@@ -51,9 +52,11 @@
     _optionsController = [[UIPopoverController alloc] initWithContentViewController:_options];
     [_optionsController setPopoverContentSize:_options.view.frame.size];
     
+#warning TODO: create sound and modifier popover controllers here
     // Sound Details Popover
     _waveformDetails = [[QSWaveformPopover alloc] init];
     _pulseDetails = [[QSPulsePopover alloc] init];
+    _noiseDetails = [[QSNoisePopover alloc] init];
     
     _soundDetailsController = [[UIPopoverController alloc] initWithContentViewController:_waveformDetails];
     
@@ -133,7 +136,8 @@
     UIControl *control = sender;
     
     if (CGRectIntersectsRect(control.frame, scoreView.frame) && !CGRectIntersectsRect(control.frame, trash.frame)) {
-        if (control == waveformGeneratorModule || control == pulseGeneratorModule) {// || control == noiseGeneratorModule) {
+#warning TODO: Modify below line to include new sound type toolbox module
+        if (control == waveformGeneratorModule || control == pulseGeneratorModule || control == noiseGeneratorModule) {
             // Add sound to score
             NSNumber *soundID;
             QSSoundButton *soundButton;
@@ -153,10 +157,13 @@
                 sound.duty = .5;
                 sound.gain = .25;
                 soundButton = [[QSPulseButton alloc] initWithFrame:control.frame];
-            } /*else if (control == noiseGeneratorModule) {
+            } else if (control == noiseGeneratorModule) {
                 soundID = [score addNoise];
-            }*/
-#warning TODO: add types
+                QSNoise *sound = (QSNoise*)[score getSoundForID:soundID];
+                sound.gain = .25;
+                soundButton = [[QSNoiseButton alloc] initWithFrame:control.frame];
+            }
+#warning TODO: Insert sound add code for new types here
             
             // Add sound button to view
             soundButton.sound = [score getSoundForID:soundID];
@@ -300,11 +307,14 @@
             [_pulseDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
             [_pulseDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
             [_soundDetailsController setPopoverContentSize:_pulseDetails.size];
-        }/* else if ([control isKindOfClass:[qsNoiseButton class]]) {
-            
+        } else if ([control isKindOfClass:[QSNoiseButton class]]) {
+            [_soundDetailsController setContentViewController:_noiseDetails];
+            [_noiseDetails setGain:((QSNoise*)control.sound).gain];
+            [_noiseDetails.apply addTarget:self action:@selector(soundDetailsApplied:) forControlEvents:UIControlEventTouchUpInside];
+            [_noiseDetails.cancel addTarget:self action:@selector(soundDetailsCancelled:) forControlEvents:UIControlEventTouchUpInside];
+            [_soundDetailsController setPopoverContentSize:_noiseDetails.size];
         }
-        */
-#warning TODO: add types here
+#warning TODO: Add popover controller invocation for sound types
         
         [_soundDetailsController presentPopoverFromRect:control.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp | UIPopoverArrowDirectionDown animated:true];
         
@@ -539,8 +549,10 @@
         ((QSPulse*)_soundDetailsButton.sound).duty = [_pulseDetails getDuty];
         ((QSPulse*)_soundDetailsButton.sound).frequency = [_pulseDetails getFrequency];
         ((QSPulse*)_soundDetailsButton.sound).gain = [_pulseDetails getGain];
+    } else if ([_soundDetailsButton isKindOfClass:[QSNoiseButton class]]) {
+        ((QSNoise*)_soundDetailsButton.sound).gain = [_noiseDetails getGain];
     }
-#warning TODO: add other types
+#warning TODO: Add sound settings application for other sound types here
     
     [_soundDetailsButton setNeedsDisplay];
     [_soundDetailsButton.sound updateEnvelope];
@@ -571,7 +583,7 @@
         ((QSFilter*)_modifierDetailsButton.modifier).bandwidth = [_filterDetails getBandwidth];
         [audioEngine update];
     }
-#warning TODO: add other types
+#warning TODO: Add modifier settings application for other modifier types here
     [_modifierDetailsButton setNeedsDisplay];
     [((QSSoundButton*)[soundItems objectForKey:_modifierDetailsButton.modifier.soundID]).sound updateEnvelope];
     _modifierDetailsButton = nil;

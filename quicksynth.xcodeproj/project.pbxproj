@@ -47,6 +47,10 @@
 		49A31D2B17382394002D2244 /* pinchsize.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A31D2A17382394002D2244 /* pinchsize.png */; };
 		49A31D2E1738239F002D2244 /* tapdetails.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A31D2C1738239F002D2244 /* tapdetails.png */; };
 		49A31D2F1738239F002D2244 /* tapreset.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A31D2D1738239F002D2244 /* tapreset.png */; };
+		49A31D3217383EB9002D2244 /* QSNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A31D3117383EB9002D2244 /* QSNoise.m */; };
+		49A31D3517384399002D2244 /* QSNoiseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A31D3417384399002D2244 /* QSNoiseButton.m */; };
+		49A31D39173844F3002D2244 /* QSNoisePopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A31D37173844F3002D2244 /* QSNoisePopover.m */; };
+		49A31D3A173844F3002D2244 /* QSNoisePopover.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49A31D38173844F3002D2244 /* QSNoisePopover.xib */; };
 		49A465BB173450BD00A2A7FB /* trash.png in Resources */ = {isa = PBXBuildFile; fileRef = 49A465BA173450BD00A2A7FB /* trash.png */; };
 		49A5B70A171A2F3A00199158 /* QSSnapSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A5B709171A2F3A00199158 /* QSSnapSize.m */; };
 		49A643CF1729ADCB004E893E /* QSEnvelope.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A643CE1729ADCB004E893E /* QSEnvelope.m */; };
@@ -154,6 +158,13 @@
 		49A31D2A17382394002D2244 /* pinchsize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinchsize.png; sourceTree = "<group>"; };
 		49A31D2C1738239F002D2244 /* tapdetails.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tapdetails.png; sourceTree = "<group>"; };
 		49A31D2D1738239F002D2244 /* tapreset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tapreset.png; sourceTree = "<group>"; };
+		49A31D3017383EB9002D2244 /* QSNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNoise.h; sourceTree = "<group>"; };
+		49A31D3117383EB9002D2244 /* QSNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNoise.m; sourceTree = "<group>"; };
+		49A31D3317384399002D2244 /* QSNoiseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNoiseButton.h; sourceTree = "<group>"; };
+		49A31D3417384399002D2244 /* QSNoiseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNoiseButton.m; sourceTree = "<group>"; };
+		49A31D36173844F3002D2244 /* QSNoisePopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSNoisePopover.h; sourceTree = "<group>"; };
+		49A31D37173844F3002D2244 /* QSNoisePopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSNoisePopover.m; sourceTree = "<group>"; };
+		49A31D38173844F3002D2244 /* QSNoisePopover.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QSNoisePopover.xib; sourceTree = "<group>"; };
 		49A465BA173450BD00A2A7FB /* trash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trash.png; sourceTree = "<group>"; };
 		49A5B708171A2F3A00199158 /* QSSnapSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSSnapSize.h; sourceTree = "<group>"; };
 		49A5B709171A2F3A00199158 /* QSSnapSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSSnapSize.m; sourceTree = "<group>"; };
@@ -254,6 +265,8 @@
 				499ED9451725E59E00440EB7 /* QSWaveform.m */,
 				499ED9561725F1B900440EB7 /* QSPulse.h */,
 				499ED9571725F1B900440EB7 /* QSPulse.m */,
+				49A31D3017383EB9002D2244 /* QSNoise.h */,
+				49A31D3117383EB9002D2244 /* QSNoise.m */,
 			);
 			name = Sounds;
 			sourceTree = "<group>";
@@ -311,6 +324,11 @@
 		499ED94D1725E8F300440EB7 /* Noise */ = {
 			isa = PBXGroup;
 			children = (
+				49A31D3317384399002D2244 /* QSNoiseButton.h */,
+				49A31D3417384399002D2244 /* QSNoiseButton.m */,
+				49A31D36173844F3002D2244 /* QSNoisePopover.h */,
+				49A31D37173844F3002D2244 /* QSNoisePopover.m */,
+				49A31D38173844F3002D2244 /* QSNoisePopover.xib */,
 			);
 			name = Noise;
 			sourceTree = "<group>";
@@ -631,6 +649,7 @@
 				49A31D2B17382394002D2244 /* pinchsize.png in Resources */,
 				49A31D2E1738239F002D2244 /* tapdetails.png in Resources */,
 				49A31D2F1738239F002D2244 /* tapreset.png in Resources */,
+				49A31D3A173844F3002D2244 /* QSNoisePopover.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +727,9 @@
 				49A05E1F17360C3C000FE51B /* QSFilter.m in Sources */,
 				49DC98B917376A5E00CF7551 /* QSFilterPopover.m in Sources */,
 				49A31D1C1738153A002D2244 /* QSHelpViewController.m in Sources */,
+				49A31D3217383EB9002D2244 /* QSNoise.m in Sources */,
+				49A31D3517384399002D2244 /* QSNoiseButton.m in Sources */,
+				49A31D39173844F3002D2244 /* QSNoisePopover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
