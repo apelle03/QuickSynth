@@ -299,25 +299,26 @@ OSStatus renderWaveform(void *inRefCon,
     double theta_increment = 2.0 * M_PI * sound.frequency / 44100;
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
-    if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
-    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
+    if (startTime == -1) { startTime = inTimeStamp->mSampleTime; }
+    UInt64 curTime = inTimeStamp->mSampleTime - startTime;
     // Generate the samples
-    UInt64 sample = (curTime - sound.startTime) * 44100;
+    UInt64 startSample = sound.startTime * 44100;
+    UInt64 endSample = startSample + sound.duration * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
-        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
+        if (curTime >= startSample && curTime < endSample) {
             switch (sound.waveType) {
                 case SQUARE:
-                    buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[sample] * 32767) : (-sound.envelope[sample] * 32767);
+                    buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[curTime - startSample] * 32767) : (-sound.envelope[curTime - startSample] * 32767);
                     break;
                 case TRIANGLE:
-                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * sound.envelope[sample] * 32767;
+                    buffer[frame] = (1 - fabsf((sound.theta / (2 * M_PI)) - .5) * 4) * sound.envelope[curTime - startSample] * 32767;
                     break;
                 case SAWTOOTH:
-                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * sound.envelope[sample] * 32767;
+                    buffer[frame] = fmodf((sound.theta / M_PI) + 1, 2) * sound.envelope[curTime - startSample] * 32767;
                     break;
                 case SINE:
                 default:
-                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.envelope[sample] * 32767);
+                    buffer[frame] = (AudioSampleType)(sin(sound.theta) * sound.envelope[curTime - startSample] * 32767);
                     break;
             }
             sound.theta += theta_increment;
@@ -327,7 +328,7 @@ OSStatus renderWaveform(void *inRefCon,
         } else {
             buffer[frame] = 0;
         }
-        sample++;
+        curTime++;
     }
     return noErr;
 }
@@ -343,12 +344,13 @@ OSStatus renderPulse(void *inRefCon,
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
-    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
+    UInt64 curTime = inTimeStamp->mSampleTime - startTime;
     // Generate the samples
-    UInt64 sample = (curTime - sound.startTime) * 44100;
+    UInt64 startSample = sound.startTime * 44100;
+    UInt64 endSample = startSample + sound.duration * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
-        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
-            buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[sample] * 32767) : (-sound.envelope[sample] * 32767);
+        if (curTime >= startSample && curTime < endSample) {
+            buffer[frame] = (sound.theta < M_PI) ? (sound.envelope[curTime - startSample] * 32767) : (-sound.envelope[curTime - startSample] * 32767);
             sound.theta += theta_increment;
             if (sound.theta > 2.0 * M_PI) {
                 sound.theta -= 2.0 * M_PI;
@@ -356,7 +358,7 @@ OSStatus renderPulse(void *inRefCon,
         } else {
             buffer[frame] = 0;
         }
-        sample++;
+        curTime++;
     }
     return noErr;
 }
@@ -371,12 +373,13 @@ OSStatus renderNoise(void *inRefCon,
     const int channel = 0;
     AudioSampleType *buffer = ioData->mBuffers[channel].mData;
     if (startTime == -1) { startTime = inTimeStamp->mSampleTime / 44100; }
-    Float64 curTime = inTimeStamp->mSampleTime / 44100 - startTime;
+    UInt64 curTime = inTimeStamp->mSampleTime - startTime;
     // Generate the samples
-    UInt64 sample = (curTime - sound.startTime) * 44100;
+    UInt64 startSample = sound.startTime * 44100;
+    UInt64 endSample = startSample + sound.duration * 44100;
     for (UInt32 frame = 0; frame < inNumberFrames; frame++) {
-        if (curTime >= sound.startTime && curTime <= sound.startTime + sound.duration) {
-            buffer[frame] = sound.noise[sound.sample] * sound.envelope[sample] * 32767;
+        if (curTime >= startSample && curTime < endSample) {
+            buffer[frame] = sound.noise[sound.sample] * sound.envelope[curTime - startSample] * 32767;
             sound.sample++;
             if (sound.sample > sound.numSamples) {
                 sound.sample = 0;
@@ -384,7 +387,7 @@ OSStatus renderNoise(void *inRefCon,
         } else {
             buffer[frame] = 0;
         }
-        sample++;
+        curTime++;
     }
     return noErr;
 }
